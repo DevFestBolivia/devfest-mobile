@@ -1,3 +1,5 @@
+import 'package:devfestbolivia/api/screens/Routes.dart';
+import 'package:devfestbolivia/api/screens/speakers_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/firebase_main.dart';
@@ -24,7 +26,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: Routes.HOME,
+      routes: {
+        Routes.HOME: (BuildContext context) => const MyHomePage(),
+        Routes.SPEAKERS: (BuildContext context) => const SpeakersPage(),
+      },
     );
   }
 }
