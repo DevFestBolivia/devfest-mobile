@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'MyHomePage.dart';
+import 'api/firebase_main.dart';
+import 'my_home_page.dart';
 import 'providers/Counter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FirebaseMain.initFirebase();
+
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: (_) => Counter())],
     child: const MyApp(),
@@ -16,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'DevFest 2022',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
