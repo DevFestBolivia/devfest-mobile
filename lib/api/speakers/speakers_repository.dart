@@ -1,5 +1,3 @@
-
-
 import '../../models/Speaker.dart';
 
 abstract class SpeakersRepository {

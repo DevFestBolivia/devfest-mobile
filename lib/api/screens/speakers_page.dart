@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:devfestbolivia/api/speakers/fb_speakers.dart';
 import 'package:devfestbolivia/api/speakers/speakers_repository.dart';
 import 'package:devfestbolivia/models/Speaker.dart';
-import 'package:flutter/material.dart';
+
 
 class SpeakersPage extends StatefulWidget {
   const SpeakersPage({Key? key}) : super(key: key);
@@ -46,7 +48,7 @@ class _SpeakersPageState extends State<SpeakersPage> {
       return ListView(
         children: speakers
             .asMap()
-            .map((key, value) => MapEntry(key, SpeakerItem(value)))
+            .map((key, value) => MapEntry(key, speakerItem(value)))
             .values
             .toList(),
       );
@@ -54,7 +56,7 @@ class _SpeakersPageState extends State<SpeakersPage> {
     return const CircularProgressIndicator();
   }
 
-  Widget SpeakerItem(Speaker? speaker) {
+  Widget speakerItem(Speaker? speaker) {
     return Card(
       child: ListTile(
         title: Text(speaker!.title!),
