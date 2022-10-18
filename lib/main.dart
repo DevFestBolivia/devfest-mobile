@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:devfestbolivia/api/firebase_main.dart';
+import 'package:devfestbolivia/firebase/firebase_main.dart';
 
 import 'package:devfestbolivia/providers/counter.dart';
 
 import 'package:devfestbolivia/my_home_page.dart';
-import 'package:devfestbolivia/api/screens/speakers_page.dart';
+import 'package:devfestbolivia/screens/speakers_page.dart';
 
-import 'package:devfestbolivia/api/screens/routes.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

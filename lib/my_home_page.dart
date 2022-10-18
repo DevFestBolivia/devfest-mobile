@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:devfestbolivia/providers/counter.dart';
 
-import 'package:devfestbolivia/api/screens/routes.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

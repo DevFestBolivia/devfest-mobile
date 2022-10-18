@@ -1,4 +1,4 @@
-import 'package:devfestbolivia/api/speakers/speakers_firestore.dart';
+import 'package:devfestbolivia/firebase/speakers/speakers_firestore.dart';
 import 'package:devfestbolivia/models/speaker.dart';
 import 'speakers_repository.dart';
 

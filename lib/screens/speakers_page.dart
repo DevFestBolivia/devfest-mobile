@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:devfestbolivia/api/speakers/fb_speakers.dart';
-import 'package:devfestbolivia/api/speakers/speakers_repository.dart';
+import 'package:devfestbolivia/firebase/speakers/fb_speakers.dart';
+import 'package:devfestbolivia/firebase/speakers/speakers_repository.dart';
 import 'package:devfestbolivia/models/speaker.dart';
 
 
