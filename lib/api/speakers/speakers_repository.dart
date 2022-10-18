@@ -1,4 +1,4 @@
-import '../../models/Speaker.dart';
+import '../../models/speaker.dart';
 
 abstract class SpeakersRepository {
   Stream<List<Speaker>> getAllSpeakers();

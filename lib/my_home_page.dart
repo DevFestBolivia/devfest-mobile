@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:devfestbolivia/providers/Counter.dart';
+import 'package:devfestbolivia/providers/counter.dart';
 
-import 'package:devfestbolivia/api/screens/Routes.dart';
+import 'package:devfestbolivia/api/screens/routes.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

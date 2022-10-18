@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devfestbolivia/api/collection_name.dart';
 import 'package:devfestbolivia/api/cloud_firestore.dart';
-import 'package:devfestbolivia/models/Speaker.dart';
+import 'package:devfestbolivia/models/speaker.dart';
 
 class SpeakersFirestore extends CloudFireStore {
   Stream<List<Speaker>> getAllSpeakers() {

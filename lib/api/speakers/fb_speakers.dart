@@ -1,5 +1,5 @@
 import 'package:devfestbolivia/api/speakers/speakers_firestore.dart';
-import 'package:devfestbolivia/models/Speaker.dart';
+import 'package:devfestbolivia/models/speaker.dart';
 import 'speakers_repository.dart';
 
 class SpeakersRepositoryImpl extends SpeakersRepository {

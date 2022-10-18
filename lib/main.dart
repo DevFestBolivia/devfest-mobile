@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 
 import 'package:devfestbolivia/api/firebase_main.dart';
 
-import 'package:devfestbolivia/providers/Counter.dart';
+import 'package:devfestbolivia/providers/counter.dart';
 
 import 'package:devfestbolivia/my_home_page.dart';
 import 'package:devfestbolivia/api/screens/speakers_page.dart';
 
-import 'package:devfestbolivia/api/screens/Routes.dart';
+import 'package:devfestbolivia/api/screens/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
