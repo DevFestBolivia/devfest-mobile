@@ -5,14 +5,14 @@ import 'package:devfestbolivia/firebase/speakers/speakers_repository.dart';
 import 'package:devfestbolivia/models/speaker.dart';
 
 
-class SpeakersPage extends StatefulWidget {
-  const SpeakersPage({Key? key}) : super(key: key);
+class SpeakersScreen extends StatefulWidget {
+  const SpeakersScreen({Key? key}) : super(key: key);
 
   @override
-  State<SpeakersPage> createState() => _SpeakersPageState();
+  State<SpeakersScreen> createState() => _SpeakersScreenState();
 }
 
-class _SpeakersPageState extends State<SpeakersPage> {
+class _SpeakersScreenState extends State<SpeakersScreen> {
   SpeakersRepository? speakersRepository;
   bool loading = true;
 
