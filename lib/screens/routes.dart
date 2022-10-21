@@ -1,5 +1,6 @@
 class Routes {
-  static const String COMPONENTS = 'Components';
-  static const String HOME = 'Home';
-  static const String SPEAKERS = 'Speakers';
+  static const String components = 'Components';
+  static const String home = 'Home';
+  static const String speakers = 'Speakers';
+  static const String cronograma = 'Cronograma';
 }

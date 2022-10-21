@@ -4,7 +4,7 @@ import 'package:devfestbolivia/models/speaker.dart';
 
 class SpeakersFirestore extends CloudFireStore {
   Stream<List<Speaker>> getAllSpeakers() {
-    return db.collection(CollectionName.SPEAKERS).snapshots().map(
+    return db.collection(CollectionName.speakers).snapshots().map(
         (list) => list.docs.map((doc) => Speaker.fromFirestore(doc.id, doc.data())).toList());
   }
 }
