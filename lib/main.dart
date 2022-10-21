@@ -1,4 +1,7 @@
 import 'package:devfestbolivia/screens/components_screen.dart';
+import 'package:devfestbolivia/screens/profile_screen.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,19 +36,38 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Roboto',
         textTheme: TextTheme(
-          titleSmall: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
-          titleMedium: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
-          bodyMedium: GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
-          bodySmall: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
-          headlineLarge: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.blue),
-          headlineSmall: GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
+          titleSmall:
+              GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+          titleMedium:
+              GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
+          bodyMedium:
+              GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
+          bodySmall:
+              GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
+          headlineLarge: GoogleFonts.poppins(
+              fontSize: 30, fontWeight: FontWeight.w600, color: Colors.blue),
+          headlineSmall:
+              GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+            elevation: MaterialStatePropertyAll(0.0),
+            padding: MaterialStatePropertyAll(
+              EdgeInsets.symmetric(
+                horizontal: SpacingValues.xxl,
+                vertical: SpacingValues.m,
+              ),
+            ),
+            backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
+          ),
         ),
       ),
-      initialRoute: Routes.COMPONENTS,
+      initialRoute: Routes.PROFILE,
       routes: {
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
         Routes.HOME: (BuildContext context) => const MyHomePage(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
+        Routes.PROFILE: (BuildContext context) => const ProfileScreen(),
       },
     );
   }
