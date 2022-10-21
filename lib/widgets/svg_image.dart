@@ -17,7 +17,6 @@ class _SvgImageState extends State<SvgImage> {
       widget.pathImage,
       width: 200,
       height: 200,
-      color: Colors.green,
     );
   }
 }
