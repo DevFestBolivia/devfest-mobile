@@ -1,9 +1,7 @@
-import 'package:devfestbolivia/widgets/dialogs/loading_dialog.dart';
 import 'package:flutter/material.dart';
 
-import 'package:devfestbolivia/firebase/auth/social_auth_repository.dart';
-import 'package:devfestbolivia/firebase/auth/social_auth_repository_impl.dart';
-import 'package:devfestbolivia/widgets/main_outlined_button.dart';
+import 'package:devfestbolivia/models/social_user.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/widgets/section_divider.dart';
@@ -14,6 +12,11 @@ import 'package:devfestbolivia/constants/assets_path.dart';
 import 'package:devfestbolivia/widgets/local_image.dart';
 import 'package:devfestbolivia/widgets/input_email.dart';
 import 'package:devfestbolivia/widgets/input_password.dart';
+import 'package:social_login_buttons/social_login_buttons.dart';
+import 'package:devfestbolivia/widgets/main_outlined_button.dart';
+import 'package:devfestbolivia/widgets/dialogs/loading_dialog.dart';
+import 'package:devfestbolivia/firebase/auth/socialAuth/social_auth_repository.dart';
+import 'package:devfestbolivia/firebase/auth/socialAuth/social_auth_repository_impl.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,10 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
   SocialAuthRepository? socialAuthRepository;
   bool loading = true;
   bool loginInProgress = false;
+  BuildContext? _context;
 
   @override
   Widget build(BuildContext context) {
-    loadReferences();
+    loadReferences(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -43,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             renderForgotPassword(),
             MainButton(
                 text: TextStrings.logIn, topMargin: 15, onPressed: login),
+            renderGoogleButton(),
             const SectionDivider(height: 40),
             renderSecondaryMessage(),
             MainOutlinedButton(
@@ -91,12 +96,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void loadReferences() {
+  Widget renderGoogleButton() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: SocialLoginButton(
+        buttonType: SocialLoginButtonType.google,
+        onPressed: loginWithGoogle,
+      ),
+    );
+  }
+
+  void loadReferences(BuildContext context) {
     if (!loading) {
       return;
     }
 
     socialAuthRepository = SocialAuthRepositoryImpl();
+    _context = context;
     setState(() {
       loading = false;
     });
@@ -106,22 +122,27 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       loginInProgress = value;
     });
-    if(value) {
-      Dialogs.showLoadingDialog(context);
+    if (value) {
+      Dialogs.showLoadingDialog(_context!);
     } else {
-      Dialogs.hideLoadingDialog(context);
+      Dialogs.hideLoadingDialog(_context!);
     }
   }
 
-  void login() async {
+  void login() async {}
+
+  loginWithGoogle() async {
     print('login');
     setLoginInProgress(true);
     try {
-      Map<String, Object?>? googleAuth = await socialAuthRepository?.googleAuth();
+      SocialUser? googleAuth = await socialAuthRepository?.googleAuth();
+      if (googleAuth != null && googleAuth.success) {
+        setLoginInProgress(false);
+        Navigator.pushNamed(_context!, Routes.HOME);
+      }
     } catch (e) {
-      print(e);
-    } finally {
       setLoginInProgress(false);
+      print(e);
     }
   }
 

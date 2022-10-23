@@ -14,4 +14,6 @@ class TextStrings {
   static const String logIn = 'Iniciar Sesión';
   static const String doNotYouHaveAndAccountYet = 'Aun no tienes una cuenta';
   static const String createAccount = 'Crear Cuenta';
+  static const String anErrorOccurredTryAgain = 'An error occurred, please try again';
+  static const String ok = 'OK';
 }
