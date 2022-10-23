@@ -29,3 +29,19 @@ class HorizontalSpacing {
   static const xl = SizedBox(width: SpacingValues.xl);
   static const xxl = SizedBox(width: SpacingValues.xxl);
 }
+
+class FontWeightValues {
+  static FontWeight semiBold = FontWeight.w600;
+  static FontWeight bold = FontWeight.bold;
+  static FontWeight normal = FontWeight.normal;
+  static FontWeight regular = FontWeight.w400;
+}
+
+class FontSizeValues {
+  static double input = 16;
+  static double label = 12;
+}
+
+class BorderRadiusValues {
+  static double input = 5;
+}

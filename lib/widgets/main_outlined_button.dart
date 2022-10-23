@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 
@@ -41,8 +42,9 @@ class _MainOutlinedButtonState extends State<MainOutlinedButton> {
         onPressed: () => widget.onPressed(),
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: DevFestColors.primary, width: 2),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.all(Radius.circular(BorderRadiusValues.input)),
           ),
         ),
         child: Container(

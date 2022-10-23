@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
@@ -32,14 +33,15 @@ class _InputEmailState extends State<InputEmail> {
         top: widget.topMargin,
         bottom: widget.bottomMargin,
       ),
-      child: const TextField(
+      child: TextField(
         style: TextStyle(
           color: DevFestColors.textInput,
-          fontWeight: FontWeight.w400,
-          fontSize: 16,
+          fontWeight: FontWeightValues.regular,
+          fontSize: FontSizeValues.input,
         ),
         decoration: InputDecoration(
-          labelStyle: TextStyle(fontSize: 20, color: DevFestColors.labelInput),
+          labelStyle: TextStyle(
+              fontSize: FontSizeValues.label, color: DevFestColors.labelInput),
           labelText: 'Email',
         ),
       ),

@@ -5,6 +5,7 @@ class MainText extends StatefulWidget {
   final String text;
   final Color colorText;
   final double fontSize;
+  final FontWeight fountWeight;
 
   final double leftMargin;
   final double rightMargin;
@@ -20,6 +21,7 @@ class MainText extends StatefulWidget {
     this.rightMargin = 0.0,
     this.topMargin = 0.0,
     this.bottomMargin = 0.0,
+    this.fountWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class _MainTextState extends State<MainText> {
         style: TextStyle(
           color: widget.colorText,
           fontSize: widget.fontSize,
-          fontWeight: FontWeight.w400,
+          fontWeight: widget.fountWeight,
         ),
       ),
     );

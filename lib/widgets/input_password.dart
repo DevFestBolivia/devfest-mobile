@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 
@@ -48,13 +49,14 @@ class _InputPasswordState extends State<InputPassword> {
       ),
       child: TextField(
         obscureText: !_passwordVisible,
-        style: const TextStyle(
+        style: TextStyle(
           color: DevFestColors.textInput,
           fontWeight: FontWeight.normal,
-          fontSize: 16,
+          fontSize: FontSizeValues.input,
         ),
         decoration: InputDecoration(
-          labelStyle: const TextStyle(fontSize: 20, color: DevFestColors.labelInput),
+          labelStyle: TextStyle(
+              fontSize: FontSizeValues.label, color: DevFestColors.labelInput),
           suffixIcon: IconButton(
             onPressed: () => showPassword(),
             icon: Icon(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class TextLink extends StatefulWidget {
@@ -25,16 +26,19 @@ class _TextLinkState extends State<TextLink> {
       children: [
         Text(
           widget.firstText,
-          style: const TextStyle(fontSize: 16, color: DevFestColors.textInput),
+          style: TextStyle(
+            fontSize: FontSizeValues.input,
+            color: DevFestColors.textInput,
+          ),
         ),
         InkWell(
             onTap: () => widget.onPressed(),
             child: Text(
               widget.linkText,
-              style: const TextStyle(
+              style: TextStyle(
                 color: DevFestColors.primary,
                 fontWeight: FontWeight.w400,
-                fontSize: 16,
+                fontSize: FontSizeValues.input,
               ),
             )),
       ],
