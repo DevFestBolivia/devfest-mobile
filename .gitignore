@@ -45,6 +45,6 @@ app.*.map.json
 
 #Firebase Configurations
 google-services.json
-GoogleServices-Info.plist
-firebase_app_id_file.json
 firebase_options.dart
+firebase_app_id_file.json
+GoogleService-Info.plist
