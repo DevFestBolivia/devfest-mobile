@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class InputEmail extends StatefulWidget {
   final String label;
@@ -34,12 +34,12 @@ class _InputEmailState extends State<InputEmail> {
       ),
       child: const TextField(
         style: TextStyle(
-          color: CustomColors.textInput,
+          color: DevFestColors.textInput,
           fontWeight: FontWeight.w400,
           fontSize: 16,
         ),
         decoration: InputDecoration(
-          labelStyle: TextStyle(fontSize: 20, color: CustomColors.labelInput),
+          labelStyle: TextStyle(fontSize: 20, color: DevFestColors.labelInput),
           labelText: 'Email',
         ),
       ),

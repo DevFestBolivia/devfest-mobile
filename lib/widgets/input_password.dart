@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class InputPassword extends StatefulWidget {
   final String label;
@@ -49,17 +49,17 @@ class _InputPasswordState extends State<InputPassword> {
       child: TextField(
         obscureText: !_passwordVisible,
         style: const TextStyle(
-          color: CustomColors.textInput,
+          color: DevFestColors.textInput,
           fontWeight: FontWeight.normal,
           fontSize: 16,
         ),
         decoration: InputDecoration(
-          labelStyle: const TextStyle(fontSize: 20, color: CustomColors.labelInput),
+          labelStyle: const TextStyle(fontSize: 20, color: DevFestColors.labelInput),
           suffixIcon: IconButton(
             onPressed: () => showPassword(),
             icon: Icon(
               _passwordVisible ? Icons.visibility : Icons.visibility_off,
-              color: CustomColors.textInput,
+              color: DevFestColors.textInput,
             ),
           ),
           labelText: widget.label,

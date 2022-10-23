@@ -1,21 +1,16 @@
-import 'package:devfestbolivia/constants/custom_colors.dart';
-import 'package:devfestbolivia/screens/components_screen.dart';
-import 'package:devfestbolivia/screens/profile_screen.dart';
-import 'package:devfestbolivia/style/devfest_colors.dart';
-import 'package:devfestbolivia/style/spacing.dart';
-import 'package:devfestbolivia/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:devfestbolivia/firebase/firebase_main.dart';
-
-import 'package:devfestbolivia/providers/counter.dart';
-
-import 'package:devfestbolivia/screens/home_screen.dart';
-import 'package:devfestbolivia/screens/speakers_screen.dart';
-
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/screens/routes.dart';
+import 'package:devfestbolivia/providers/counter.dart';
+import 'package:devfestbolivia/screens/home_screen.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/screens/login_screen.dart';
+import 'package:devfestbolivia/screens/profile_screen.dart';
+import 'package:devfestbolivia/firebase/firebase_main.dart';
+import 'package:devfestbolivia/screens/speakers_screen.dart';
+import 'package:devfestbolivia/screens/components_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +44,7 @@ class MyApp extends StatelessWidget {
           headlineLarge: GoogleFonts.poppins(
               fontSize: 30,
               fontWeight: FontWeight.w600,
-              color: CustomColors.mainButton),
+              color: DevFestColors.primary),
           headlineSmall:
               GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
         ),
@@ -68,20 +63,20 @@ class MyApp extends StatelessWidget {
         ),
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: CustomColors.labelInput, width: 1.0),
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: CustomColors.labelInput, width: 1.0),
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: CustomColors.labelInput, width: 1.0),
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
-          fillColor: CustomColors.labelInput,
-          labelStyle: TextStyle(fontSize: 12, color: CustomColors.labelInput),
-          hintStyle: TextStyle(fontSize: 12, color: CustomColors.labelInput),
+          fillColor: DevFestColors.labelInput,
+          labelStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
+          hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
         ),
       ),
       initialRoute: Routes.LOGIN,

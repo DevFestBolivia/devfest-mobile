@@ -1,5 +1,5 @@
-import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class MainText extends StatefulWidget {
   final String text;
@@ -14,7 +14,7 @@ class MainText extends StatefulWidget {
   const MainText({
     Key? key,
     this.text = '',
-    this.colorText = CustomColors.textInput,
+    this.colorText = DevFestColors.textInput,
     this.fontSize = 16,
     this.leftMargin = 0.0,
     this.rightMargin = 0.0,

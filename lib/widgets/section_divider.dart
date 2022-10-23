@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:devfestbolivia/constants/custom_colors.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class SectionDivider extends StatefulWidget {
   final double height;
@@ -17,7 +17,7 @@ class _SectionDividerState extends State<SectionDivider> {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: CustomColors.separator,
+      color: DevFestColors.separator,
       height: widget.height,
       thickness: 1,
       indent: 20,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 
 class MainButton extends StatefulWidget {
@@ -39,7 +39,7 @@ class _MainButtonState extends State<MainButton> {
       child: ElevatedButton(
         onPressed: () => widget.onPressed(),
         style: ElevatedButton.styleFrom(
-          backgroundColor: CustomColors.mainButton,
+          backgroundColor: DevFestColors.primary,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),

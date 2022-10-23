@@ -1,7 +1,6 @@
-import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
-
-import '../text_strings.dart';
+import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class MainOutlinedButton extends StatefulWidget {
   final String text;
@@ -41,7 +40,7 @@ class _MainOutlinedButtonState extends State<MainOutlinedButton> {
       child: OutlinedButton(
         onPressed: () => widget.onPressed(),
         style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: CustomColors.mainButton, width: 2),
+          side: const BorderSide(color: DevFestColors.primary, width: 2),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
@@ -50,7 +49,7 @@ class _MainOutlinedButtonState extends State<MainOutlinedButton> {
           margin: EdgeInsets.symmetric(vertical: widget.marginText),
           child: Text(widget.text,
               style: const TextStyle(
-                color: CustomColors.mainButton,
+                color: DevFestColors.primary,
                 fontSize: 14,
               )),
         ),

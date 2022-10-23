@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:devfestbolivia/models/social_user.dart';
 import 'package:devfestbolivia/screens/routes.dart';
-import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/widgets/section_divider.dart';
 import 'package:devfestbolivia/widgets/TextLink.dart';
 import 'package:devfestbolivia/widgets/main_button.dart';
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
       rightMargin: 20,
       topMargin: 0,
       bottomMargin: 0,
-      colorText: CustomColors.disableText,
+      colorText: DevFestColors.disableText,
     );
   }
 
