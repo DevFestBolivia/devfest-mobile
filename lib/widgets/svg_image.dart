@@ -3,8 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SvgImage extends StatefulWidget {
   final String pathImage;
+  final double width;
+  final double height;
 
-  const SvgImage(this.pathImage, {super.key});
+  const SvgImage({
+    super.key,
+    required this.pathImage,
+    this.width = 200,
+    this.height = 200,
+  });
 
   @override
   State<SvgImage> createState() => _SvgImageState();
@@ -15,9 +22,8 @@ class _SvgImageState extends State<SvgImage> {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       widget.pathImage,
-      width: 200,
-      height: 200,
-      color: Colors.green,
+      width: widget.width,
+      height: widget.height,
     );
   }
 }

@@ -1,18 +1,22 @@
+<<<<<<< HEAD
 import 'package:devfestbolivia/screens/components_screen.dart';
 import 'package:devfestbolivia/screens/onboarding_screen.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
+=======
+>>>>>>> develop
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:devfestbolivia/firebase/firebase_main.dart';
-
-import 'package:devfestbolivia/providers/counter.dart';
-
-import 'package:devfestbolivia/my_home_page.dart';
-import 'package:devfestbolivia/screens/speakers_screen.dart';
-
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/screens/routes.dart';
+import 'package:devfestbolivia/providers/counter.dart';
+import 'package:devfestbolivia/screens/home_screen.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/screens/login_screen.dart';
+import 'package:devfestbolivia/screens/profile_screen.dart';
+import 'package:devfestbolivia/firebase/firebase_main.dart';
+import 'package:devfestbolivia/screens/speakers_screen.dart';
+import 'package:devfestbolivia/screens/components_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +51,9 @@ class MyApp extends StatelessWidget {
           bodySmall:
               GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
           headlineLarge: GoogleFonts.poppins(
-              fontSize: 30, fontWeight: FontWeight.w600, color: Colors.blue),
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: DevFestColors.primary),
           headlineSmall:
               GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
         ),
@@ -57,12 +63,34 @@ class MyApp extends StatelessWidget {
             backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
           ),
         ),
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          fillColor: DevFestColors.labelInput,
+          labelStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
+          hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
+        ),
       ),
+<<<<<<< HEAD
       initialRoute: Routes.ONBOARDING,
+=======
+      initialRoute: Routes.LOGIN,
+>>>>>>> develop
       routes: {
         Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
-        Routes.HOME: (BuildContext context) => const MyHomePage(),
+        Routes.LOGIN: (BuildContext context) => const LoginScreen(),
+        Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
       },
     );
