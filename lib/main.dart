@@ -1,5 +1,8 @@
 import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/screens/components_screen.dart';
+import 'package:devfestbolivia/screens/profile_screen.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,9 +47,24 @@ class MyApp extends StatelessWidget {
           bodySmall:
               GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
           headlineLarge: GoogleFonts.poppins(
-              fontSize: 30, fontWeight: FontWeight.w600, color: CustomColors.mainButton),
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: CustomColors.mainButton),
           headlineSmall:
               GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        scaffoldBackgroundColor: DevFestColors.primaryLight,
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+            elevation: MaterialStatePropertyAll(0.0),
+            padding: MaterialStatePropertyAll(
+              EdgeInsets.symmetric(
+                horizontal: SpacingValues.xxl,
+                vertical: SpacingValues.m,
+              ),
+            ),
+            backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
+          ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(
@@ -57,7 +75,7 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide(color: CustomColors.labelInput, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
-          focusedBorder:OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: CustomColors.labelInput, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
@@ -72,6 +90,7 @@ class MyApp extends StatelessWidget {
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
         Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
+        Routes.PROFILE: (BuildContext context) => const ProfileScreen(),
       },
     );
   }
