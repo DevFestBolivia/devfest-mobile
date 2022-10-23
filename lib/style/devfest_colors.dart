@@ -9,14 +9,10 @@ class DevFestColors {
   //
   // Extra Colors
   //
-<<<<<<< HEAD
   static const shadow = Color(0xffD9D9D9);
-=======
-  static const divider = Color(0xffD9D9D9);
 
   static const Color separator = Colors.black12;
   static const Color labelInput = Colors.black45;
   static const Color disableText = Colors.black38;
   static const Color textInput = Colors.black54;
->>>>>>> develop
 }

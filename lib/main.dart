@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-import 'package:devfestbolivia/screens/components_screen.dart';
 import 'package:devfestbolivia/screens/onboarding_screen.dart';
-import 'package:devfestbolivia/style/devfest_colors.dart';
-=======
->>>>>>> develop
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/providers/counter.dart';
 import 'package:devfestbolivia/screens/home_screen.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
-import 'package:devfestbolivia/screens/profile_screen.dart';
 import 'package:devfestbolivia/firebase/firebase_main.dart';
 import 'package:devfestbolivia/screens/speakers_screen.dart';
 import 'package:devfestbolivia/screens/components_screen.dart';
@@ -81,11 +74,7 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
         ),
       ),
-<<<<<<< HEAD
-      initialRoute: Routes.ONBOARDING,
-=======
       initialRoute: Routes.LOGIN,
->>>>>>> develop
       routes: {
         Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
