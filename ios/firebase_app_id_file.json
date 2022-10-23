@@ -1,7 +1,7 @@
 {
-  "file_generated_by": "file_generated_by",
-  "purpose": "purpose",
-  "GOOGLE_APP_ID": "GOOGLE_APP_ID",
-  "FIREBASE_PROJECT_ID": "FIREBASE_PROJECT_ID",
-  "GCM_SENDER_ID": "GCM_SENDER_ID"
+  "file_generated_by": "FlutterFire CLI",
+  "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
+  "GOOGLE_APP_ID": "1:328093322585:ios:06b609f703367ecc001048",
+  "FIREBASE_PROJECT_ID": "devfest2022dev",
+  "GCM_SENDER_ID": "328093322585"
 }

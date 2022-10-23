@@ -47,32 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'apiKey',
-    appId: 'appId',
-    messagingSenderId: 'messagingSenderId',
-    projectId: 'projectId',
-    authDomain: 'authDomain',
-    databaseURL: 'databaseURL',
-    storageBucket: 'storageBucket',
+    apiKey: 'AIzaSyDULj10JuzzdQ1H2lCfQHDRBzQ36qY84po',
+    appId: '1:328093322585:web:acb6d7dcdbeac7d8001048',
+    messagingSenderId: '328093322585',
+    projectId: 'devfest2022dev',
+    authDomain: 'devfest2022dev.firebaseapp.com',
+    databaseURL: 'https://devfest2022dev-default-rtdb.firebaseio.com',
+    storageBucket: 'devfest2022dev.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'apiKey',
-    appId: 'appId',
-    messagingSenderId: 'messagingSenderId',
-    projectId: 'projectId',
-    databaseURL: 'databaseURL',
-    storageBucket: 'storageBucket',
+    apiKey: 'AIzaSyCmoEQDq3qgeHDw1wotu7iFJaFFl6Kwf18',
+    appId: '1:328093322585:android:7e2e865cf14b5168001048',
+    messagingSenderId: '328093322585',
+    projectId: 'devfest2022dev',
+    databaseURL: 'https://devfest2022dev-default-rtdb.firebaseio.com',
+    storageBucket: 'devfest2022dev.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'apiKey',
-    appId: 'appId',
-    messagingSenderId: 'messagingSenderId',
-    projectId: 'projectId',
-    databaseURL: 'databaseURL',
-    storageBucket: 'storageBucket',
-    iosClientId: 'iosClientId',
-    iosBundleId: 'iosBundleId',
+    apiKey: 'AIzaSyAAs1LxDKtHLfOAQeLqOIFSQ97ndpFkYc0',
+    appId: '1:328093322585:ios:06b609f703367ecc001048',
+    messagingSenderId: '328093322585',
+    projectId: 'devfest2022dev',
+    databaseURL: 'https://devfest2022dev-default-rtdb.firebaseio.com',
+    storageBucket: 'devfest2022dev.appspot.com',
+    iosClientId:
+        '328093322585-t10mejvnoc76okdt4ip3ktbi3majssch.apps.googleusercontent.com',
+    iosBundleId: 'com.devfestbolivia.devfestbolivia',
   );
 }
