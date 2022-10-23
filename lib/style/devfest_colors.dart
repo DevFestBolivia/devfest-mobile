@@ -9,5 +9,5 @@ class DevFestColors {
   //
   // Extra Colors
   //
-  static const divider = Color(0xffD9D9D9);
+  static const shadow = Color(0xffD9D9D9);
 }
