@@ -8,7 +8,7 @@ class ErrorDialog {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(TextStrings.anErrorOccurredTryAgain),
+          title: const Text(TextStrings.info),
           content: Text(message),
           actions: <Widget>[
             TextButton(

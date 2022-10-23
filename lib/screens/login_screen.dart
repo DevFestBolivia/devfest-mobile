@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:devfestbolivia/models/social_user.dart';
@@ -138,10 +139,11 @@ class _LoginScreenState extends State<LoginScreen> {
       SocialUser? googleAuth = await socialAuthRepository?.googleAuth();
       if (googleAuth != null && googleAuth.success) {
         setLoginInProgress(false);
-        Navigator.pushNamed(_context!, Routes.HOME);
+        Navigator.pushReplacementNamed(_context!, Routes.HOME);
       }
     } catch (e) {
       setLoginInProgress(false);
+      ErrorDialog.showErrorDialog(_context!, TextStrings.anErrorOccurredTryAgain);
       print(e);
     }
   }
