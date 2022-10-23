@@ -1,4 +1,4 @@
-import 'package:devfestbolivia/custom_colors.dart';
+import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/screens/components_screen.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:devfestbolivia/firebase/firebase_main.dart';
 
 import 'package:devfestbolivia/providers/counter.dart';
 
-import 'package:devfestbolivia/my_home_page.dart';
+import 'package:devfestbolivia/screens/home_screen.dart';
 import 'package:devfestbolivia/screens/speakers_screen.dart';
 
 import 'package:devfestbolivia/screens/routes.dart';
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
-        Routes.HOME: (BuildContext context) => const MyHomePage(),
+        Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
       },
     );

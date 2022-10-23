@@ -1,4 +1,4 @@
-import 'package:devfestbolivia/custom_colors.dart';
+import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../text_strings.dart';

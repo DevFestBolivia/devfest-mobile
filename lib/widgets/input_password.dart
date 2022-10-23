@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:devfestbolivia/custom_colors.dart';
+import 'package:devfestbolivia/constants/custom_colors.dart';
 import 'package:devfestbolivia/text_strings.dart';
 
 class InputPassword extends StatefulWidget {
@@ -23,11 +23,11 @@ class InputPassword extends StatefulWidget {
 }
 
 class _InputPasswordState extends State<InputPassword> {
-  bool _passwordVisible = false;
+  bool _passwordVisible = true;
 
   @override
   void initState() {
-    _passwordVisible = false;
+    _passwordVisible = true;
     super.initState();
   }
 

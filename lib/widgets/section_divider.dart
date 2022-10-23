@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:devfestbolivia/custom_colors.dart';
+import 'package:devfestbolivia/constants/custom_colors.dart';
 
 class SectionDivider extends StatefulWidget {
   final double height;
