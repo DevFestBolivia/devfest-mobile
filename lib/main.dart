@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
           headlineSmall:
               GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
         ),
+        scaffoldBackgroundColor: DevFestColors.primaryLight,
         elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
             elevation: MaterialStatePropertyAll(0.0),

@@ -2,6 +2,7 @@ import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,9 +14,58 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, isScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              floating: true,
+              backgroundColor: DevFestColors.primary,
+              elevation: _appBarElevation,
+              centerTitle: true,
+              title: Text(
+                _appBarTitle,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: DevFestColors.primaryLight,
+                    ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.edit_outlined,
+                    color: DevFestColors.primaryLight,
+                  ),
+                )
+              ],
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _Header(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingValues.m,
+                    ),
+                    child: _ProfileInfo(),
+                  )
+                ],
+              ),
+            )
+          ];
+        },
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SpacingValues.m),
+          child: _Friends(),
+        ),
+      ),
+    );
+
+    return Scaffold(
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: DevFestColors.primary,
         elevation: _appBarElevation,
         centerTitle: true,
         title: Text(
@@ -34,26 +84,29 @@ class ProfileScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const _Header(),
-          const SizedBox(
-            height: 16,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(SpacingValues.m),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _ProfileInfo(),
-                  ],
-                ),
-              ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const _Header(),
+            const SizedBox(
+              height: 16,
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(SpacingValues.m),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _ProfileInfo(),
+                  SizedBox(
+                    height: SpacingValues.xxl,
+                  ),
+                  _Friends(),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -72,7 +125,7 @@ class _Header extends StatelessWidget {
           children: [
             Container(
               color: DevFestColors.primary,
-              height: _imageRadius * 2.5,
+              height: _imageRadius * 1.5,
               width: double.infinity,
             ),
             SizedBox(
@@ -125,6 +178,11 @@ class _ProfileInfo extends StatelessWidget {
         Text(
           dummyName,
           style: Theme.of(context).textTheme.titleSmall,
+        ),
+        Container(
+          height: 1,
+          width: double.infinity,
+          color: DevFestColors.divider,
         ),
         VerticalSpacing.xs,
         Text(dummyBio),
@@ -190,6 +248,84 @@ class _ProfileInfo extends StatelessWidget {
                         ),
                   );
                 },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Friends extends StatelessWidget {
+  const _Friends();
+
+  final String _friendsLabel = 'Amigos';
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return StickyHeader(
+      header: Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+        padding: const EdgeInsets.symmetric(
+          vertical: SpacingValues.xs,
+        ),
+        child: Text(
+          _friendsLabel,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+      ),
+      content: SizedBox(
+        height: size.height - kToolbarHeight - SpacingValues.l,
+        width: double.infinity,
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(
+            vertical: SpacingValues.xs,
+          ),
+          itemCount: 10,
+          separatorBuilder: (context, index) => VerticalSpacing.xs,
+          itemBuilder: (context, index) {
+            return _FriendCard(name: 'Dalma Oropesa Argandolla');
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _FriendCard extends StatelessWidget {
+  const _FriendCard({required this.name});
+
+  final String name;
+
+  final double _elevation = 3.0;
+  final double _imageRadius = 20.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingValues.m,
+            vertical: SpacingValues.l,
+          ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey,
+                radius: _imageRadius,
+              ),
+              HorizontalSpacing.m,
+              Text(
+                name,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontSize: 14,
+                    ),
               )
             ],
           ),
