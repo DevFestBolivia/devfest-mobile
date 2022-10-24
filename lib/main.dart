@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/providers/counter.dart';
-import 'package:devfestbolivia/screens/home_screen.dart';
+import 'package:devfestbolivia/screens/home/home_screen.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';

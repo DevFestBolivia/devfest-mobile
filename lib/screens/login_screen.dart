@@ -6,7 +6,7 @@ import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/widgets/section_divider.dart';
-import 'package:devfestbolivia/widgets/TextLink.dart';
+import 'package:devfestbolivia/widgets/text_link.dart';
 import 'package:devfestbolivia/widgets/main_button.dart';
 import 'package:devfestbolivia/widgets/main_text.dart';
 import 'package:devfestbolivia/constants/assets_path.dart';
@@ -47,7 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 20),
             renderForgotPassword(),
             MainButton(
-                text: TextStrings.logIn, topMargin: 15, onPressed: login),
+              text: TextStrings.logIn,
+              topMargin: 15,
+              onPressed: login,
+            ),
             renderGoogleButton(),
             const SectionDivider(height: 40),
             renderSecondaryMessage(),
@@ -56,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: createAccount,
               topMargin: 15,
               marginText: 20,
-            )
+            ),
           ],
         ),
       ),
@@ -143,7 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       setLoginInProgress(false);
-      ErrorDialog.showErrorDialog(_context!, TextStrings.anErrorOccurredTryAgain);
+      ErrorDialog.showErrorDialog(
+          _context!, TextStrings.anErrorOccurredTryAgain);
       print(e);
     }
   }
