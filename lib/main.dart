@@ -76,11 +76,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Routes.LOGIN,
       routes: {
-        Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
-        Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
         Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
+        Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
+        Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
       },
     );
   }

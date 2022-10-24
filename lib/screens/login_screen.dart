@@ -136,13 +136,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {}
 
   loginWithGoogle() async {
-    print('login');
     setLoginInProgress(true);
     try {
       SocialUser? googleAuth = await socialAuthRepository?.googleAuth();
       if (googleAuth != null && googleAuth.success) {
         setLoginInProgress(false);
-        Navigator.pushReplacementNamed(_context!, Routes.HOME);
+        nextScreen(googleAuth);
       }
     } catch (e) {
       setLoginInProgress(false);
@@ -150,6 +149,10 @@ class _LoginScreenState extends State<LoginScreen> {
           _context!, TextStrings.anErrorOccurredTryAgain);
       print(e);
     }
+  }
+
+  void nextScreen(SocialUser socialUser) {
+    Navigator.pushReplacementNamed(_context!, Routes.ONBOARDING);
   }
 
   void forgotPassword() {
