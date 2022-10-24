@@ -1,18 +1,15 @@
-import 'package:devfestbolivia/constans.dart';
-import 'package:devfestbolivia/screens/components_screen.dart';
-import 'package:devfestbolivia/screens/cronograma_screen.dart';
+import 'package:devfestbolivia/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:devfestbolivia/firebase/firebase_main.dart';
-
-import 'package:devfestbolivia/providers/counter.dart';
-
-import 'package:devfestbolivia/my_home_page.dart';
-import 'package:devfestbolivia/screens/speakers_screen.dart';
-
 import 'package:devfestbolivia/screens/routes.dart';
+import 'package:devfestbolivia/providers/counter.dart';
+import 'package:devfestbolivia/screens/home_screen.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/screens/login_screen.dart';
+import 'package:devfestbolivia/firebase/firebase_main.dart';
+import 'package:devfestbolivia/screens/speakers_screen.dart';
+import 'package:devfestbolivia/screens/components_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,26 +30,61 @@ class MyApp extends StatelessWidget {
       title: 'DevFest 2022',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: DevFestColors.primaryLight,
         primarySwatch: Colors.blue,
       
         fontFamily: 'Roboto',
-        scaffoldBackgroundColor: backgroundColor,
         textTheme: TextTheme(
-          titleSmall: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
-          titleMedium: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
-          bodyMedium: GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
-          bodySmall: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
-          
-          headlineLarge: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.w600, color: Colors.blue),
-          headlineSmall: GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
+          titleSmall:
+              GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+          titleMedium:
+              GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
+          bodyLarge:
+              GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.w400),
+          bodyMedium:
+              GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
+          bodySmall:
+              GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
+          headlineLarge: GoogleFonts.poppins(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: DevFestColors.primary),
+          headlineSmall:
+              GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+            elevation: MaterialStatePropertyAll(0.0),
+            backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
+          ),
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          fillColor: DevFestColors.labelInput,
+          labelStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
+          hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
         ),
       ),
-      initialRoute: Routes.cronograma,
+      initialRoute: Routes.CRONOGRAMA,
       routes: {
-        Routes.components: (BuildContext context) => const ComponentsScreen(),
-        Routes.home: (BuildContext context) => const MyHomePage(),
-        Routes.speakers: (BuildContext context) => const SpeakersScreen(),
-        Routes.cronograma: (BuildContext context) => const CronogramaScreen(),
+        Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
+        Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
+        Routes.CRONOGRAMA: (BuildContext context) => const SpeakersScreen(),
+        Routes.LOGIN: (BuildContext context) => const LoginScreen(),
+        Routes.HOME: (BuildContext context) => const HomeScreen(),
+        Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
+        
       },
     );
   }
