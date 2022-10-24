@@ -182,7 +182,7 @@ class _ProfileInfo extends StatelessWidget {
         Container(
           height: 1,
           width: double.infinity,
-          color: DevFestColors.divider,
+          color: DevFestColors.shadow,
         ),
         VerticalSpacing.xs,
         Text(dummyBio),
