@@ -1,13 +1,12 @@
+import 'package:devfestbolivia/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/providers/counter.dart';
 import 'package:devfestbolivia/screens/home/home_screen.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
-import 'package:devfestbolivia/screens/profile_screen.dart';
 import 'package:devfestbolivia/firebase/firebase_main.dart';
 import 'package:devfestbolivia/screens/speakers_screen.dart';
 import 'package:devfestbolivia/screens/components_screen.dart';
@@ -30,6 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DevFest 2022',
       theme: ThemeData(
+        scaffoldBackgroundColor: DevFestColors.primaryLight,
         primarySwatch: Colors.blue,
         fontFamily: 'Roboto',
         textTheme: TextTheme(
@@ -37,6 +37,8 @@ class MyApp extends StatelessWidget {
               GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
           titleMedium:
               GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
+          bodyLarge:
+              GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.w400),
           bodyMedium:
               GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
           bodySmall:
@@ -48,16 +50,9 @@ class MyApp extends StatelessWidget {
           headlineSmall:
               GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
         ),
-        scaffoldBackgroundColor: DevFestColors.primaryLight,
         elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
             elevation: MaterialStatePropertyAll(0.0),
-            padding: MaterialStatePropertyAll(
-              EdgeInsets.symmetric(
-                horizontal: SpacingValues.xxl,
-                vertical: SpacingValues.m,
-              ),
-            ),
             backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
           ),
         ),
@@ -81,11 +76,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Routes.LOGIN,
       routes: {
+        Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
         Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
-        Routes.PROFILE: (BuildContext context) => const ProfileScreen(),
       },
     );
   }
