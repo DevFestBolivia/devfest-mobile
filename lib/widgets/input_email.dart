@@ -41,7 +41,9 @@ class _InputEmailState extends State<InputEmail> {
         ),
         decoration: InputDecoration(
           labelStyle: TextStyle(
-              fontSize: FontSizeValues.label, color: DevFestColors.labelInput),
+            fontSize: FontSizeValues.label,
+            color: DevFestColors.labelInput,
+          ),
           labelText: 'Email',
         ),
       ),

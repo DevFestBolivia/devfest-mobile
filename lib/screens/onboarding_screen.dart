@@ -1,4 +1,5 @@
 import 'package:devfestbolivia/providers/onboarding_provider.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _startOnboardingButton() {
     return ElevatedButton(
       key: const ValueKey('start__elevated_button'),
-      onPressed: () {},
+      onPressed: goToHome,
       style: const ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
         side: MaterialStatePropertyAll(
@@ -155,7 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _omitOnboardingButton() {
     return ElevatedButton(
       key: const ValueKey('omit__elevated_button'),
-      onPressed: () {},
+      onPressed: goToHome,
       style: const ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(DevFestColors.primaryLight),
         side: MaterialStatePropertyAll(
@@ -180,6 +181,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
+  }
+
+  void goToHome() {
+    Navigator.pushReplacementNamed(context, Routes.HOME);
   }
 }
 
