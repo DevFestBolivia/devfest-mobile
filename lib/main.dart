@@ -28,9 +28,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DevFest 2022',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: DevFestColors.primaryLight,
         primarySwatch: Colors.blue,
+      
         fontFamily: 'Roboto',
         textTheme: TextTheme(
           titleSmall:
@@ -74,13 +76,15 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
         ),
       ),
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.CRONOGRAMA,
       routes: {
+        Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
+        Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
+        Routes.CRONOGRAMA: (BuildContext context) => const SpeakersScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
         Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
-        Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
-        Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
+        
       },
     );
   }
