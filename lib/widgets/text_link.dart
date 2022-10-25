@@ -32,15 +32,16 @@ class _TextLinkState extends State<TextLink> {
           ),
         ),
         InkWell(
-            onTap: () => widget.onPressed(),
-            child: Text(
-              widget.linkText,
-              style: TextStyle(
-                color: DevFestColors.primary,
-                fontWeight: FontWeight.w400,
-                fontSize: FontSizeValues.input,
-              ),
-            )),
+          onTap: () => widget.onPressed(),
+          child: Text(
+            widget.linkText,
+            style: TextStyle(
+              color: DevFestColors.primary,
+              fontWeight: FontWeight.w400,
+              fontSize: FontSizeValues.input,
+            ),
+          ),
+        ),
       ],
     );
   }

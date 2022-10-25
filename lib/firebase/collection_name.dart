@@ -1,3 +1,4 @@
 class CollectionName {
-  static const String speakers = 'speakers';
+  static const String SPEAKERS = 'speakers';
+  static const String SCHEDULE = 'schedule';
 }

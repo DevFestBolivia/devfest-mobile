@@ -38,10 +38,25 @@ class FontWeightValues {
 }
 
 class FontSizeValues {
-  static double input = 16;
+  static double barItem = 12;
   static double label = 12;
+  static double scheduleDetail = 14;
+  static double input = 16;
+  static double title = 24;
 }
 
 class BorderRadiusValues {
   static double input = 5;
+}
+
+class CardsSizeValues {
+  static double width = 300;
+  static double height = 123;
+  static double day = 30;
+  static double month = 14;
+}
+
+class ImageSizeValues {
+  static double sectionIconWidth = 30;
+  static double sectionIconHeight = 30;
 }
