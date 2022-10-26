@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: DevFestColors.primary,
@@ -68,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: _onItemTapped,
         showUnselectedLabels: true,
         currentIndex: _selectedIndex,
+        backgroundColor: DevFestColors.primary,
         // selectedFontSize: FontSizeValues.barItem,
         selectedItemColor: DevFestColors.primaryLight,
         unselectedItemColor: DevFestColors.primaryLight,

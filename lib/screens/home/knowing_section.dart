@@ -46,6 +46,8 @@ class _KnowingSectionState extends State<KnowingSection> {
             imagePath: AssetsPath.locationOn,
             onPressed: () {},
             description: TextStrings.placesInCochambaDescription,
+            widthImage: 50,
+            heightImage: 50,
           ),
         ],
       ),

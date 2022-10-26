@@ -18,7 +18,7 @@ class MainCards extends StatefulWidget {
 class _MainCardsState extends State<MainCards> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 123,
       child: Card(
@@ -42,10 +42,12 @@ class _MainCardsState extends State<MainCards> {
 
   Widget renderSecondPart() {
     return Expanded(
-      child: SizedBox(
-        width: double.infinity,
-        height: CardsSizeValues.height,
-        child: widget.secondPart,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          widget.secondPart!,
+        ],
       ),
     );
   }
