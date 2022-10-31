@@ -1,9 +1,11 @@
-import 'package:devfestbolivia/providers/onboarding_provider.dart';
-import 'package:devfestbolivia/screens/routes.dart';
-import 'package:devfestbolivia/style/devfest_colors.dart';
-import 'package:devfestbolivia/style/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:devfestbolivia/screens/routes.dart';
+
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/providers/onboarding_provider.dart';
 
 class _OnboardingItem {
   const _OnboardingItem({

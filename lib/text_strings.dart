@@ -42,4 +42,5 @@ class TextStrings {
   static const String info = 'Información';
   static const String forgotPassword = 'Olvidaste tu contraseña';
   static const String cancel = 'Cancelar';
+  static const String openCamera = 'Abrir Cámara';
 }

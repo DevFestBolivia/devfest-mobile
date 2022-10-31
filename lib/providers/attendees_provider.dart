@@ -8,4 +8,8 @@ class AttendeesProvider with ChangeNotifier {
     currentUser = user;
     notifyListeners();
   }
+
+  Attendees? getCurrentUser() {
+    return currentUser;
+  }
 }

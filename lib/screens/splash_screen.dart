@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/models/attendees.dart';
@@ -21,7 +23,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   FbUserRepository? fbUserRepository;
   AttendeesRepository? attendeesRepository;
-  final AttendeesProvider attendeesProvider = AttendeesProvider();
   bool loading = true;
 
   @override
@@ -70,7 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void getCurrentUser() async {
     User? currentUser = fbUserRepository!.getCurrentUser();
-    print('CurrentUser is: $currentUser');
     if (currentUser != null) {
       Attendees attendeess =
           await attendeesRepository!.getAttendeesById(currentUser.uid);
@@ -81,8 +81,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void changeAttendeesCurrentUser(Attendees? attendees) {
-    print('Attendees: ${attendees?.fullName}');
     if (attendees != null) {
+      AttendeesProvider attendeesProvider = Provider.of<AttendeesProvider>(context, listen: false);
       attendeesProvider.setCurrentUser(attendees);
       Navigator.pushReplacementNamed(context, Routes.HOME);
     } else {
