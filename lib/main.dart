@@ -1,15 +1,19 @@
-import 'package:devfestbolivia/screens/onboarding_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:devfestbolivia/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:devfestbolivia/screens/routes.dart';
-import 'package:devfestbolivia/providers/counter.dart';
-import 'package:devfestbolivia/screens/home/home_screen.dart';
-import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
-import 'package:devfestbolivia/firebase/firebase_main.dart';
 import 'package:devfestbolivia/screens/speakers_screen.dart';
+import 'package:devfestbolivia/screens/home/home_screen.dart';
+import 'package:devfestbolivia/screens/onboarding_screen.dart';
 import 'package:devfestbolivia/screens/components_screen.dart';
+import 'package:devfestbolivia/screens/task_details_screen.dart';
+
+import 'package:devfestbolivia/providers/counter.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
+import 'package:devfestbolivia/firebase/firebase_main.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,13 +78,15 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
         ),
       ),
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.SPLASH,
       routes: {
+        Routes.SPLASH: (context) => const SplashScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
         Routes.HOME: (BuildContext context) => const HomeScreen(),
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
         Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
+        Routes.TASK_DETAILS: (BuildContext context) => const TaskDetailsScreen(),
       },
     );
   }

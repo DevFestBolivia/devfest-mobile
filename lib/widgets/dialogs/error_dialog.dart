@@ -34,4 +34,46 @@ class ErrorDialog {
       },
     );
   }
+
+  static showUserNotFoundDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(TextStrings.info),
+          content: const Text(TextStrings.userNotFound),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(TextStrings.ok),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static showWrongPasswordDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(TextStrings.info),
+          content: const Text(TextStrings.wrongPassword),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(TextStrings.ok),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

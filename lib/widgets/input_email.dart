@@ -1,6 +1,8 @@
-import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/models/validator_result.dart';
+import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class InputEmail extends StatefulWidget {
@@ -9,6 +11,8 @@ class InputEmail extends StatefulWidget {
   final double rightMargin;
   final double topMargin;
   final double bottomMargin;
+  final Function onChanged;
+  final Key formKey;
 
   const InputEmail({
     Key? key,
@@ -17,6 +21,8 @@ class InputEmail extends StatefulWidget {
     this.rightMargin = 0.0,
     this.topMargin = 0.0,
     this.bottomMargin = 0.0,
+    required this.onChanged,
+    required this.formKey,
   }) : super(key: key);
 
   @override
@@ -33,20 +39,36 @@ class _InputEmailState extends State<InputEmail> {
         top: widget.topMargin,
         bottom: widget.bottomMargin,
       ),
-      child: TextField(
-        style: TextStyle(
-          color: DevFestColors.textInput,
-          fontWeight: FontWeightValues.regular,
-          fontSize: FontSizeValues.input,
-        ),
-        decoration: InputDecoration(
-          labelStyle: TextStyle(
-            fontSize: FontSizeValues.label,
-            color: DevFestColors.labelInput,
-          ),
-          labelText: 'Email',
+      child: Form(
+        key: widget.formKey,
+        child: TextFormField(
+          onChanged: (value) => widget.onChanged(value),
+          style: renderTextStyle(),
+          decoration: renderInputDecoration(),
+          validator: (value) {
+            ValidatorResult validation = ValidatorUtil.validateEmail(value);
+            return validation.message;
+          },
         ),
       ),
+    );
+  }
+
+  TextStyle renderTextStyle() {
+    return TextStyle(
+      color: DevFestColors.textInput,
+      fontWeight: FontWeightValues.regular,
+      fontSize: FontSizeValues.input,
+    );
+  }
+
+  InputDecoration renderInputDecoration() {
+    return InputDecoration(
+      labelStyle: TextStyle(
+        fontSize: FontSizeValues.label,
+        color: DevFestColors.labelInput,
+      ),
+      labelText: TextStrings.email,
     );
   }
 }

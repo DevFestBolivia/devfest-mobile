@@ -15,7 +15,6 @@ class TextStrings {
   static const String doNotYouHaveAndAccountYet = 'Aun no tienes una cuenta';
   static const String createAccount = 'Crear Cuenta';
   static const String message = 'Message';
-  static const String info = 'Informacion';
   static const String anErrorOccurredTryAgain =
       'An error occurred, please try again';
   static const String ok = 'OK';
@@ -36,4 +35,11 @@ class TextStrings {
   static const String placesInCochabamba = 'Lugares en Cochabamba';
   static const String placesInCochambaDescription =
       'Descubre los lugares turisticos que puedes visitar en Cochabamba';
+  static const String pleaseEnterYourEmail = 'Por favor ingrese su correo';
+  static const String pleaseEnterYourPassword = 'Por favor ingrese su contraseña';
+  static const String userNotFound = 'Usuario no encontrado';
+  static const String wrongPassword = 'Contraseña incorrecta';
+  static const String info = 'Información';
+  static const String forgotPassword = 'Olvidaste tu contraseña';
+  static const String cancel = 'Cancelar';
 }

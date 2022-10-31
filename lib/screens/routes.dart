@@ -5,4 +5,6 @@ class Routes {
   static const String SPEAKERS = 'Speakers';
   static const String PROFILE = 'Profile';
   static const String LOGIN = 'Login';
+  static const String TASK_DETAILS = 'TaskDetails';
+  static const String SPLASH = 'Splash';
 }
