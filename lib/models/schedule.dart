@@ -24,18 +24,20 @@ class Schedule {
   List<Track> tracks;
 
   factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
-    date: DateTime.parse(json["date"]),
-    dateReadable: json["dateReadable"],
-    timeslots: List<Timeslot>.from(json["timeslots"].map((x) => Timeslot.fromJson(x))),
-    tracks: List<Track>.from(json["tracks"].map((x) => Track.fromJson(x))),
-  );
+        date: DateTime.parse(json["date"]),
+        dateReadable: json["dateReadable"],
+        timeslots: List<Timeslot>.from(
+            json["timeslots"].map((x) => Timeslot.fromJson(x))),
+        tracks: List<Track>.from(json["tracks"].map((x) => Track.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-    "dateReadable": dateReadable,
-    "timeslots": List<dynamic>.from(timeslots.map((x) => x.toJson())),
-    "tracks": List<dynamic>.from(tracks.map((x) => x.toJson())),
-  };
+        "date":
+            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+        "dateReadable": dateReadable,
+        "timeslots": List<dynamic>.from(timeslots.map((x) => x.toJson())),
+        "tracks": List<dynamic>.from(tracks.map((x) => x.toJson())),
+      };
 }
 
 class Timeslot {
@@ -50,16 +52,17 @@ class Timeslot {
   String endTime;
 
   factory Timeslot.fromJson(Map<String, dynamic> json) => Timeslot(
-    sessions: List<Session>.from(json["sessions"].map((x) => Session.fromJson(x))),
-    startTime: json["startTime"],
-    endTime: json["endTime"],
-  );
+        sessions: List<Session>.from(
+            json["sessions"].map((x) => Session.fromJson(x))),
+        startTime: json["startTime"],
+        endTime: json["endTime"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "sessions": List<dynamic>.from(sessions.map((x) => x.toJson())),
-    "startTime": startTime,
-    "endTime": endTime,
-  };
+        "sessions": List<dynamic>.from(sessions.map((x) => x.toJson())),
+        "startTime": startTime,
+        "endTime": endTime,
+      };
 }
 
 class Session {
@@ -72,28 +75,36 @@ class Session {
   int? extend;
 
   factory Session.fromJson(Map<String, dynamic> json) => Session(
-    items: List<String>.from(json["items"].map((x) => x)),
-    extend: json["extend"] == null ? null : json["extend"],
-  );
+        items: List<String>.from(json["items"].map((x) => x)),
+        extend: json["extend"] == null ? null : json["extend"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "items": List<dynamic>.from(items.map((x) => x)),
-    "extend": extend == null ? null : extend,
-  };
+        "items": List<dynamic>.from(items.map((x) => x)),
+        "extend": extend == null ? null : extend,
+      };
 }
 
 class Track {
   Track({
     required this.title,
+    required this.speaker,
+    required this.speakerImage,
   });
 
   String title;
+  String speaker;
+  String speakerImage;
 
   factory Track.fromJson(Map<String, dynamic> json) => Track(
-    title: json["title"],
-  );
+        title: json["title"],
+        speaker: json["speaker"] ?? '',
+        speakerImage: json["speakerImage"] ?? '',
+      );
 
   Map<String, dynamic> toJson() => {
-    "title": title,
-  };
+        "title": title,
+        "speaker": speaker,
+        "speakerImage": speakerImage,
+      };
 }

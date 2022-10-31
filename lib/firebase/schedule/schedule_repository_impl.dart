@@ -9,4 +9,9 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   Stream<List<Schedule>> getAllSchedule() {
     return schedulesFirestore.getAllSchedules();
   }
+
+  @override
+  Future<List<Schedule>> getScheduleByDay() {
+    return schedulesFirestore.getAllSchedulesFuture();
+  }
 }

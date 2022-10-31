@@ -11,7 +11,10 @@ class SchedulesFirestore extends CloudFireStore {
         .toList());
   }
 
-  Future<QuerySnapshot<Object>> getAllSchedulesFuture() {
-    return db.collection(CollectionName.SCHEDULE).get();
+  Future<List<Schedule>> getAllSchedulesFuture() async {
+    return await db.collection(CollectionName.SCHEDULE).get().then((list) =>
+        list.docs
+            .map((doc) => scheduleFromFirestore(doc.id, doc.data()))
+            .toList());
   }
 }

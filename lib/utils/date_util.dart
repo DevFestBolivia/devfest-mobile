@@ -8,4 +8,12 @@ class DateUtil {
   static String getMinimalNameMonth(DateTime date) {
     return DateFormat('MMM').format(date);
   }
+
+  static String getHourMinute(DateTime date) {
+    return DateFormat('hh:mm').format(date);
+  }
+
+  static String getAmPm(DateTime date) {
+    return DateFormat('a').format(date);
+  }
 }

@@ -54,6 +54,7 @@ class CardsSizeValues {
   static double height = 123;
   static double day = 30;
   static double month = 14;
+  static double hour = 18;
 }
 
 class ImageSizeValues {
