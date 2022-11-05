@@ -27,7 +27,8 @@ class Schedule {
         date: DateTime.parse(json["date"]),
         dateReadable: json["dateReadable"],
         timeslots: List<Timeslot>.from(
-            json["timeslots"].map((x) => Timeslot.fromJson(x))),
+          json["timeslots"].map((x) => Timeslot.fromJson(x)),
+        ),
         tracks: List<Track>.from(json["tracks"].map((x) => Track.fromJson(x))),
       );
 

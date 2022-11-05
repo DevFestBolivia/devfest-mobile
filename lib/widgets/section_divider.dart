@@ -3,10 +3,12 @@ import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class SectionDivider extends StatefulWidget {
   final double height;
+  final double indent;
 
   const SectionDivider({
     Key? key,
     this.height = 0.0,
+    this.indent = 20.0,
   }) : super(key: key);
 
   @override
@@ -20,8 +22,8 @@ class _SectionDividerState extends State<SectionDivider> {
       color: DevFestColors.separator,
       height: widget.height,
       thickness: 1,
-      indent: 20,
-      endIndent: 20,
+      indent: widget.indent,
+      endIndent: widget.indent,
     );
   }
 }

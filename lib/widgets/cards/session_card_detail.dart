@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/utils/speaker_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:devfestbolivia/firebase/speakers/speakers_repository.dart';
@@ -42,16 +43,8 @@ class _SessionCardDetailState extends State<SessionCardDetail> {
     loadingReference = false;
   }
 
-  String? getSpeaker(Session session) {
-    if (session.speakers!.isNotEmpty) {
-      return session.speakers![0];
-    } else {
-      return null;
-    }
-  }
-
   Widget getDetail() {
-    String? speakerId = getSpeaker(widget.session);
+    String? speakerId = SpeakerUtil.getSpeaker(widget.session);
     if (speakerId == null) {
       return renderDetail(null);
     }

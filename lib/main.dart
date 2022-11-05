@@ -93,8 +93,11 @@ class MyApp extends StatelessWidget {
         Routes.SPEAKERS: (BuildContext context) => const SpeakersScreen(),
         Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
-        Routes.TASK_DETAILS: (BuildContext context) =>
-            const TaskDetailsScreen(session: null),
+        Routes.TASK_DETAILS: (BuildContext context) => const TaskDetailsScreen(
+              session: null,
+              startTime: null,
+              endTime: null,
+            ),
         Routes.CAMERA: (BuildContext context) => const CameraScreen(),
       },
     );

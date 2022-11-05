@@ -44,4 +44,5 @@ class TextStrings {
   static const String cancel = 'Cancelar';
   static const String openCamera = 'Abrir Cámara';
   static const String details = 'Detalles';
+  static const String speaker = 'Speaker';
 }

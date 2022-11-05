@@ -68,7 +68,11 @@ class _SessionCardState extends State<SessionCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TaskDetailsScreen(session: session),
+        builder: (context) => TaskDetailsScreen(
+          session: session,
+          startTime: widget.startTime,
+          endTime: widget.endTime,
+        ),
       ),
     );
   }

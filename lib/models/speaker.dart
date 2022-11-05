@@ -1,3 +1,5 @@
+import 'package:devfestbolivia/models/social_link.dart';
+
 class Speaker {
   String id;
   String? bio;
@@ -11,7 +13,7 @@ class Speaker {
   String? photoUrl;
   String? pronouns;
   String? shortBio;
-  List<String>? socials = [];
+  List<SocialLink>? socials = [];
   String? title;
 
   Speaker(
@@ -47,7 +49,7 @@ class Speaker {
         json != null && json['pronouns'] != null ? json['pronouns']! as String : null,
         json != null && json['shortBio'] != null ? json['shortBio']! as String : null,
         json != null && json['socials'] != null
-            ? (json['socials']! as List).cast<String>()
+            ? List<SocialLink>.from(json["socials"].map((x) => SocialLink.fromJson(x)))
             : [],
         json != null && json['title'] != null ? json['title']! as String : null);
     return newSpeaker;
