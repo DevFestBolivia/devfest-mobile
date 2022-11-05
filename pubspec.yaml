@@ -48,6 +48,7 @@ dependencies:
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.1
   url_launcher: ^6.1.6
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
 
@@ -59,6 +60,18 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/logo-app.png"
+  adaptive_icon_background: "assets/icon/kuiiks-icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icon/logo-app.png"
+    background_color: "#FFFFFF"
+    theme_color: "#FFFFFF"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
