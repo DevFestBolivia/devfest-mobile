@@ -12,6 +12,8 @@ class MainText extends StatefulWidget {
   final double topMargin;
   final double bottomMargin;
 
+  final bool expandableText;
+
   const MainText({
     Key? key,
     this.text = '',
@@ -22,6 +24,7 @@ class MainText extends StatefulWidget {
     this.topMargin = 0.0,
     this.bottomMargin = 0.0,
     this.fountWeight = FontWeight.w400,
+    this.expandableText = false,
   }) : super(key: key);
 
   @override
@@ -38,13 +41,30 @@ class _MainTextState extends State<MainText> {
         top: widget.topMargin,
         bottom: widget.bottomMargin,
       ),
-      child: Text(
-        widget.text,
-        style: TextStyle(
-          color: widget.colorText,
-          fontSize: widget.fontSize,
-          fontWeight: widget.fountWeight,
-        ),
+      child: widget.expandableText ? renderExpandableText() : renderText(),
+    );
+  }
+
+  Widget renderText() {
+    return Text(
+      widget.text,
+      style: TextStyle(
+        color: widget.colorText,
+        fontSize: widget.fontSize,
+        fontWeight: widget.fountWeight,
+      ),
+    );
+  }
+
+  Widget renderExpandableText() {
+    return Text(
+      widget.text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: widget.colorText,
+        fontSize: widget.fontSize,
+        fontWeight: widget.fountWeight,
       ),
     );
   }

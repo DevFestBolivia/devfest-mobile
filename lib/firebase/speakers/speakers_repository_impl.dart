@@ -9,4 +9,9 @@ class SpeakersRepositoryImpl extends SpeakersRepository {
   Stream<List<Speaker>> getAllSpeakers() {
     return speakersFirestore.getAllSpeakers();
   }
+
+  @override
+  Future<Speaker> getSpeakerById(String id) {
+    return speakersFirestore.getSpeakerById(id);
+  }
 }

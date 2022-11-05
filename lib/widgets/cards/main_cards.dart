@@ -1,14 +1,16 @@
-import 'package:devfestbolivia/style/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:devfestbolivia/style/spacing.dart';
 
 class MainCards extends StatefulWidget {
   final Widget? firstPart;
   final Widget? secondPart;
+  final double widthFirstPart;
 
   const MainCards({
     Key? key,
     required this.firstPart,
     required this.secondPart,
+    this.widthFirstPart = 123,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class _MainCardsState extends State<MainCards> {
 
   Widget renderFirstPart() {
     return SizedBox(
-      width: 123,
+      width: widget.widthFirstPart,
       height: CardsSizeValues.height,
       child: widget.firstPart,
     );

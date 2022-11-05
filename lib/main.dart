@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
         Routes.ONBOARDING: (BuildContext context) => const OnboardingScreen(),
         Routes.COMPONENTS: (BuildContext context) => const ComponentsScreen(),
         Routes.TASK_DETAILS: (BuildContext context) =>
-            const TaskDetailsScreen(),
+            const TaskDetailsScreen(session: null),
         Routes.CAMERA: (BuildContext context) => const CameraScreen(),
       },
     );

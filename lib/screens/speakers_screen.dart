@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:devfestbolivia/models/speaker.dart';
 import 'package:devfestbolivia/firebase/speakers/speakers_repository_impl.dart';
 import 'package:devfestbolivia/firebase/speakers/speakers_repository.dart';
-import 'package:devfestbolivia/models/speaker.dart';
-
 
 class SpeakersScreen extends StatefulWidget {
   const SpeakersScreen({Key? key}) : super(key: key);

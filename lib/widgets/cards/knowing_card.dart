@@ -1,10 +1,11 @@
-import 'package:devfestbolivia/style/devfest_colors.dart';
-import 'package:devfestbolivia/widgets/svg_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/widgets/main_text.dart';
+import 'package:devfestbolivia/widgets/svg_image.dart';
 import 'package:devfestbolivia/widgets/cards/main_cards.dart';
+
+import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 
 class KnowingCard extends StatefulWidget {
   final String title;

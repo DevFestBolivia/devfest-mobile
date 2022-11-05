@@ -30,26 +30,26 @@ class Speaker {
       this.socials,
       this.title);
 
-  factory Speaker.fromFirestore(String id, Map<String, Object?> json) {
+  factory Speaker.fromFirestore(String id, Map<String, dynamic>? json) {
     Speaker newSpeaker = Speaker(
         id,
-        json['bio'] != null ? json['bio'] as String : null,
-        json['company'] != null ? json['company'] as String : null,
-        json['companyLogo'] != null ? json['companyLogo']! as String : null,
-        json['companyLogoUrl'] != null
+        json != null && json['bio'] != null ? json['bio'] as String : null,
+        json != null &&  json['company'] != null ? json['company'] as String : null,
+        json != null &&  json['companyLogo'] != null ? json['companyLogo']! as String : null,
+        json != null &&  json['companyLogoUrl'] != null
             ? json['companyLogoUrl']! as String
             : null,
-        json['country'] != null ? json['country']! as String : null,
-        json['featured'] != null ? json['featured']! as bool : null,
-        json['name'] != null ? json['name']! as String : null,
-        json['order'] != null ? json['order']! as int : null,
-        json['photoUrl'] != null ? json['photoUrl']! as String : null,
-        json['pronouns'] != null ? json['pronouns']! as String : null,
-        json['shortBio'] != null ? json['shortBio']! as String : null,
-        json['socials'] != null
+        json != null && json['country'] != null ? json['country']! as String : null,
+        json != null && json['featured'] != null ? json['featured']! as bool : null,
+        json != null && json['name'] != null ? json['name']! as String : null,
+        json != null && json['order'] != null ? json['order']! as int : null,
+        json != null && json['photoUrl'] != null ? json['photoUrl']! as String : null,
+        json != null && json['pronouns'] != null ? json['pronouns']! as String : null,
+        json != null && json['shortBio'] != null ? json['shortBio']! as String : null,
+        json != null && json['socials'] != null
             ? (json['socials']! as List).cast<String>()
             : [],
-        json['title'] != null ? json['title']! as String : null);
+        json != null && json['title'] != null ? json['title']! as String : null);
     return newSpeaker;
   }
 }

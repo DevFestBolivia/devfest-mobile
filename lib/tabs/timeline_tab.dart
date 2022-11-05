@@ -1,6 +1,8 @@
-import 'package:devfestbolivia/widgets/cards/talks_card.dart';
+import 'package:devfestbolivia/widgets/list_sessions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
+import 'package:devfestbolivia/style/spacing.dart';
 
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/models/schedule.dart';
@@ -42,6 +44,7 @@ class _TimelineTabState extends State<TimelineTab>
   PreferredSizeWidget basicAppBar() {
     return AppBar(
       title: const Text(TextStrings.timeline),
+      automaticallyImplyLeading: false,
     );
   }
 
@@ -49,17 +52,19 @@ class _TimelineTabState extends State<TimelineTab>
     return AppBar(
       title: const Text(TextStrings.timeline),
       bottom: renderTabBar(),
+      automaticallyImplyLeading: false,
     );
   }
 
   PreferredSizeWidget renderTabBar() {
     return TabBar(
       controller: _controller,
-      tabs: schedules.map((Schedule schedule) {
-        return Tab(
-          text: schedule.dateReadable,
-        );
-      }).toList(),
+      tabs: schedules.map(
+        (Schedule schedule) {
+          var index = schedules.indexOf(schedule);
+          return Tab(text: '${TextStrings.day} ${index + 1}');
+        },
+      ).toList(),
     );
   }
 
@@ -87,7 +92,6 @@ class _TimelineTabState extends State<TimelineTab>
   }
 
   void getSchedules() async {
-    print('getSchedules');
     schedules = await scheduleRepository!.getScheduleByDay();
     _controller = TabController(length: schedules.length, vsync: this);
     loadingSchedule = false;
@@ -95,22 +99,16 @@ class _TimelineTabState extends State<TimelineTab>
   }
 
   Widget renderTabBarView() {
-    return TabBarView(
-      controller: _controller,
-      children: schedules.map(
-        (Schedule schedule) {
-          return ListView.builder(
-            itemCount: schedule.tracks.length,
-            itemBuilder: (BuildContext context, int index) {
-              return TalksCard(
-                schedule: schedule,
-                index: index,
-                onPressed: () {},
-              );
-            },
-          );
-        },
-      ).toList(),
+    return Container(
+      margin: const EdgeInsets.all(SpacingValues.m),
+      child: TabBarView(
+        controller: _controller,
+        children: schedules.map(
+          (Schedule schedule) {
+            return ListSession(schedule: schedule);
+          },
+        ).toList(),
+      ),
     );
   }
 

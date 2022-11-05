@@ -6,8 +6,16 @@ class SpeakersFirestore extends CloudFireStore {
   Stream<List<Speaker>> getAllSpeakers() {
     return db.collection(CollectionName.SPEAKERS).snapshots().map(
           (list) => list.docs
-              .map((doc) => Speaker.fromFirestore(doc.id, doc.data()))
+              .map((doc) => Speaker.fromFirestore(
+                    doc.id,
+                    doc.data(),
+                  ))
               .toList(),
         );
+  }
+
+  Future<Speaker> getSpeakerById(String id) async {
+    var doc = await db.collection(CollectionName.SPEAKERS).doc(id).get();
+    return Speaker.fromFirestore(doc.id, doc.data());
   }
 }

@@ -16,4 +16,5 @@ class DevFestColors {
   static const Color disableText = Colors.black38;
   static const Color textInput = Colors.black54;
   static const Color textBlack = Colors.black;
+  static const Color transparent = Colors.transparent;
 }
