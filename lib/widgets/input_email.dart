@@ -46,7 +46,7 @@ class _InputEmailState extends State<InputEmail> {
           style: renderTextStyle(),
           decoration: renderInputDecoration(),
           validator: (value) {
-            ValidatorResult validation = ValidatorUtil.validateEmail(value);
+            ValidatorResult validation = ValidatorUtil().validateEmail(value);
             return validation.message;
           },
         ),

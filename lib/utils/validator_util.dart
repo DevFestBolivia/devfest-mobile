@@ -3,7 +3,7 @@ import 'package:devfestbolivia/utils/email_validator.dart';
 import 'package:devfestbolivia/models/validator_result.dart';
 
 class ValidatorUtil {
-  static ValidatorResult validateEmail(String? value) {
+  ValidatorResult validateEmail(String? value) {
     ValidatorResult result = ValidatorResult(true, null);
     if (value == null || value.isEmpty) {
       result.isValid = false;
@@ -17,7 +17,7 @@ class ValidatorUtil {
     return result;
   }
 
-  static ValidatorResult validatePassword(String? value) {
+  ValidatorResult validatePassword(String? value) {
     ValidatorResult result = ValidatorResult(true, null);
     if (value == null || value.isEmpty) {
       result.isValid = false;

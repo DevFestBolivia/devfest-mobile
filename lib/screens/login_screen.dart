@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:devfestbolivia/providers/auth_provider.dart';
+import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:devfestbolivia/widgets/text_link.dart';
 import 'package:devfestbolivia/widgets/main_text.dart';
-import 'package:devfestbolivia/widgets/main_button.dart';
 import 'package:devfestbolivia/widgets/local_image.dart';
-import 'package:devfestbolivia/widgets/input_email.dart';
-import 'package:devfestbolivia/widgets/input_password.dart';
 import 'package:devfestbolivia/widgets/section_divider.dart';
 import 'package:devfestbolivia/widgets/main_outlined_button.dart';
 import 'package:devfestbolivia/widgets/dialogs/error_dialog.dart';
@@ -17,20 +16,14 @@ import 'package:devfestbolivia/screens/routes.dart';
 
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/models/attendees.dart';
-import 'package:devfestbolivia/models/social_user.dart';
-import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/constants/assets_path.dart';
+import 'package:provider/provider.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
-import 'package:devfestbolivia/firebase/auth/user/fb_user_repository.dart';
-import 'package:devfestbolivia/firebase/attendees/attendees_repository.dart';
-import 'package:devfestbolivia/firebase/functions/functions_repository.dart';
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/firebase/attendees/attendees_repository_impl.dart';
 import 'package:devfestbolivia/firebase/functions/functions_repository_impl.dart';
-import 'package:devfestbolivia/firebase/auth/emailAuth/email_auth_repository.dart';
-import 'package:devfestbolivia/firebase/auth/socialAuth/social_auth_repository.dart';
 import 'package:devfestbolivia/firebase/auth/emailAuth/email_auth_repository_impl.dart';
 import 'package:devfestbolivia/firebase/auth/socialAuth/social_auth_repository_impl.dart';
 
@@ -42,54 +35,79 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  FbUserRepository? fbUserRepository;
-  EmailAuthRepository? emailAuth;
-  SocialAuthRepository? socialAuthRepository;
-  FunctionsRepository? fbFunctionsRepository;
-  AttendeesRepository? attendeesRepository;
   final AttendeesProvider attendeesProvider = AttendeesProvider();
 
-  final _formKey = GlobalKey<FormState>();
-  final _formPasswordKey = GlobalKey<FormState>();
-
-  String email = '';
-  String password = '';
-
-  bool loading = true;
-  BuildContext? _context;
   bool loginInProgress = false;
 
   @override
   Widget build(BuildContext context) {
-    loadReferences(context);
-
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            renderLogo(),
-            InputEmail(
-              leftMargin: 20,
-              rightMargin: 20,
-              topMargin: 20,
-              onChanged: onChangeEmail,
-              formKey: _formKey,
+      body: Builder(
+        builder: (context) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: SpacingValues.xl,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  renderLogo(),
+                  Column(
+                    children: [
+                      TextField(
+                        decoration: const InputDecoration(
+                          label: Text(
+                            'Email',
+                          ),
+                        ),
+                        onChanged: (email) =>
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .setEmail(email),
+                      ),
+                      VerticalSpacing.xxl,
+                      TextField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          label: Text(
+                            'Password',
+                          ),
+                        ),
+                        onChanged: (password) =>
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .setPassword(password),
+                      )
+                    ],
+                  ),
+
+                  // InputEmail(
+                  //   leftMargin: 20,
+                  //   rightMargin: 20,
+                  //   topMargin: 20,
+                  //   onChanged: onChangeEmail,
+                  //   formKey: _formKey,
+                  // ),
+                  // InputPassword(
+                  //   leftMargin: 20,
+                  //   rightMargin: 20,
+                  //   topMargin: 40,
+                  //   onChanged: onChangePassword,
+                  //   formKey: _formPasswordKey,
+                  // ),
+                  const SizedBox(height: 20),
+                  renderForgotPassword(),
+                  const SizedBox(
+                    height: SpacingValues.xl * 2,
+                  ),
+                  renderLoginButton(),
+                  VerticalSpacing.m,
+                  renderGoogleButton(),
+                  // renderCreateAccountSection(),
+                ],
+              ),
             ),
-            InputPassword(
-              leftMargin: 20,
-              rightMargin: 20,
-              topMargin: 40,
-              onChanged: onChangePassword,
-              formKey: _formPasswordKey,
-            ),
-            const SizedBox(height: 20),
-            renderForgotPassword(),
-            renderLoginButton(),
-            renderGoogleButton(),
-            // renderCreateAccountSection(),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -105,10 +123,32 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget renderLoginButton() {
-    return MainButton(
-      text: TextStrings.logIn,
-      topMargin: 15,
-      onPressed: login,
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, child) {
+        return ElevatedButton(
+          onPressed: authProvider.loginButtonEnabled ? _login : null,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              authProvider.loginButtonEnabled
+                  ? DevFestColors.primary
+                  : Colors.grey.shade400,
+            ),
+          ),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              vertical: SpacingValues.l,
+            ),
+            child: Text(
+              TextStrings.logIn.toUpperCase(),
+              style: const TextStyle(
+                color: DevFestColors.primaryLight,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -129,7 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextLink(
         firstText: TextStrings.youForgot,
         linkText: '${TextStrings.passwordES}?',
-        onPressed: forgotPassword,
+        activateUnderline: true,
+        onPressed: _showforgotPasswordDialog,
       ),
     );
   }
@@ -157,158 +198,90 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget renderGoogleButton() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+          border: Border.all(color: DevFestColors.textBlack.withOpacity(0.12))),
       child: SocialLoginButton(
+        text: 'Continuar con Google',
         buttonType: SocialLoginButtonType.google,
-        onPressed: loginWithGoogle,
+        onPressed: () async {
+          try {
+            await _loginWithGoogle(context);
+            _goToOnboarding();
+          } catch (e) {
+            ErrorDialog.showErrorDialog(
+              context,
+              TextStrings.anErrorOccurredTryAgain,
+            );
+          }
+        },
+        // onPressed: loginWithGoogle,
       ),
     );
   }
 
-  void loadReferences(BuildContext context) {
-    if (!loading) {
-      return;
-    }
-
-    setState(() {
-      emailAuth = EmailAuthRepoitoryImpl();
-      socialAuthRepository = SocialAuthRepositoryImpl();
-      fbFunctionsRepository = FunctionsRepositoryImpl();
-      fbUserRepository = FbUserRepositoryImpl();
-      attendeesRepository = AttendeesRepositoryImpl();
-      _context = context;
-      loading = false;
-    });
-  }
-
-  void setLoginInProgress(bool value) {
-    setState(() {
-      loginInProgress = value;
-    });
-    if (value) {
-      Dialogs.showLoadingDialog(_context!);
-    } else {
-      Dialogs.hideLoadingDialog(_context!);
-    }
-  }
-
-  loginWithGoogle() async {
-    setLoginInProgress(true);
+  Future<void> _loginWithGoogle(BuildContext context) async {
     try {
-      SocialUser? socialUser = await fbFunctionsRepository?.loginWithGoogle();
-      changeCurrentUser(socialUser);
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      Dialogs.showLoadingDialog(context);
+      await authProvider.loginWithGoogle();
+      // ignore: use_build_context_synchronously
+      Dialogs.hideLoadingDialog(context);
     } catch (e) {
-      setLoginInProgress(false);
-      ErrorDialog.showErrorDialog(
-          _context!, TextStrings.anErrorOccurredTryAgain);
-      print(e);
+      Dialogs.hideLoadingDialog(context);
+      rethrow;
     }
   }
 
-  void changeCurrentUser(SocialUser? socialUser) {
-    if (socialUser != null) {
-      setLoginInProgress(false);
-      nextScreen();
-    }
+  void _goToOnboarding() {
+    Navigator.pushReplacementNamed(context, Routes.ONBOARDING);
   }
 
-  void nextScreen() {
-    Navigator.pushReplacementNamed(_context!, Routes.ONBOARDING);
+  void _goToHome() {
+    Navigator.pushReplacementNamed(context, Routes.HOME);
   }
 
-  void forgotPassword() {
-    print('Forgot Password');
+  void _showforgotPasswordDialog(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     ForgotPasswordDialog.showForgotPasswordDialog(
-        _context!, fbUserRepository!.forgotPassword);
+      context,
+      authProvider.forgotPassword,
+    );
   }
 
   void createAccount() {
     print('Create Account');
   }
 
-  void onChangeEmail(String email) {
-    setState(() {
-      this.email = email;
-    });
-  }
-
-  void onChangePassword(String password) {
-    setState(() {
-      this.password = password;
-    });
-  }
-
-  void login() async {
-    setLoginInProgress(true);
-    _formKey.currentState!.validate();
-    _formPasswordKey.currentState!.validate();
+  void _login() async {
     try {
-      if (ValidatorUtil.validateEmail(email).isValid &&
-          ValidatorUtil.validatePassword(password).isValid) {
-        UserCredential? userCredential = await changeUserCredential();
-        print('UserCredential ${userCredential?.user?.uid}');
-        User? user = await changeUser(userCredential);
-        print('User ${user?.uid}');
-        Attendees? attendees = await changeAttendees(user);
-        print('Attendees ${attendees}');
-        changeAttendeesCurrentUser(attendees);
-      } else {
-        setLoginInProgress(false);
-      }
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      Dialogs.showLoadingDialog(context);
+      final attendees = await authProvider.loginWithEmailAndPassword(
+        onUserNotFoundCallback: showUserNotFoundMessage,
+        onWrongPasswordCallback: showWrongPasswordMessage,
+      );
+      _setUser(attendees);
+      // ignore: use_build_context_synchronously
+      Dialogs.hideLoadingDialog(context);
+      _goToHome();
     } catch (e) {
-      setLoginInProgress(false);
+      Dialogs.hideLoadingDialog(context);
       ErrorDialog.showErrorDialog(
-          _context!, TextStrings.anErrorOccurredTryAgain);
-      print('login error: $e');
+        context,
+        TextStrings.anErrorOccurredTryAgain,
+      );
     }
   }
 
-  Future<UserCredential?> changeUserCredential() async {
-    UserCredential? userCredential =
-        await emailAuth?.signInWithEmailAndPassword(
-            email, password, showUserNotFoundMessage, showWrongPasswordMessage);
-
-    return userCredential;
-  }
-
-  Future<User?> changeUser(UserCredential? userCredential) async {
-    if (userCredential != null) {
-      User? user = userCredential.user;
-      if (user != null) {}
-      return user!;
-    }
-
-    return null;
-  }
-
-  Future<Attendees?> changeAttendees(User? user) async {
-    if (user != null) {
-      print('User ${user.uid}');
-      Attendees attendees =
-          await attendeesRepository!.getAttendeesById(user.uid);
-      print('Attendees ${attendees.id}');
-      return attendees;
-    }
-    return null;
-  }
-
-  void changeAttendeesCurrentUser(Attendees? attendees) {
-    if (attendees != null) {
-      print('Attendees:: ${attendees.id}');
-      attendeesProvider.setCurrentUser(attendees);
-      setLoginInProgress(false);
-      Navigator.pushReplacementNamed(_context!, Routes.HOME);
-    } else {
-      setLoginInProgress(false);
-      Navigator.pushReplacementNamed(_context!, Routes.LOGIN);
-    }
+  void _setUser(Attendees attendees) {
+    attendeesProvider.setCurrentUser(attendees);
   }
 
   void showUserNotFoundMessage() {
-    ErrorDialog.showUserNotFoundDialog(_context!);
+    ErrorDialog.showUserNotFoundDialog(context);
   }
 
   void showWrongPasswordMessage() {
-    ErrorDialog.showWrongPasswordDialog(_context!);
+    ErrorDialog.showWrongPasswordDialog(context);
   }
 }

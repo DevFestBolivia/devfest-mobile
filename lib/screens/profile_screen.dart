@@ -1,14 +1,7 @@
-import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
-import 'package:devfestbolivia/models/attendees.dart';
-import 'package:devfestbolivia/providers/attendees_provider.dart';
-import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
-import 'package:devfestbolivia/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -41,16 +34,6 @@ class ProfileScreen extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.edit_outlined,
-                    color: DevFestColors.primaryLight,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    FbUserRepositoryImpl().logout();
-                    Navigator.pushReplacementNamed(context, Routes.LOGIN);
-                  },
-                  icon: const Icon(
-                    Icons.logout,
                     color: DevFestColors.primaryLight,
                   ),
                 )
@@ -208,54 +191,15 @@ class _ProfileInfo extends StatelessWidget {
   }
 
   Widget _actions(BuildContext context) {
-    String getQrData() {
-      final attendeesProvider =
-          Provider.of<AttendeesProvider>(context, listen: false);
-      Attendees? attendees = attendeesProvider.getCurrentUser();
-      String qr =
-          attendees != null && attendees.id != null ? attendees.id! : '';
-      return qr;
-    }
-
-    Widget renderQr() {
-      return QrImage(
-        data: getQrData(),
-        version: QrVersions.auto,
-        size: 200.0,
-      );
-    }
-
-    final qrSize = 240.0;
+    final profileQRLabel = 'QR DE PERFIL';
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: qrSize,
-                        width: qrSize,
-                        decoration: const BoxDecoration(
-                          color: DevFestColors.primaryLight,
-                        ),
-                        child: renderQr(),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Text(
-            TextStrings.profileQR,
+          onPressed: () {},
+          child: Text(
+            profileQRLabel,
           ),
         ),
         HorizontalSpacing.xxl,
@@ -335,10 +279,7 @@ class _Friends extends StatelessWidget {
         ),
       ),
       content: SizedBox(
-        height: size.height -
-            kToolbarHeight -
-            SpacingValues.l -
-            kBottomNavigationBarHeight,
+        height: size.height - kToolbarHeight - SpacingValues.l,
         width: double.infinity,
         child: ListView.separated(
           padding: const EdgeInsets.symmetric(

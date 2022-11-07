@@ -1,6 +1,10 @@
+import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
+import 'package:devfestbolivia/providers/auth_provider.dart';
 import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
+import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +24,11 @@ import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/firebase/firebase_main.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
 
+import 'firebase/attendees/attendees_repository_impl.dart';
+import 'firebase/auth/emailAuth/email_auth_repository_impl.dart';
+import 'firebase/auth/socialAuth/social_auth_repository_impl.dart';
+import 'firebase/functions/functions_repository_impl.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseMain.initFirebase();
@@ -29,6 +38,16 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => Counter()),
         ChangeNotifierProvider(create: (_) => AttendeesProvider()),
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(
+            fbUserRepository: FbUserRepositoryImpl(),
+            emailAuthRepository: EmailAuthRepoitoryImpl(),
+            socialAuthRepository: SocialAuthRepositoryImpl(),
+            fbFunctionsRepository: FunctionsRepositoryImpl(),
+            attendeesRepository: AttendeesRepositoryImpl(),
+            validatorUtil: ValidatorUtil(),
+          ),
+        )
       ],
       child: const MyApp(),
     ),
@@ -51,7 +70,7 @@ class MyApp extends StatelessWidget {
           titleSmall:
               GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
           titleMedium:
-              GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w600),
+              GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
           bodyLarge:
               GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.w400),
           bodyMedium:
@@ -77,22 +96,30 @@ class MyApp extends StatelessWidget {
             backgroundColor: MaterialStatePropertyAll(DevFestColors.primary),
           ),
         ),
-        inputDecorationTheme: const InputDecorationTheme(
+        inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(
+                color: DevFestColors.textBlack.withOpacity(0.12), width: 1.0),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(SpacingValues.xs)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(
+                color: DevFestColors.textBlack.withOpacity(0.12), width: 1.0),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(SpacingValues.xs)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: DevFestColors.labelInput, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(
+                color: DevFestColors.textBlack.withOpacity(0.12), width: 1.0),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(SpacingValues.xs)),
           ),
           fillColor: DevFestColors.labelInput,
-          labelStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
-          hintStyle: TextStyle(fontSize: 12, color: DevFestColors.labelInput),
+          labelStyle:
+              GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
+          hintStyle:
+              GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ),
       initialRoute: Routes.SPLASH,

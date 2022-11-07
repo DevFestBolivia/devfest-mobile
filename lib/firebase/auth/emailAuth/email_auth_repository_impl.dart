@@ -18,8 +18,10 @@ class EmailAuthRepoitoryImpl extends EmailAuthRepository {
   }
 
   @override
-  Future<UserCredential?> signInWithEmailAndPassword(String email, String password, Function userNotFound, Function wrongPassword) async {
-    UserCredential? userCredential = await emailAuth.loginWithEmailAndPassword(email, password, userNotFound, wrongPassword);
+  Future<UserCredential> signInWithEmailAndPassword(String email,
+      String password, Function userNotFound, Function wrongPassword) async {
+    UserCredential? userCredential = await emailAuth.loginWithEmailAndPassword(
+        email, password, userNotFound, wrongPassword);
     print('userCredential: $userCredential');
     return userCredential;
   }

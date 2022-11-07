@@ -16,7 +16,7 @@ class ForgotPasswordDialog {
 
     void forgotPassword() {
       formKey.currentState!.validate();
-      if (ValidatorUtil.validateEmail(email).isValid) {
+      if (ValidatorUtil().validateEmail(email).isValid) {
         sendForgotPassword(email);
         Navigator.of(context).pop();
       }
