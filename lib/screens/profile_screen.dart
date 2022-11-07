@@ -1,5 +1,7 @@
+import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/models/attendees.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
@@ -39,6 +41,16 @@ class ProfileScreen extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.edit_outlined,
+                    color: DevFestColors.primaryLight,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    FbUserRepositoryImpl().logout();
+                    Navigator.pushReplacementNamed(context, Routes.LOGIN);
+                  },
+                  icon: const Icon(
+                    Icons.logout,
                     color: DevFestColors.primaryLight,
                   ),
                 )
@@ -323,7 +335,10 @@ class _Friends extends StatelessWidget {
         ),
       ),
       content: SizedBox(
-        height: size.height - kToolbarHeight - SpacingValues.l,
+        height: size.height -
+            kToolbarHeight -
+            SpacingValues.l -
+            kBottomNavigationBarHeight,
         width: double.infinity,
         child: ListView.separated(
           padding: const EdgeInsets.symmetric(
