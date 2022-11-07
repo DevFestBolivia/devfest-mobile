@@ -34,7 +34,7 @@ class Schedule {
         tracks: List<Track>.from(
           json["tracks"].map((x) => Track.fromJson(x)),
         ),
-        description: json['description'],
+        description: json['description'] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

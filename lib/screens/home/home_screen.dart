@@ -1,3 +1,6 @@
+import 'package:devfestbolivia/firebase/schedule/schedule_repository_impl.dart';
+import 'package:devfestbolivia/firebase/schedule/schedules_firestore.dart';
+import 'package:devfestbolivia/providers/schedules_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/tabs/home_tab.dart';
@@ -7,6 +10,7 @@ import 'package:devfestbolivia/tabs/contests_tab.dart';
 import 'package:devfestbolivia/tabs/timeline_tab.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,8 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<SchedulesProvider>(
+            create: (_) => SchedulesProvider(
+              scheduleRepository: ScheduleRepositoryImpl(
+                schedulesFirestore: SchedulesFirestore(),
+              ),
+            ),
+          )
+        ],
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

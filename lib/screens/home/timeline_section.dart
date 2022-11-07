@@ -46,13 +46,13 @@ class _TimelineSectionState extends State<TimelineSection> {
       return;
     }
 
-    scheduleRepository = ScheduleRepositoryImpl();
+    // scheduleRepository = ScheduleRepositoryImpl();
     isLoading = false;
   }
 
   Widget renderSchedules() {
     return StreamBuilder(
-      stream: scheduleRepository?.getAllSchedule(),
+      // stream: scheduleRepository?.getAllSchedule(),
       builder: (BuildContext context, AsyncSnapshot<List<Schedule>> snapshot) {
         return _listSchedules(snapshot);
       },
