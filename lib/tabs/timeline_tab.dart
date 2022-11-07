@@ -140,12 +140,15 @@ class _TimelineTabState extends State<TimelineTab>
 
   PreferredSizeWidget renderTabBar(List<Schedule> schedules) {
     return TabBar(
-      padding: EdgeInsets.zero,
-      indicatorPadding: EdgeInsets.zero,
+      // padding: EdgeInsets.zero,
+      // indicatorPadding: EdgeInsets.zero,
+
       labelPadding: EdgeInsets.zero,
+      labelStyle: const TextStyle(fontWeight: FontWeight.w700),
       controller: _tabController,
-      indicatorColor: Colors.white,
-      automaticIndicatorColorAdjustment: false,
+
+      indicator: const BoxDecoration(color: Colors.white),
+      // automaticIndicatorColorAdjustment: false,
       tabs: schedules.map(
         (Schedule schedule) {
           var index = schedules.indexOf(schedule);
@@ -153,21 +156,13 @@ class _TimelineTabState extends State<TimelineTab>
             valueListenable: _selectedIndexNotifier,
             builder: (_, selectedTabIndex, child) {
               return Tab(
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 800),
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: selectedTabIndex == index
-                      ? Colors.white
-                      : DevFestColors.primary,
-                  child: Center(
-                    child: Text(
-                      '${TextStrings.day} ${index + 1}',
-                      style: TextStyle(
-                        color: selectedTabIndex == index
-                            ? DevFestColors.primary
-                            : DevFestColors.primaryLight.withOpacity(0.74),
-                      ),
+                child: Center(
+                  child: Text(
+                    '${TextStrings.day} ${index + 1}',
+                    style: TextStyle(
+                      color: selectedTabIndex == index
+                          ? DevFestColors.primary
+                          : DevFestColors.primaryLight.withOpacity(0.74),
                     ),
                   ),
                 ),
@@ -188,16 +183,13 @@ class _TimelineTabState extends State<TimelineTab>
   }
 
   Widget renderTabBarView(List<Schedule> schedules) {
-    return Container(
-      margin: const EdgeInsets.all(SpacingValues.m),
-      child: TabBarView(
-        controller: _tabController,
-        children: schedules.map(
-          (Schedule schedule) {
-            return ListSession(schedule: schedule);
-          },
-        ).toList(),
-      ),
+    return TabBarView(
+      controller: _tabController,
+      children: schedules.map(
+        (Schedule schedule) {
+          return ListSession(schedule: schedule);
+        },
+      ).toList(),
     );
   }
 

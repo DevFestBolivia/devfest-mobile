@@ -18,21 +18,18 @@ class MainCards extends StatefulWidget {
 }
 
 class _MainCardsState extends State<MainCards> {
-  final _mainCardElevation = 5.0;
+  final _mainCardElevation = 2.0;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 123,
-      child: Card(
-        elevation: _mainCardElevation,
-        child: Row(
-          children: [
-            renderFirstPart(),
-            renderSecondPart(),
-          ],
-        ),
+    return Card(
+      elevation: _mainCardElevation,
+      child: Row(
+        children: [
+          renderFirstPart(),
+          
+          widget.secondPart!
+        ],
       ),
     );
   }
@@ -45,15 +42,5 @@ class _MainCardsState extends State<MainCards> {
     );
   }
 
-  Widget renderSecondPart() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          widget.secondPart!,
-        ],
-      ),
-    );
-  }
+ 
 }

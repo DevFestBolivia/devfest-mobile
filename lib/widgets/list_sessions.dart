@@ -25,6 +25,7 @@ class _ListSessionState extends State<ListSession> {
 
     return ListView.builder(
       itemCount: sessions.length,
+      padding: const EdgeInsets.all(10),
       itemBuilder: (BuildContext context, int index) {
         return SessionCard(
           startTime: sessions[index].startTime,
