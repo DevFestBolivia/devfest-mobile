@@ -41,14 +41,12 @@ class _KnowingSectionState extends State<KnowingSection> {
           title: TextStrings.googleDeveloperGroups,
           imagePath: AssetsPath.googleImage,
           description: TextStrings.googleDeveloperGroupsDescription,
-          onPressed: () {},
+          onPressed: () => Navigator.pushNamed(context, Routes.GDG),
         ),
         _KnowingCard(
           title: TextStrings.placesInCochabamba,
           imagePath: AssetsPath.locationOn,
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.PLACES);
-          },
+          onPressed: () => Navigator.pushNamed(context, Routes.PLACES),
           description: TextStrings.placesInCochambaDescription,
         ),
       ],

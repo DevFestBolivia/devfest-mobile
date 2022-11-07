@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
@@ -109,6 +110,7 @@ class MyApp extends StatelessWidget {
         Routes.CAMERA: (BuildContext context) => const CameraScreen(),
         Routes.PROFILE: (BuildContext _) => const ProfileScreen(),
         Routes.PLACES: (BuildContext _) => const PlacesScreen(),
+        Routes.GDG: (BuildContext _) => const GoogleDeveloperGroupsScreen(),
       },
     );
   }

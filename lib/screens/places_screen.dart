@@ -7,7 +7,6 @@ import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/utils/map_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PlacesScreen extends StatefulWidget {
   const PlacesScreen({super.key});

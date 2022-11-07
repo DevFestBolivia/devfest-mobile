@@ -9,4 +9,5 @@ class Routes {
   static const String SPLASH = 'Splash';
   static const String CAMERA = 'Camera';
   static const String PLACES = 'Places';
+  static const String GDG = 'GDG';
 }

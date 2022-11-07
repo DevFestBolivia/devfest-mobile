@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:devfestbolivia/models/attendees.dart';
@@ -20,25 +21,60 @@ class _ScannerTabState extends State<ScannerTab> {
   AttendeesProvider? attendeesProvider;
   bool loading = true;
 
+  Barcode? result;
+  QRViewController? controller;
+
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+    });
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller!.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller!.resumeCamera();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     loadReferences(context);
     return Scaffold(
-      body: loading ? const CircularProgressIndicator() :renderBody(),
+      body: loading ? const CircularProgressIndicator() : renderBody(),
     );
   }
 
+  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    // log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('no Permission')),
+      );
+    }
+  }
+
   Widget renderBody() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          renderQr(),
-          Platform.isAndroid || Platform.isIOS
-              ? renderCameraButton()
-              : Container()
-        ],
+    return QRView(
+      key: qrKey,
+      onQRViewCreated: _onQRViewCreated,
+      overlay: QrScannerOverlayShape(
+        borderColor: Colors.red,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
       ),
+      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
 

@@ -1,7 +1,12 @@
+import 'package:devfestbolivia/models/attendees.dart';
+import 'package:devfestbolivia/providers/attendees_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -191,15 +196,54 @@ class _ProfileInfo extends StatelessWidget {
   }
 
   Widget _actions(BuildContext context) {
-    final profileQRLabel = 'QR DE PERFIL';
+    String getQrData() {
+      final attendeesProvider =
+          Provider.of<AttendeesProvider>(context, listen: false);
+      Attendees? attendees = attendeesProvider.getCurrentUser();
+      String qr =
+          attendees != null && attendees.id != null ? attendees.id! : '';
+      return qr;
+    }
+
+    Widget renderQr() {
+      return QrImage(
+        data: getQrData(),
+        version: QrVersions.auto,
+        size: 200.0,
+      );
+    }
+
+    final qrSize = 240.0;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            profileQRLabel,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: qrSize,
+                        width: qrSize,
+                        decoration: const BoxDecoration(
+                          color: DevFestColors.primaryLight,
+                        ),
+                        child: renderQr(),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: const Text(
+            TextStrings.profileQR,
           ),
         ),
         HorizontalSpacing.xxl,

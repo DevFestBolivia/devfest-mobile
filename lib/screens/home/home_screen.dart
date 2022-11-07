@@ -27,8 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
     TimelineTab(),
     ScannerTab(),
     // ContestsTab(),
-    ProfileTab(),
-    // ProfileScreen()
+    // ProfileTab(),
+    ProfileScreen()
   ];
 
   void _onItemTapped(int index) {

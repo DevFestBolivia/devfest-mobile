@@ -49,4 +49,10 @@ class TextStrings {
   static const String speaker = 'Speaker';
   static const String tourismInCochabamba = 'Turismo en Cochabamba';
   static const String showOnMap = 'VER EN MAPA';
+  static const String gdg = 'Google Developer Groups';
+  static const String gdgDescription =
+      'Explora más de 1000 capítulos en 140 países y conoce a desarrolladores afines de todos los niveles y orígenes.';
+  static const String goToPage = 'Ir a la página';
+  static const String gdgsOnBolivia = 'GDGs en Bolivia';
+  static const String profileQR = 'QR DE PERFIL';
 }
