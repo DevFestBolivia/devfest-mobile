@@ -9,6 +9,7 @@ import 'package:devfestbolivia/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -93,7 +94,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   body: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: SpacingValues.m),
-                    child: _Friends(),
+                    child: _Friends(
+                      friends: profile.friends,
+                    ),
                   ),
                 );
               }
@@ -200,7 +203,29 @@ class _ProfileInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: QrImage(
+                          data: profile.uid,
+                          version: QrVersions.auto,
+                          size: 200.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
           child: const Text(
             TextStrings.profileQR,
           ),
@@ -222,10 +247,10 @@ class _ProfileInfo extends StatelessWidget {
   }
 
   Widget _score(BuildContext context) {
-    final _scoreElevation = 3.0;
-    final scoreValue = 1090;
+    const scoreElevation = 3.0;
+
     return Card(
-      elevation: _scoreElevation,
+      elevation: scoreElevation,
       child: SizedBox(
         width: 240,
         child: Padding(
@@ -247,7 +272,7 @@ class _ProfileInfo extends StatelessWidget {
                     ),
               ),
               TweenAnimationBuilder<int>(
-                tween: IntTween(begin: 0, end: scoreValue),
+                tween: IntTween(begin: 0, end: profile.score.toInt()),
                 duration: const Duration(seconds: 2),
                 builder: (context, value, child) {
                   return Text(
@@ -267,7 +292,11 @@ class _ProfileInfo extends StatelessWidget {
 }
 
 class _Friends extends StatelessWidget {
-  const _Friends();
+  const _Friends({
+    required this.friends,
+  });
+
+  final List<Friend> friends;
 
   final String _friendsLabel = 'Amigos';
 
@@ -294,10 +323,13 @@ class _Friends extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
             vertical: SpacingValues.xs,
           ),
-          itemCount: 10,
+          itemCount: friends.length,
           separatorBuilder: (context, index) => VerticalSpacing.xs,
           itemBuilder: (context, index) {
-            return _FriendCard(name: 'Dalma Oropesa Argandolla');
+            final friend = friends[index];
+            return _FriendCard(
+              friend: friend,
+            );
           },
         ),
       ),
@@ -306,9 +338,11 @@ class _Friends extends StatelessWidget {
 }
 
 class _FriendCard extends StatelessWidget {
-  const _FriendCard({required this.name});
+  const _FriendCard({
+    required this.friend,
+  });
 
-  final String name;
+  final Friend friend;
 
   final double _elevation = 3.0;
   final double _imageRadius = 20.0;
@@ -327,11 +361,13 @@ class _FriendCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: Colors.grey,
-                radius: _imageRadius,
+                backgroundImage: NetworkImage(
+                  friend.imageUrl,
+                ),
               ),
               HorizontalSpacing.m,
               Text(
-                name,
+                friend.fullName,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontSize: 14,
                     ),
