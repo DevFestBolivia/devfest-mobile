@@ -1,3 +1,5 @@
+import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
+import 'package:devfestbolivia/providers/schedules_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/utils/date_util.dart';
 import 'package:devfestbolivia/widgets/main_text.dart';
@@ -6,8 +8,7 @@ import 'package:devfestbolivia/models/schedule.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/widgets/subtitle_text.dart';
-import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
-import 'package:devfestbolivia/firebase/schedule/schedule_repository_impl.dart';
+import 'package:provider/provider.dart';
 
 class TimelineSection extends StatefulWidget {
   const TimelineSection({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class TimelineSection extends StatefulWidget {
 }
 
 class _TimelineSectionState extends State<TimelineSection> {
-  ScheduleRepository? scheduleRepository;
+  // ScheduleRepository? scheduleRepository;
   bool isLoading = true;
 
   @override
@@ -52,7 +53,8 @@ class _TimelineSectionState extends State<TimelineSection> {
 
   Widget renderSchedules() {
     return StreamBuilder(
-      // stream: scheduleRepository?.getAllSchedule(),
+      stream: Provider.of<SchedulesProvider>(context, listen: false)
+          .allSchedulesStream,
       builder: (BuildContext context, AsyncSnapshot<List<Schedule>> snapshot) {
         return _listSchedules(snapshot);
       },

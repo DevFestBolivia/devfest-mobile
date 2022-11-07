@@ -33,4 +33,7 @@ class SchedulesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Stream<List<Schedule>> get allSchedulesStream =>
+      _schedulesRepository.getAllScheduleStream();
 }
