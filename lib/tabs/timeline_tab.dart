@@ -29,10 +29,7 @@ class _TimelineTabState extends State<TimelineTab>
   void initState() {
     _setupTabsComplete = Completer<bool>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      print('Init Schedules');
       Provider.of<SchedulesProvider>(context, listen: false).getAllSchedules();
-      print('Finish Init Schedules');
-      // getSchedules();
     });
     super.initState();
   }
