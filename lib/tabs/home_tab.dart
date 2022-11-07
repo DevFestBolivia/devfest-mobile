@@ -73,14 +73,21 @@ class _HomeTabState extends State<HomeTab> {
 
   Widget renderIcon() {
     return Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        child: Column(
-          children: const [
-            SizedBox(height: SpacingValues.xl),
-            SvgImage(pathImage: AssetsPath.googleImage, width: 50, height: 50),
-          ],
-        ));
+      width: double.infinity,
+      alignment: Alignment.center,
+      child: Column(
+        children: const [
+          SizedBox(
+            height: SpacingValues.xl,
+          ),
+          SvgImage(
+            pathImage: AssetsPath.googleImage,
+            width: 50,
+            height: 50,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget renderTimeLineSection() {

@@ -23,7 +23,9 @@ class _TimelineTabState extends State<TimelineTab>
   bool loading = true;
   bool loadingSchedule = true;
   List<Schedule> schedules = [];
-  late TabController _controller;
+  late TabController _tabController;
+
+  final _selectedIndexNotifier = ValueNotifier(0);
 
   @override
   void initState() {
@@ -33,12 +35,17 @@ class _TimelineTabState extends State<TimelineTab>
     super.initState();
   }
 
+  void _tabIndexChangedListener() {
+    _selectedIndexNotifier.value = _tabController.index;
+  }
+
   @override
   Widget build(BuildContext context) {
     loadReferences();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: DevFestColors.primary,
+        elevation: 0.0,
         centerTitle: true,
         title: Text(
           TextStrings.timeline.toUpperCase(),
@@ -55,12 +62,39 @@ class _TimelineTabState extends State<TimelineTab>
 
   PreferredSizeWidget renderTabBar() {
     return TabBar(
-      controller: _controller,
+      padding: EdgeInsets.zero,
+      indicatorPadding: EdgeInsets.zero,
+      labelPadding: EdgeInsets.zero,
+      controller: _tabController,
+      indicatorColor: Colors.white,
+      automaticIndicatorColorAdjustment: false,
       tabs: schedules.map(
         (Schedule schedule) {
           var index = schedules.indexOf(schedule);
-          return Tab(
-            text: '${TextStrings.day} ${index + 1}',
+          return ValueListenableBuilder(
+            valueListenable: _selectedIndexNotifier,
+            builder: (_, selectedTabIndex, child) {
+              return Tab(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 800),
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: selectedTabIndex == index
+                      ? Colors.white
+                      : DevFestColors.primary,
+                  child: Center(
+                    child: Text(
+                      '${TextStrings.day} ${index + 1}',
+                      style: TextStyle(
+                        color: selectedTabIndex == index
+                            ? DevFestColors.primary
+                            : DevFestColors.primaryLight.withOpacity(0.74),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           );
         },
       ).toList(),
@@ -92,7 +126,10 @@ class _TimelineTabState extends State<TimelineTab>
 
   void getSchedules() async {
     schedules = await scheduleRepository!.getScheduleByDay();
-    _controller = TabController(length: schedules.length, vsync: this);
+    _tabController = TabController(length: schedules.length, vsync: this);
+    _tabController.addListener(() {
+      _selectedIndexNotifier.value = _tabController.index;
+    });
     loadingSchedule = false;
     setState(() {});
   }
@@ -101,7 +138,7 @@ class _TimelineTabState extends State<TimelineTab>
     return Container(
       margin: const EdgeInsets.all(SpacingValues.m),
       child: TabBarView(
-        controller: _controller,
+        controller: _tabController,
         children: schedules.map(
           (Schedule schedule) {
             return ListSession(schedule: schedule);
@@ -113,7 +150,11 @@ class _TimelineTabState extends State<TimelineTab>
 
   @override
   void dispose() {
-    _controller.dispose();
+    // ignore: invalid_use_of_protected_member
+    if (_tabController.hasListeners) {
+      _tabController.removeListener(_tabIndexChangedListener);
+    }
+    _tabController.dispose();
     super.dispose();
   }
 }
