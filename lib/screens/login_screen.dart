@@ -35,8 +35,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AttendeesProvider attendeesProvider = AttendeesProvider();
-
   bool loginInProgress = false;
 
   @override
@@ -274,6 +272,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _setUser(Attendees attendees) {
+    final attendeesProvider =
+        Provider.of<AttendeesProvider>(context, listen: false);
     attendeesProvider.setCurrentUser(attendees);
   }
 
