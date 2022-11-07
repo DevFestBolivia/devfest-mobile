@@ -135,7 +135,7 @@ class MyApp extends StatelessWidget {
               startTime: null,
               endTime: null,
             ),
-        Routes.CAMERA: (BuildContext context) => const CameraScreen(),
+        // Routes.CAMERA: (BuildContext context) => const CameraScreen(),
         Routes.PROFILE: (BuildContext _) => const ProfileScreen(),
         Routes.PLACES: (BuildContext _) => const PlacesScreen(),
         Routes.GDG: (BuildContext _) => const GoogleDeveloperGroupsScreen(),
