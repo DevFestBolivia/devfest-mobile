@@ -1,4 +1,3 @@
-import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
 import 'package:devfestbolivia/providers/schedules_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/utils/date_util.dart';
