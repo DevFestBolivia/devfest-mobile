@@ -1,113 +1,154 @@
+import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
+import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
+import 'package:devfestbolivia/providers/attendees_provider.dart';
+import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
-  final double _appBarElevation = 0.0;
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
 
-  final String _appBarTitle = 'PERFIL';
+class _ProfileScreenState extends State<ProfileScreen> {
+  final double _appBarElevation = 0.0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: false,
-      body: NestedScrollView(
-        headerSliverBuilder: (context, isScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              floating: true,
-              backgroundColor: DevFestColors.primary,
-              elevation: _appBarElevation,
-              centerTitle: true,
-              title: Text(
-                _appBarTitle,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: DevFestColors.primaryLight,
-                    ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.edit_outlined,
-                    color: DevFestColors.primaryLight,
-                  ),
-                )
-              ],
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _Header(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingValues.m,
-                    ),
-                    child: _ProfileInfo(),
-                  )
-                ],
-              ),
-            )
-          ];
-        },
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpacingValues.m),
-          child: _Friends(),
-        ),
-      ),
-    );
+    final attendeesProvider =
+        Provider.of<AttendeesProvider>(context, listen: false);
 
-    return Scaffold(
-      extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        backgroundColor: DevFestColors.primary,
-        elevation: _appBarElevation,
-        centerTitle: true,
-        title: Text(
-          _appBarTitle,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: DevFestColors.primaryLight,
-              ),
+    return ChangeNotifierProvider<ProfileProvider>(
+      create: (_) => ProfileProvider(
+        profileRepository: ProfileRepositoryImpl(
+          profileFirestore: ProfileFirestore(),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.edit_outlined,
-              color: DevFestColors.primaryLight,
-            ),
-          )
-        ],
+        attendee: attendeesProvider.currentUser!,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const _Header(),
-            const SizedBox(
-              height: 16,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(SpacingValues.m),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _ProfileInfo(),
-                  SizedBox(
-                    height: SpacingValues.xxl,
+      child: Builder(builder: (context) {
+        return Scaffold(
+          extendBodyBehindAppBar: false,
+          body: Consumer<ProfileProvider>(
+            builder: (context, profileProvider, child) {
+              if (profileProvider.state == ProfileState.loading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (profileProvider.state == ProfileState.loaded) {
+                return NestedScrollView(
+                  headerSliverBuilder: (context, isScrolled) {
+                    return <Widget>[
+                      SliverAppBar(
+                        floating: true,
+                        backgroundColor: DevFestColors.primary,
+                        elevation: _appBarElevation,
+                        centerTitle: true,
+                        title: Text(
+                          TextStrings.profile.toUpperCase(),
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: DevFestColors.primaryLight,
+                                  ),
+                        ),
+                        actions: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.edit_outlined,
+                              color: DevFestColors.primaryLight,
+                            ),
+                          )
+                        ],
+                      ),
+                      SliverToBoxAdapter(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _Header(),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingValues.m,
+                              ),
+                              child: _ProfileInfo(),
+                            )
+                          ],
+                        ),
+                      )
+                    ];
+                  },
+                  body: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: SpacingValues.m),
+                    child: _Friends(),
                   ),
-                  _Friends(),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                );
+              }
+
+              if (profileProvider.state == ProfileState.failure) {
+                return const Center(
+                  child: Text(TextStrings.problemLoadingProfile),
+                );
+              }
+
+              return NestedScrollView(
+                headerSliverBuilder: (context, isScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      floating: true,
+                      backgroundColor: DevFestColors.primary,
+                      elevation: _appBarElevation,
+                      centerTitle: true,
+                      title: Text(
+                        TextStrings.profile.toUpperCase(),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: DevFestColors.primaryLight,
+                            ),
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.edit_outlined,
+                            color: DevFestColors.primaryLight,
+                          ),
+                        )
+                      ],
+                    ),
+                    SliverToBoxAdapter(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _Header(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingValues.m,
+                            ),
+                            child: _ProfileInfo(),
+                          )
+                        ],
+                      ),
+                    )
+                  ];
+                },
+                body: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: SpacingValues.m),
+                  child: _Friends(),
+                ),
+              );
+            },
+          ),
+        );
+      }),
     );
   }
 }

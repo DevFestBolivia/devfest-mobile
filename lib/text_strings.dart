@@ -55,4 +55,6 @@ class TextStrings {
   static const String goToPage = 'Ir a la página';
   static const String gdgsOnBolivia = 'GDGs en Bolivia';
   static const String profileQR = 'QR DE PERFIL';
+  static const String problemLoadingProfile =
+      'Hubo un problema cargando el perfil';
 }
