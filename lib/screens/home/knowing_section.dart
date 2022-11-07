@@ -1,6 +1,5 @@
 import 'package:devfestbolivia/constants/assets_path.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
-import 'package:devfestbolivia/widgets/cards/knowing_card.dart';
 import 'package:devfestbolivia/widgets/main_text.dart';
 import 'package:devfestbolivia/widgets/svg_image.dart';
 import 'package:flutter/material.dart';

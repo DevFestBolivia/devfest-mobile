@@ -3,15 +3,24 @@ import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
 import 'package:devfestbolivia/firebase/schedule/schedules_firestore.dart';
 
 class ScheduleRepositoryImpl implements ScheduleRepository {
-  final SchedulesFirestore schedulesFirestore = SchedulesFirestore();
+  ScheduleRepositoryImpl({
+    required SchedulesFirestore schedulesFirestore,
+  }) : _schedulesFirestore = schedulesFirestore;
+
+  final SchedulesFirestore _schedulesFirestore;
 
   @override
-  Stream<List<Schedule>> getAllSchedule() {
-    return schedulesFirestore.getAllSchedules();
+  Stream<List<Schedule>> getAllScheduleStream() {
+    return _schedulesFirestore.getAllSchedules();
+  }
+
+  @override
+  Future<List<Schedule>> getAllSchedule() {
+    return _schedulesFirestore.getAllSchedulesFuture();
   }
 
   @override
   Future<List<Schedule>> getScheduleByDay() {
-    return schedulesFirestore.getAllSchedulesFuture();
+    return _schedulesFirestore.getAllSchedulesFuture();
   }
 }

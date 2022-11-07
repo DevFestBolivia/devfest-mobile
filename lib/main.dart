@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -105,6 +106,7 @@ class MyApp extends StatelessWidget {
               endTime: null,
             ),
         Routes.CAMERA: (BuildContext context) => const CameraScreen(),
+        Routes.PROFILE: (BuildContext _) => const ProfileScreen(),
       },
     );
   }
