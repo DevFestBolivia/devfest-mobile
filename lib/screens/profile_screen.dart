@@ -1,5 +1,6 @@
 import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
 import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
+import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
@@ -31,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           profileFirestore: ProfileFirestore(),
         ),
         attendee: attendeesProvider.currentUser!,
-      ),
+      )..initProfile(),
       child: Builder(builder: (context) {
         return Scaffold(
           extendBodyBehindAppBar: false,
@@ -44,6 +45,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
 
               if (profileProvider.state == ProfileState.loaded) {
+                final profile = profileProvider.profile;
+
                 return NestedScrollView(
                   headerSliverBuilder: (context, isScrolled) {
                     return <Widget>[
@@ -78,7 +81,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               padding: const EdgeInsets.symmetric(
                                 horizontal: SpacingValues.m,
                               ),
-                              child: _ProfileInfo(),
+                              child: _ProfileInfo(
+                                profile: profile,
+                              ),
                             )
                           ],
                         ),
@@ -99,52 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               }
 
-              return NestedScrollView(
-                headerSliverBuilder: (context, isScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      floating: true,
-                      backgroundColor: DevFestColors.primary,
-                      elevation: _appBarElevation,
-                      centerTitle: true,
-                      title: Text(
-                        TextStrings.profile.toUpperCase(),
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: DevFestColors.primaryLight,
-                            ),
-                      ),
-                      actions: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.edit_outlined,
-                            color: DevFestColors.primaryLight,
-                          ),
-                        )
-                      ],
-                    ),
-                    SliverToBoxAdapter(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _Header(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingValues.m,
-                            ),
-                            child: _ProfileInfo(),
-                          )
-                        ],
-                      ),
-                    )
-                  ];
-                },
-                body: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: SpacingValues.m),
-                  child: _Friends(),
-                ),
-              );
+              return Container();
             },
           ),
         );
@@ -190,7 +150,11 @@ class _Header extends StatelessWidget {
 }
 
 class _ProfileInfo extends StatelessWidget {
-  const _ProfileInfo();
+  const _ProfileInfo({
+    required this.profile,
+  });
+
+  final Profile profile;
 
   @override
   Widget build(BuildContext context) {
@@ -209,15 +173,11 @@ class _ProfileInfo extends StatelessWidget {
   }
 
   Widget _bio(BuildContext context) {
-    final dummyName = 'Tatiana Arcand';
-    final dummyBio =
-        'Ingeniera en Software, GDE en Google Assistant, desarrolladore Full Stack en IBM, he trabajado en varios proyectos muy conocidos como Netflix, Watson, Google Pay, entre otros.';
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          dummyName,
+          profile.fullName,
           style: Theme.of(context).textTheme.titleSmall,
         ),
         Container(
@@ -226,29 +186,37 @@ class _ProfileInfo extends StatelessWidget {
           color: DevFestColors.shadow,
         ),
         VerticalSpacing.xs,
-        Text(dummyBio),
+        profile.bio.isEmpty
+            ? const Text(
+                TextStrings.completeYourBio,
+              )
+            : Text(profile.bio),
       ],
     );
   }
 
   Widget _actions(BuildContext context) {
-    final profileQRLabel = 'QR DE PERFIL';
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
           onPressed: () {},
-          child: Text(
-            profileQRLabel,
+          child: const Text(
+            TextStrings.profileQR,
           ),
         ),
-        HorizontalSpacing.xxl,
-        SvgPicture.asset('assets/svg/logo_facebook.svg'),
-        HorizontalSpacing.s,
-        SvgPicture.asset('assets/svg/logo_instagram.svg'),
-        HorizontalSpacing.s,
-        SvgPicture.asset('assets/svg/logo_twitter.svg'),
+        if (profile.facebookUrl.isNotEmpty) ...[
+          HorizontalSpacing.xxl,
+          SvgPicture.asset('assets/svg/logo_facebook.svg'),
+        ],
+        if (profile.instagramUrl.isNotEmpty) ...[
+          HorizontalSpacing.s,
+          SvgPicture.asset('assets/svg/logo_instagram.svg'),
+        ],
+        if (profile.twitterUrl.isNotEmpty) ...[
+          HorizontalSpacing.s,
+          SvgPicture.asset('assets/svg/logo_twitter.svg'),
+        ]
       ],
     );
   }

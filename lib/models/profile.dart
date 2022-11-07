@@ -35,12 +35,11 @@ class Profile {
       instagramUrl: json['instagramUrl'],
       twitterUrl: json['twitterUrl'],
       score: json['score'],
-      qrDynamicScans: (json['qrDynamicScans'] ?? [])
-          .map((qrDynamicScanJson) => QrDynamicScan.fromJson(qrDynamicScanJson))
-          .toList(),
-      friends: (json['friends'] ?? [])
-          .map((friendJson) => Friend.fromJson(friendJson))
-          .toList(),
+      qrDynamicScans: List<QrDynamicScan>.from((json['qrDynamicScans'] ?? [])
+          .map((qrDynamicScanJson) =>
+              QrDynamicScan.fromJson(qrDynamicScanJson))),
+      friends: List<Friend>.from((json['friends'] ?? [])
+          .map((friendJson) => Friend.fromJson(friendJson))),
     );
   }
 

@@ -27,7 +27,7 @@ class ProfileProvider extends ChangeNotifier {
     try {
       state = ProfileState.loading;
       notifyListeners();
-      await _profileRepository.getProfileByAttendee(attendee);
+      profile = await _profileRepository.getProfileByAttendee(attendee);
       state = ProfileState.loaded;
       notifyListeners();
     } catch (e) {

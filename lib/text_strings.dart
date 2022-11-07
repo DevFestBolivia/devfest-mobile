@@ -57,4 +57,6 @@ class TextStrings {
   static const String profileQR = 'QR DE PERFIL';
   static const String problemLoadingProfile =
       'Hubo un problema cargando el perfil';
+  static const String completeYourBio =
+      '¡Completa tu biografía para que te conozca más gente!';
 }
