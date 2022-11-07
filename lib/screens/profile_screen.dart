@@ -142,8 +142,7 @@ class _Header extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: CircleAvatar(
               radius: _imageRadius,
-              backgroundImage:
-                  const AssetImage('assets/images/dummy_profile.png'),
+              backgroundColor: Colors.grey,
             ),
           ),
         )

@@ -1,5 +1,6 @@
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
+import 'package:devfestbolivia/providers/scanner_provider.dart';
 import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
@@ -47,6 +48,9 @@ Future<void> main() async {
             attendeesRepository: AttendeesRepositoryImpl(),
             validatorUtil: ValidatorUtil(),
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ScannerProvider(),
         )
       ],
       child: const MyApp(),
