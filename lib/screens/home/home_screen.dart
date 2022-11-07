@@ -1,5 +1,9 @@
+import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
+import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
 import 'package:devfestbolivia/firebase/schedule/schedule_repository_impl.dart';
 import 'package:devfestbolivia/firebase/schedule/schedules_firestore.dart';
+import 'package:devfestbolivia/providers/attendees_provider.dart';
+import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/providers/schedules_provider.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final attendeesProvider =
+        Provider.of<AttendeesProvider>(context, listen: false);
+
     return Scaffold(
       body: MultiProvider(
         providers: [
@@ -48,6 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 schedulesFirestore: SchedulesFirestore(),
               ),
             ),
+          ),
+          ChangeNotifierProvider<ProfileProvider>(
+            create: (_) => ProfileProvider(
+              profileRepository: ProfileRepositoryImpl(
+                profileFirestore: ProfileFirestore(),
+              ),
+              attendee: attendeesProvider.currentUser!,
+            )..initProfile(),
           )
         ],
         child: Center(

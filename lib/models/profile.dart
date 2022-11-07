@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devfestbolivia/models/attendees.dart';
 
 class Profile {
@@ -12,6 +13,7 @@ class Profile {
     required this.score,
     required this.qrDynamicScans,
     required this.friends,
+    this.reference,
   });
 
   final String uid;
@@ -21,9 +23,31 @@ class Profile {
   final String facebookUrl;
   final String instagramUrl;
   final String twitterUrl;
-  final double score;
+  double score;
   final List<QrDynamicScan> qrDynamicScans;
   final List<Friend> friends;
+  final DocumentReference? reference;
+
+  factory Profile.fromSnapshot(DocumentSnapshot snapshot) {
+    final reference = snapshot.reference;
+    final json = snapshot.data() as Map<String, dynamic>;
+    return Profile(
+      uid: json['uid'],
+      imageUrl: json['imageUrl'],
+      fullName: json['fullName'],
+      bio: json['bio'],
+      facebookUrl: json['facebookUrl'],
+      instagramUrl: json['instagramUrl'],
+      twitterUrl: json['twitterUrl'],
+      score: json['score'],
+      qrDynamicScans: List<QrDynamicScan>.from((json['qrDynamicScans'] ?? [])
+          .map((qrDynamicScanJson) =>
+              QrDynamicScan.fromJson(qrDynamicScanJson))),
+      friends: List<Friend>.from((json['friends'] ?? [])
+          .map((friendJson) => Friend.fromJson(friendJson))),
+      reference: reference,
+    );
+  }
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(

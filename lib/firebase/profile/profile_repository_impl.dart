@@ -28,4 +28,13 @@ class ProfileRepositoryImpl implements ProfileRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> updateProfileData(Profile profile) async {
+    try {
+      await _profileFirestore.updateProfile(profile);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:devfestbolivia/firebase/profile/profile_repository.dart';
 import 'package:devfestbolivia/models/attendees.dart';
+import 'package:devfestbolivia/models/dynamic.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -36,5 +37,22 @@ class ProfileProvider extends ChangeNotifier {
       notifyListeners();
       rethrow;
     }
+  }
+
+  void addDynamic(DynamicQRResult result) async {
+    final qrDynamicScan = QrDynamicScan(
+      value: result.value,
+      score: result.score,
+    );
+
+    profile.qrDynamicScans.add(qrDynamicScan);
+    profile.score = profile.score + result.score;
+    await _profileRepository.updateProfileData(profile);
+  }
+
+  void addFriend(Friend friend) async {
+    profile.friends.add(friend);
+    profile.score = profile.score + 10.0;
+    await _profileRepository.updateProfileData(profile);
   }
 }

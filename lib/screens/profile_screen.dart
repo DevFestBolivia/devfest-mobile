@@ -24,95 +24,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final attendeesProvider =
-        Provider.of<AttendeesProvider>(context, listen: false);
+    return Builder(builder: (context) {
+      return Scaffold(
+        extendBodyBehindAppBar: false,
+        body: Consumer<ProfileProvider>(
+          builder: (context, profileProvider, child) {
+            if (profileProvider.state == ProfileState.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-    return ChangeNotifierProvider<ProfileProvider>(
-      create: (_) => ProfileProvider(
-        profileRepository: ProfileRepositoryImpl(
-          profileFirestore: ProfileFirestore(),
-        ),
-        attendee: attendeesProvider.currentUser!,
-      )..initProfile(),
-      child: Builder(builder: (context) {
-        return Scaffold(
-          extendBodyBehindAppBar: false,
-          body: Consumer<ProfileProvider>(
-            builder: (context, profileProvider, child) {
-              if (profileProvider.state == ProfileState.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+            if (profileProvider.state == ProfileState.loaded) {
+              final profile = profileProvider.profile;
 
-              if (profileProvider.state == ProfileState.loaded) {
-                final profile = profileProvider.profile;
-
-                return NestedScrollView(
-                  headerSliverBuilder: (context, isScrolled) {
-                    return <Widget>[
-                      SliverAppBar(
-                        floating: true,
-                        backgroundColor: DevFestColors.primary,
-                        elevation: _appBarElevation,
-                        centerTitle: true,
-                        title: Text(
-                          TextStrings.profile.toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: DevFestColors.primaryLight,
-                                  ),
-                        ),
-                        actions: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.edit_outlined,
+              return NestedScrollView(
+                headerSliverBuilder: (context, isScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      floating: true,
+                      backgroundColor: DevFestColors.primary,
+                      elevation: _appBarElevation,
+                      centerTitle: true,
+                      title: Text(
+                        TextStrings.profile.toUpperCase(),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: DevFestColors.primaryLight,
+                            ),
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.edit_outlined,
+                            color: DevFestColors.primaryLight,
+                          ),
+                        )
+                      ],
+                    ),
+                    SliverToBoxAdapter(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _Header(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingValues.m,
+                            ),
+                            child: _ProfileInfo(
+                              profile: profile,
                             ),
                           )
                         ],
                       ),
-                      SliverToBoxAdapter(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _Header(),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: SpacingValues.m,
-                              ),
-                              child: _ProfileInfo(
-                                profile: profile,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ];
-                  },
-                  body: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: SpacingValues.m),
-                    child: _Friends(
-                      friends: profile.friends,
-                    ),
+                    )
+                  ];
+                },
+                body: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: SpacingValues.m),
+                  child: _Friends(
+                    friends: profile.friends,
                   ),
-                );
-              }
+                ),
+              );
+            }
 
-              if (profileProvider.state == ProfileState.failure) {
-                return const Center(
-                  child: Text(TextStrings.problemLoadingProfile),
-                );
-              }
+            if (profileProvider.state == ProfileState.failure) {
+              return const Center(
+                child: Text(TextStrings.problemLoadingProfile),
+              );
+            }
 
-              return Container();
-            },
-          ),
-        );
-      }),
-    );
+            return Container();
+          },
+        ),
+      );
+    });
   }
 }
 

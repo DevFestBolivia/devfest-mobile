@@ -1,5 +1,6 @@
 import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
 import 'package:devfestbolivia/models/schedule.dart';
+import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 
 enum SchedulesState {

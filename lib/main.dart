@@ -49,9 +49,6 @@ Future<void> main() async {
             validatorUtil: ValidatorUtil(),
           ),
         ),
-        ChangeNotifierProvider(
-          create: (_) => ScannerProvider(),
-        )
       ],
       child: const MyApp(),
     ),

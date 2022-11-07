@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:devfestbolivia/models/dynamic.dart';
 import 'package:devfestbolivia/models/profile.dart';
+import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
@@ -13,6 +14,19 @@ enum ScannerState {
 }
 
 class ScannerProvider extends ChangeNotifier {
+  ScannerProvider({
+    required ProfileProvider profileProvider,
+  }) : _profileProvider = profileProvider;
+
+  final ProfileProvider _profileProvider;
+
+  void reset() {
+    _scannedValue = null;
+    friendResult = null;
+    dynamicResult = null;
+    state = ScannerState.notScannedYet;
+  }
+
   String? _scannedValue;
 
   Friend? friendResult;
@@ -28,11 +42,10 @@ class ScannerProvider extends ChangeNotifier {
       }
       final Map<String, dynamic> decodedValue = json.decode(_scannedValue!);
 
-      print(decodedValue['type']);
-
       if (decodedValue['type'] == 'friend') {
         state = ScannerState.scannedFriend;
         friendResult = Friend.fromJson(decodedValue['value']);
+        _profileProvider.addFriend(friendResult!);
         notifyListeners();
         return;
       }
@@ -40,6 +53,7 @@ class ScannerProvider extends ChangeNotifier {
       if (decodedValue['type'] == 'dynamic') {
         state = ScannerState.scannedDynamic;
         dynamicResult = DynamicQRResult.fromJson(decodedValue);
+        _profileProvider.addDynamic(dynamicResult!);
         notifyListeners();
         return;
       }

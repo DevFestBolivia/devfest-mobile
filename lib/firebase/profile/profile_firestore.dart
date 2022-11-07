@@ -13,7 +13,7 @@ class ProfileFirestore extends CloudFireStore {
 
       final profiles = querySnapshot.docs
           .map(
-            (doc) => Profile.fromJson(doc.data()),
+            (doc) => Profile.fromSnapshot(doc),
           )
           .toList();
 
@@ -31,6 +31,14 @@ class ProfileFirestore extends CloudFireStore {
       final newProfile = Profile.fromAttendee(attendee);
       await db.collection(CollectionName.PROFILES).add(newProfile.toJson());
       return;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateProfile(Profile profile) async {
+    try {
+      await profile.reference?.update(profile.toJson());
     } catch (e) {
       rethrow;
     }
