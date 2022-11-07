@@ -45,12 +45,15 @@ class _SessionCardState extends State<SessionCard> {
   }
 
   Widget renderSessionCard(Session session) {
-    return InkWell(
-      onTap: () => goToDetail(session),
-      child: TalksCard(
-        session: session,
-        startTime: widget.startTime,
-        endTime: widget.endTime,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: InkWell(
+        onTap: () => goToDetail(session),
+        child: TalksCard(
+          session: session,
+          startTime: widget.startTime,
+          endTime: widget.endTime,
+        ),
       ),
     );
   }

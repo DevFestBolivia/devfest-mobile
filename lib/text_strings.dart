@@ -29,7 +29,7 @@ class TextStrings {
   static const String profile = 'Perfil';
   static const String home = 'Home';
   static const String logOut = 'Cerrar Sesión';
-  static const String day = 'Día';
+  static const String day = 'DÍA';
   static const String googleDeveloperGroups = 'Google Developer Groups';
   static const String googleDeveloperGroupsDescription =
       'Conoce más sobre las comunidades Google Developer Groups';

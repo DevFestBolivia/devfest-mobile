@@ -95,24 +95,25 @@ class _SessionCardDetailState extends State<SessionCardDetail> {
 
   Widget renderTitle() {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.40,
+      width: MediaQuery.of(context).size.width * 0.45,
       child: MainText(
-        text: widget.session.title ?? ' - ',
+        text: widget.session.title ?? '',
         colorText: DevFestColors.textBlack,
         fountWeight: FontWeight.w600,
         fontSize: FontSizeValues.input,
-        expandableText: true,
+        // expandableText: true,
       ),
     );
   }
 
   Widget renderSpeakerName(Speaker? speaker) {
     return MainText(
-      text: speaker != null && speaker.name != null ? speaker.name! : ' - ',
+      text: speaker != null && speaker.name != null ? speaker.name! : '',
       colorText: DevFestColors.labelInput,
-      fountWeight: FontWeight.w600,
+      fountWeight: FontWeight.w400,
       fontSize: FontSizeValues.scheduleDetail,
     );
+    
   }
 
   Widget renderAvatar(String photoUrl) {
@@ -124,13 +125,10 @@ class _SessionCardDetailState extends State<SessionCardDetail> {
   }
 
   Widget renderIconAvatar() {
-    return Container(
-      margin: const EdgeInsets.only(right: 10, left: 0),
-      child: const Icon(
-        Icons.account_circle_sharp,
-        size: 60,
-        color: DevFestColors.primary,
-      ),
+    return const Icon(
+      Icons.account_circle_sharp,
+      size: 60,
+      color: DevFestColors.primary,
     );
   }
 }

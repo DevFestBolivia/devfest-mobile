@@ -35,25 +35,21 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     return Scaffold(
       appBar: renderAppBar(),
       body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height,
-          ),
-          child: Center(
-            child: Column(
-              children: [
-                VerticalSpacing.l,
-                renderTitle(),
-                VerticalSpacing.xs,
-                renderStartTime(),
-                VerticalSpacing.xs,
-                renderDetail(),
-                VerticalSpacing.xs,
-                _renderTitleSpeaker(),
-                const SectionDivider(height: 10, indent: 20),
-                Expanded(child: renderSpeakerInfo()),
-              ],
-            ),
+        child: Center(
+          child: Column(
+            children: [
+              VerticalSpacing.l,
+              renderTitle(),
+              VerticalSpacing.xs,
+              renderStartTime(),
+              VerticalSpacing.xs,
+              renderDetail(),
+              const SizedBox(height: 30),
+              _renderTitleSpeaker(),
+              const SectionDivider(height: 10, indent: 20),
+              renderSpeakerInfo(),
+              const SizedBox(height: 30),
+            ],
           ),
         ),
       ),
@@ -62,6 +58,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 
   PreferredSizeWidget renderAppBar() {
     return AppBar(
+      centerTitle: true,
       title: Text(
         TextStrings.details.toUpperCase(),
         style: const TextStyle(
@@ -115,15 +112,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       return Container();
     }
 
-    return SizedBox(
-      width: double.infinity,
-      child: ListView.builder(
-        itemCount: widget.session!.speakers!.length,
-        itemBuilder: (BuildContext context, int index) {
-          return SpeakerInfo(speakerId: widget.session!.speakers![index]);
-        },
-      ),
-    );
+    return SpeakerInfo(speakerId: widget.session!.speakers!.first);
   }
 
   Widget _renderTitleSpeaker() {

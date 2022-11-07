@@ -33,7 +33,7 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
     }
 
     return Container(
-      width: 200,
+      // width: 200,
       margin: const EdgeInsets.only(
         left: SpacingValues.xxl,
         right: SpacingValues.xxl,
@@ -78,6 +78,7 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
       children: [
         VerticalSpacing.xxs,
         renderTitleSpeaker(speaker),
+        
         VerticalSpacing.xs,
         renderBio(speaker),
         VerticalSpacing.xs,
@@ -115,6 +116,7 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
       text: speaker!.bio!,
       colorText: DevFestColors.textBlack,
     );
+    
   }
 
   Widget renderAvatar(String photoUrl) {
@@ -130,7 +132,7 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
       width: double.infinity,
       child: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             for (SocialLink social in speaker!.socials!) renderSocialLink(social),
           ],
@@ -140,11 +142,14 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
   }
 
   Widget renderSocialLink(SocialLink socialLink) {
-    return InkWell(
-      onTap: () => _launchUrl(socialLink.link),
-      child: Icon(
-        getSocialIcon(socialLink),
-        size: CardsSizeValues.day,
+    return Padding(
+      padding: const EdgeInsets.only(left: 15,),
+      child: InkWell(
+        onTap: () => _launchUrl(socialLink.link),
+        child: Icon(
+          getSocialIcon(socialLink),
+          size: 48,
+        ),
       ),
     );
   }
