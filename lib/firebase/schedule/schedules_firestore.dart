@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devfestbolivia/firebase/cloud_firestore.dart';
 import 'package:devfestbolivia/firebase/collection_name.dart';
 import 'package:devfestbolivia/models/schedule.dart';

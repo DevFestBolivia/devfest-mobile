@@ -55,9 +55,15 @@ class MyApp extends StatelessWidget {
           bodySmall:
               GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w400),
           headlineLarge: GoogleFonts.poppins(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              color: DevFestColors.primary),
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: DevFestColors.primary,
+          ),
+          headlineMedium: GoogleFonts.raleway(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w600,
+            color: DevFestColors.textBlack,
+          ),
           headlineSmall:
               GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
         ),

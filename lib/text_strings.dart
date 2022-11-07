@@ -17,8 +17,8 @@ class TextStrings {
   static const String message = 'Message';
   static const String anErrorOccurredTryAgain =
       'An error occurred, please try again';
-  static const String ok = 'OK';
   static const String enjoyThe = 'Disfruta del';
+  static const String ok = 'OK';
   static const String devFest = 'DevFest 2022';
   static const String messageHome =
       'Comparte, participa y encuentra toda la información que necesitas para disfrutar del evento al maximo!';
@@ -31,12 +31,14 @@ class TextStrings {
   static const String logOut = 'Cerrar Sesión';
   static const String day = 'Día';
   static const String googleDeveloperGroups = 'Google Developer Groups';
-  static const String googleDeveloperGroupsDescription = 'Conoce más sobre las comunidades Google Developer Groups';
+  static const String googleDeveloperGroupsDescription =
+      'Conoce más sobre las comunidades Google Developer Groups';
   static const String placesInCochabamba = 'Lugares en Cochabamba';
   static const String placesInCochambaDescription =
       'Descubre los lugares turisticos que puedes visitar en Cochabamba';
   static const String pleaseEnterYourEmail = 'Por favor ingrese su correo';
-  static const String pleaseEnterYourPassword = 'Por favor ingrese su contraseña';
+  static const String pleaseEnterYourPassword =
+      'Por favor ingrese su contraseña';
   static const String userNotFound = 'Usuario no encontrado';
   static const String wrongPassword = 'Contraseña incorrecta';
   static const String info = 'Información';

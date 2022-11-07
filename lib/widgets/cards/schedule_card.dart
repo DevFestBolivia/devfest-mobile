@@ -71,7 +71,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
           fontSize: FontSizeValues.input,
         ),
         MainText(
-          text: widget.schedule.tracks[widget.index].title ?? ' - ',
+          text: widget.schedule.description,
           colorText: DevFestColors.labelInput,
           fountWeight: FontWeight.w600,
           fontSize: FontSizeValues.scheduleDetail,

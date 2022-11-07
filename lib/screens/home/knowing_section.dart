@@ -1,5 +1,8 @@
 import 'package:devfestbolivia/constants/assets_path.dart';
+import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/widgets/cards/knowing_card.dart';
+import 'package:devfestbolivia/widgets/main_text.dart';
+import 'package:devfestbolivia/widgets/svg_image.dart';
 import 'package:flutter/material.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
@@ -32,23 +35,89 @@ class _KnowingSectionState extends State<KnowingSection> {
   }
 
   Widget renderItems() {
-    return Expanded(
-      child: ListView(
+    return Column(
+      children: const [
+        _KnowingCard(
+          title: TextStrings.googleDeveloperGroups,
+          imagePath: AssetsPath.googleImage,
+          description: TextStrings.googleDeveloperGroupsDescription,
+          // onPressed: () {},
+        ),
+        _KnowingCard(
+          title: TextStrings.placesInCochabamba,
+          imagePath: AssetsPath.locationOn,
+          // onPressed: () {},
+          description: TextStrings.placesInCochambaDescription,
+        ),
+      ],
+    );
+  }
+}
+
+class _KnowingCard extends StatelessWidget {
+  const _KnowingCard({
+    required this.imagePath,
+    required this.title,
+    required this.description,
+    // ignore: unused_element
+    this.widthImage = 30.0,
+    // ignore: unused_element
+    this.heightImage = 30.0,
+  });
+
+  final String imagePath;
+  final double widthImage;
+  final double heightImage;
+  final String title;
+  final String description;
+
+  final _imageWidthSection = 120.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Row(
         children: [
-          KnowingCard(
-            title: TextStrings.googleDeveloperGroups,
-            imagePath: AssetsPath.googleImage,
-            description: TextStrings.googleDeveloperGroupsDescription,
-            onPressed: () {},
+          Container(
+            width: _imageWidthSection,
+            padding: const EdgeInsets.symmetric(
+              vertical: SpacingValues.xl * 2,
+              horizontal: SpacingValues.l * 2,
+            ),
+            child: SvgImage(
+              pathImage: imagePath,
+              width: widthImage,
+              height: heightImage,
+            ),
           ),
-          KnowingCard(
-            title: TextStrings.placesInCochabamba,
-            imagePath: AssetsPath.locationOn,
-            onPressed: () {},
-            description: TextStrings.placesInCochambaDescription,
-            widthImage: 50,
-            heightImage: 50,
-          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(
+                right: SpacingValues.xl,
+                top: SpacingValues.l * 2,
+                bottom: SpacingValues.l * 2,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MainText(
+                    text: title,
+                    colorText: DevFestColors.textBlack,
+                    fountWeight: FontWeight.w600,
+                    fontSize: FontSizeValues.input,
+                  ),
+                  VerticalSpacing.xxs,
+                  MainText(
+                    text: description,
+                    colorText: DevFestColors.labelInput,
+                    fountWeight: FontWeight.w600,
+                    fontSize: FontSizeValues.scheduleDetail,
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

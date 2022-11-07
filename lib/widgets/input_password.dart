@@ -34,7 +34,7 @@ class _InputPasswordState extends State<InputPassword> {
 
   @override
   void initState() {
-    _passwordVisible = true;
+    _passwordVisible = false;
     super.initState();
   }
 

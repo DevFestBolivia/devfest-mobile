@@ -1,9 +1,8 @@
+import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/style/spacing.dart';
-import 'package:devfestbolivia/widgets/title_text.dart';
 import 'package:devfestbolivia/widgets/svg_image.dart';
-import 'package:devfestbolivia/widgets/message_text.dart';
 import 'package:devfestbolivia/constants/assets_path.dart';
 import 'package:devfestbolivia/screens/home/knowing_section.dart';
 import 'package:devfestbolivia/screens/home/timeline_section.dart';
@@ -28,12 +27,43 @@ class _HomeTabState extends State<HomeTab> {
             children: [
               renderIcon(),
               VerticalSpacing.xl,
-              const TitleText(text: TextStrings.enjoyThe),
-              const TitleText(text: TextStrings.devFest),
-              VerticalSpacing.l,
-              const MessageText(text: TextStrings.messageHome),
-              renderTimeLineSection(),
-              renderKnowingSection(),
+              Text(
+                TextStrings.enjoyThe,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Text(
+                TextStrings.devFest,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              VerticalSpacing.xl,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingValues.l * 2,
+                ),
+                child: Text(
+                  TextStrings.messageHome,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: DevFestColors.textBlack.withOpacity(0.6),
+                      ),
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    const SizedBox(
+                      height: SpacingValues.m * 2,
+                    ),
+                    renderTimeLineSection(),
+                    const SizedBox(
+                      height: SpacingValues.xl,
+                    ),
+                    renderKnowingSection(),
+                    const SizedBox(
+                      height: SpacingValues.l * 2,
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -54,14 +84,10 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget renderTimeLineSection() {
-    return const Expanded(
-      child: TimelineSection(),
-    );
+    return const TimelineSection();
   }
 
   Widget renderKnowingSection() {
-    return const Expanded(
-      child: KnowingSection(),
-    );
+    return const KnowingSection();
   }
 }

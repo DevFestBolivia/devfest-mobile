@@ -16,12 +16,14 @@ class Schedule {
     required this.dateReadable,
     required this.timeslots,
     required this.tracks,
+    required this.description,
   });
 
   DateTime date;
   String dateReadable;
   List<Timeslot> timeslots;
   List<Track> tracks;
+  String description;
 
   factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
         date: DateTime.parse(json["date"]),
@@ -29,7 +31,10 @@ class Schedule {
         timeslots: List<Timeslot>.from(
           json["timeslots"].map((x) => Timeslot.fromJson(x)),
         ),
-        tracks: List<Track>.from(json["tracks"].map((x) => Track.fromJson(x))),
+        tracks: List<Track>.from(
+          json["tracks"].map((x) => Track.fromJson(x)),
+        ),
+        description: json['description'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,6 +43,7 @@ class Schedule {
         "dateReadable": dateReadable,
         "timeslots": List<dynamic>.from(timeslots.map((x) => x.toJson())),
         "tracks": List<dynamic>.from(tracks.map((x) => x.toJson())),
+        'description': description,
       };
 }
 

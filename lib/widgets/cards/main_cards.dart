@@ -18,12 +18,15 @@ class MainCards extends StatefulWidget {
 }
 
 class _MainCardsState extends State<MainCards> {
+  final _mainCardElevation = 5.0;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 123,
       child: Card(
+        elevation: _mainCardElevation,
         child: Row(
           children: [
             renderFirstPart(),
