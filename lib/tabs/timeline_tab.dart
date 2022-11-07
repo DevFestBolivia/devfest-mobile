@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/widgets/list_sessions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -36,23 +37,19 @@ class _TimelineTabState extends State<TimelineTab>
   Widget build(BuildContext context) {
     loadReferences();
     return Scaffold(
-      appBar: loadingSchedule ? basicAppBar() : appBarWithTabBar(),
+      appBar: AppBar(
+        backgroundColor: DevFestColors.primary,
+        centerTitle: true,
+        title: Text(
+          TextStrings.timeline.toUpperCase(),
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: DevFestColors.primaryLight,
+              ),
+        ),
+        bottom: loadingSchedule ? null : renderTabBar(),
+        automaticallyImplyLeading: false,
+      ),
       body: loadingSchedule ? renderLoading() : renderTabBarView(),
-    );
-  }
-
-  PreferredSizeWidget basicAppBar() {
-    return AppBar(
-      title: const Text(TextStrings.timeline),
-      automaticallyImplyLeading: false,
-    );
-  }
-
-  PreferredSizeWidget appBarWithTabBar() {
-    return AppBar(
-      title: const Text(TextStrings.timeline),
-      bottom: renderTabBar(),
-      automaticallyImplyLeading: false,
     );
   }
 
@@ -62,7 +59,9 @@ class _TimelineTabState extends State<TimelineTab>
       tabs: schedules.map(
         (Schedule schedule) {
           var index = schedules.indexOf(schedule);
-          return Tab(text: '${TextStrings.day} ${index + 1}');
+          return Tab(
+            text: '${TextStrings.day} ${index + 1}',
+          );
         },
       ).toList(),
     );
