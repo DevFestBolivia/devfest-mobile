@@ -8,4 +8,5 @@ class Routes {
   static const String TASK_DETAILS = 'TaskDetails';
   static const String SPLASH = 'Splash';
   static const String CAMERA = 'Camera';
+  static const String PLACES = 'Places';
 }

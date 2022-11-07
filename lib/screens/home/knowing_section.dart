@@ -1,4 +1,5 @@
 import 'package:devfestbolivia/constants/assets_path.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/widgets/main_text.dart';
 import 'package:devfestbolivia/widgets/svg_image.dart';
@@ -35,17 +36,19 @@ class _KnowingSectionState extends State<KnowingSection> {
 
   Widget renderItems() {
     return Column(
-      children: const [
+      children: [
         _KnowingCard(
           title: TextStrings.googleDeveloperGroups,
           imagePath: AssetsPath.googleImage,
           description: TextStrings.googleDeveloperGroupsDescription,
-          // onPressed: () {},
+          onPressed: () {},
         ),
         _KnowingCard(
           title: TextStrings.placesInCochabamba,
           imagePath: AssetsPath.locationOn,
-          // onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.PLACES);
+          },
           description: TextStrings.placesInCochambaDescription,
         ),
       ],
@@ -58,6 +61,7 @@ class _KnowingCard extends StatelessWidget {
     required this.imagePath,
     required this.title,
     required this.description,
+    required this.onPressed,
     // ignore: unused_element
     this.widthImage = 30.0,
     // ignore: unused_element
@@ -69,55 +73,59 @@ class _KnowingCard extends StatelessWidget {
   final double heightImage;
   final String title;
   final String description;
+  final VoidCallback onPressed;
 
   final _imageWidthSection = 120.0;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        children: [
-          Container(
-            width: _imageWidthSection,
-            padding: const EdgeInsets.symmetric(
-              vertical: SpacingValues.xl * 2,
-              horizontal: SpacingValues.l * 2,
-            ),
-            child: SvgImage(
-              pathImage: imagePath,
-              width: widthImage,
-              height: heightImage,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(
-                right: SpacingValues.xl,
-                top: SpacingValues.l * 2,
-                bottom: SpacingValues.l * 2,
+    return InkWell(
+      onTap: onPressed,
+      child: Card(
+        child: Row(
+          children: [
+            Container(
+              width: _imageWidthSection,
+              padding: const EdgeInsets.symmetric(
+                vertical: SpacingValues.xl * 2,
+                horizontal: SpacingValues.l * 2,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MainText(
-                    text: title,
-                    colorText: DevFestColors.textBlack,
-                    fountWeight: FontWeight.w600,
-                    fontSize: FontSizeValues.input,
-                  ),
-                  VerticalSpacing.xxs,
-                  MainText(
-                    text: description,
-                    colorText: DevFestColors.labelInput,
-                    fountWeight: FontWeight.w600,
-                    fontSize: FontSizeValues.scheduleDetail,
-                  ),
-                ],
+              child: SvgImage(
+                pathImage: imagePath,
+                width: widthImage,
+                height: heightImage,
               ),
             ),
-          )
-        ],
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(
+                  right: SpacingValues.xl,
+                  top: SpacingValues.l * 2,
+                  bottom: SpacingValues.l * 2,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MainText(
+                      text: title,
+                      colorText: DevFestColors.textBlack,
+                      fountWeight: FontWeight.w600,
+                      fontSize: FontSizeValues.input,
+                    ),
+                    VerticalSpacing.xxs,
+                    MainText(
+                      text: description,
+                      colorText: DevFestColors.labelInput,
+                      fountWeight: FontWeight.w600,
+                      fontSize: FontSizeValues.scheduleDetail,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

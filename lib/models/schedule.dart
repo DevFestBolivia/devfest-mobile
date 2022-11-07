@@ -3,7 +3,6 @@ import 'dart:convert';
 Schedule scheduleFromJson(String str) => Schedule.fromJson(json.decode(str));
 
 Schedule scheduleFromFirestore(String id, Map<String, dynamic> data) {
-  print('ScheduleFromFirestore: $id');
   Schedule schedule = Schedule.fromJson(data);
   return schedule;
 }

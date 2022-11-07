@@ -47,4 +47,6 @@ class TextStrings {
   static const String openCamera = 'Abrir Cámara';
   static const String details = 'Detalles';
   static const String speaker = 'Speaker';
+  static const String tourismInCochabamba = 'Turismo en Cochabamba';
+  static const String showOnMap = 'VER EN MAPA';
 }
