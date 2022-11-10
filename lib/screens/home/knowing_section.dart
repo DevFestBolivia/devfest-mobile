@@ -49,6 +49,14 @@ class _KnowingSectionState extends State<KnowingSection> {
           onPressed: () => Navigator.pushNamed(context, Routes.PLACES),
           description: TextStrings.placesInCochambaDescription,
         ),
+        _KnowingCard(
+          title: 'Sponsors',
+          imagePath: AssetsPath.locationOn,
+          onPressed: () => Navigator.pushNamed(context, Routes.SPONSORS),
+          iconInsteadOfImage: true,
+          description:
+              '!Conoce a los sponsors que apoyaron para que este evento sea posible!',
+        )
       ],
     );
   }
@@ -60,13 +68,17 @@ class _KnowingCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.onPressed,
+    this.icon = Icons.people,
     // ignore: unused_element
     this.widthImage = 30.0,
     // ignore: unused_element
     this.heightImage = 30.0,
+    this.iconInsteadOfImage = false,
   });
 
   final String imagePath;
+  final IconData icon;
+  final bool iconInsteadOfImage;
   final double widthImage;
   final double heightImage;
   final String title;
@@ -88,11 +100,16 @@ class _KnowingCard extends StatelessWidget {
                 vertical: SpacingValues.xl * 2,
                 horizontal: SpacingValues.l * 2,
               ),
-              child: SvgImage(
-                pathImage: imagePath,
-                width: widthImage,
-                height: heightImage,
-              ),
+              child: iconInsteadOfImage
+                  ? Icon(
+                      icon,
+                      size: SpacingValues.xxl * 1.5,
+                    )
+                  : SvgImage(
+                      pathImage: imagePath,
+                      width: widthImage,
+                      height: heightImage,
+                    ),
             ),
             Expanded(
               child: Container(

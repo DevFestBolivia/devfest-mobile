@@ -4,6 +4,7 @@ import 'package:devfestbolivia/providers/scanner_provider.dart';
 import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
+import 'package:devfestbolivia/screens/sponsors_screen.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:provider/provider.dart';
@@ -123,7 +124,7 @@ class MyApp extends StatelessWidget {
               GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ),
-      initialRoute: Routes.SPLASH,
+      initialRoute: Routes.HOME,
       routes: {
         Routes.SPLASH: (context) => const SplashScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
@@ -140,6 +141,7 @@ class MyApp extends StatelessWidget {
         Routes.PROFILE: (BuildContext _) => const ProfileScreen(),
         Routes.PLACES: (BuildContext _) => const PlacesScreen(),
         Routes.GDG: (BuildContext _) => const GoogleDeveloperGroupsScreen(),
+        Routes.SPONSORS: (BuildContext _) => SponsorsScreen()
       },
     );
   }

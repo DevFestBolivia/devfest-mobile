@@ -137,7 +137,7 @@ class _ScheduleCard extends StatelessWidget {
                   ),
                   VerticalSpacing.xxs,
                   MainText(
-                    text: schedule.description,
+                    text: schedule.tracks.first.title,
                     colorText: DevFestColors.labelInput,
                     fountWeight: FontWeight.w600,
                     fontSize: FontSizeValues.scheduleDetail,

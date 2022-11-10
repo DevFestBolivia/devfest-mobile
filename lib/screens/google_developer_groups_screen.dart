@@ -45,39 +45,45 @@ class GoogleDeveloperGroupsScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.center,
-                children: _dummyGdgCities.map<Widget>((city) {
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.center,
+              children: _dummyGdgCities.map<Widget>(
+                (city) {
                   return Card(
-                    child: Padding(
-                        padding: const EdgeInsets.all(
-                          SpacingValues.m,
-                        ),
-                        child: Column(
-                          children: [
-                            const SvgImage(
-                              pathImage: AssetsPath.googleImage,
-                              height: 24.0,
-                              width: 24.0,
-                            ),
-                            VerticalSpacing.m,
-                            Text(
-                              TextStrings.gdg,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            Text(
-                              city,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 14.0),
-                            )
-                          ],
-                        )),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          padding: const EdgeInsets.all(
+                            SpacingValues.m,
+                          ),
+                          child: Column(
+                            children: [
+                              const SvgImage(
+                                pathImage: AssetsPath.googleImage,
+                                height: 24.0,
+                                width: 24.0,
+                              ),
+                              VerticalSpacing.m,
+                              Text(
+                                TextStrings.gdg,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                              Text(
+                                city,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 14.0),
+                              )
+                            ],
+                          )),
+                    ),
                   );
-                }).toList())
+                },
+              ).toList(),
+            )
           ],
         ),
       ),

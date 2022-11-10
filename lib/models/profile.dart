@@ -39,7 +39,7 @@ class Profile {
       facebookUrl: json['facebookUrl'],
       instagramUrl: json['instagramUrl'],
       twitterUrl: json['twitterUrl'],
-      score: json['score'],
+      score: double.parse((json['score'] ?? '0.0').toString()),
       qrDynamicScans: List<QrDynamicScan>.from((json['qrDynamicScans'] ?? [])
           .map((qrDynamicScanJson) =>
               QrDynamicScan.fromJson(qrDynamicScanJson))),

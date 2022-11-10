@@ -142,11 +142,11 @@ class _TimelineTabState extends State<TimelineTab>
     return TabBar(
       // padding: EdgeInsets.zero,
       // indicatorPadding: EdgeInsets.zero,
-
+      labelColor: DevFestColors.primary,
       labelPadding: EdgeInsets.zero,
       labelStyle: const TextStyle(fontWeight: FontWeight.w700),
       controller: _tabController,
-
+      unselectedLabelColor: DevFestColors.primaryLight.withOpacity(0.74),
       indicator: const BoxDecoration(color: Colors.white),
       // automaticIndicatorColorAdjustment: false,
       tabs: schedules.map(
@@ -159,11 +159,6 @@ class _TimelineTabState extends State<TimelineTab>
                 child: Center(
                   child: Text(
                     '${TextStrings.day} ${index + 1}',
-                    style: TextStyle(
-                      color: selectedTabIndex == index
-                          ? DevFestColors.primary
-                          : DevFestColors.primaryLight.withOpacity(0.74),
-                    ),
                   ),
                 ),
               );

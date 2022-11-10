@@ -10,4 +10,5 @@ class Routes {
   static const String CAMERA = 'Camera';
   static const String PLACES = 'Places';
   static const String GDG = 'GDG';
+  static const String SPONSORS = 'Sponsors';
 }

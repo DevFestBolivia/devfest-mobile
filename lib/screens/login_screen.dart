@@ -261,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _setUser(attendees);
       // ignore: use_build_context_synchronously
       Dialogs.hideLoadingDialog(context);
-      _goToHome();
+      _goToOnboarding();
     } catch (e) {
       Dialogs.hideLoadingDialog(context);
       ErrorDialog.showErrorDialog(

@@ -78,7 +78,6 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
       children: [
         VerticalSpacing.xxs,
         renderTitleSpeaker(speaker),
-        
         VerticalSpacing.xs,
         renderBio(speaker),
         VerticalSpacing.xs,
@@ -90,18 +89,18 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
   Widget renderTitleSpeaker(Speaker? speaker) {
     return Row(
       children: [
-        renderAvatar(speaker!.photoUrl!),
+        renderAvatar(speaker!.photoUrl ?? ''),
         HorizontalSpacing.xs,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MainText(
-              text: speaker.name!,
+              text: speaker.name ?? '',
               fontSize: FontSizeValues.input,
               colorText: DevFestColors.primary,
             ),
             MainText(
-              text: speaker.title!,
+              text: speaker.title ?? '',
               fontSize: FontSizeValues.input,
               colorText: DevFestColors.labelInput,
             ),
@@ -113,10 +112,9 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
 
   Widget renderBio(Speaker? speaker) {
     return MainText(
-      text: speaker!.bio!,
+      text: speaker!.bio ?? '',
       colorText: DevFestColors.textBlack,
     );
-    
   }
 
   Widget renderAvatar(String photoUrl) {
@@ -134,7 +132,8 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (SocialLink social in speaker!.socials!) renderSocialLink(social),
+            for (SocialLink social in speaker!.socials!)
+              renderSocialLink(social),
           ],
         ),
       ),
@@ -143,7 +142,9 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
 
   Widget renderSocialLink(SocialLink socialLink) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15,),
+      padding: const EdgeInsets.only(
+        left: 15,
+      ),
       child: InkWell(
         onTap: () => _launchUrl(socialLink.link),
         child: Icon(
