@@ -124,7 +124,7 @@ class MyApp extends StatelessWidget {
               GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ),
-      initialRoute: Routes.HOME,
+      initialRoute: Routes.LOGIN,
       routes: {
         Routes.SPLASH: (context) => const SplashScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
         Routes.PROFILE: (BuildContext _) => const ProfileScreen(),
         Routes.PLACES: (BuildContext _) => const PlacesScreen(),
         Routes.GDG: (BuildContext _) => const GoogleDeveloperGroupsScreen(),
-        Routes.SPONSORS: (BuildContext _) => SponsorsScreen()
+        Routes.SPONSORS: (BuildContext _) => const SponsorsScreen()
       },
     );
   }
