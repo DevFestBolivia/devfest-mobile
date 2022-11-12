@@ -1,6 +1,5 @@
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
-import 'package:devfestbolivia/providers/scanner_provider.dart';
 import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
@@ -13,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/screens/login_screen.dart';
-import 'package:devfestbolivia/screens/camera_screen.dart';
 import 'package:devfestbolivia/screens/splash_screen.dart';
 import 'package:devfestbolivia/screens/speakers_screen.dart';
 import 'package:devfestbolivia/screens/home/home_screen.dart';
@@ -124,7 +122,7 @@ class MyApp extends StatelessWidget {
               GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ),
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.SPLASH,
       routes: {
         Routes.SPLASH: (context) => const SplashScreen(),
         Routes.LOGIN: (BuildContext context) => const LoginScreen(),
