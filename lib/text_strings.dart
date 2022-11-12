@@ -59,4 +59,11 @@ class TextStrings {
       'Hubo un problema cargando el perfil';
   static const String completeYourBio =
       '¡Completa tu biografía para que te conozca más gente!';
+  static const String problemLoadingData =
+      'Hubo un problema cargando los datos';
+  static const String problemLoadingSchedule =
+      'Hubo un problema cargando el cronograma';
+  static const String checkYourConnectivity =
+      'Es necesario que cuentes con conexión a internet para entrar a esta sección, revisa tu conexión y vuelve a intentarlo';
+  static const String retry = 'Reintentar';
 }

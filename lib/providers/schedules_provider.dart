@@ -1,6 +1,5 @@
 import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
 import 'package:devfestbolivia/models/schedule.dart';
-import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 
 enum SchedulesState {
@@ -18,7 +17,7 @@ class SchedulesProvider extends ChangeNotifier {
   final ScheduleRepository _schedulesRepository;
 
   SchedulesState state = SchedulesState.initial;
-  late List<Schedule> schedules;
+  List<Schedule>? schedules;
   String? errorMessage;
 
   void getAllSchedules() async {
@@ -26,6 +25,11 @@ class SchedulesProvider extends ChangeNotifier {
       state = SchedulesState.loading;
       notifyListeners();
       schedules = await _schedulesRepository.getAllSchedule();
+
+      if (schedules!.isEmpty) {
+        throw Exception('Empty schedules');
+      }
+
       state = SchedulesState.loaded;
       notifyListeners();
     } catch (e) {

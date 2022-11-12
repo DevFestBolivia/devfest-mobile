@@ -7,6 +7,7 @@ import 'package:devfestbolivia/models/schedule.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/widgets/subtitle_text.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class TimelineSection extends StatefulWidget {
@@ -62,6 +63,25 @@ class _TimelineSectionState extends State<TimelineSection> {
 
   Widget _listSchedules(AsyncSnapshot<List<Schedule>> schedulesSnapshot) {
     if (schedulesSnapshot.hasData && schedulesSnapshot.data != null) {
+      if (schedulesSnapshot.data!.isEmpty) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 160,
+              child: LottieBuilder.asset('assets/lottie/no-data.json'),
+            ),
+            Text(
+              TextStrings.problemLoadingData,
+              style: TextStyle(
+                color: Colors.blue.shade900,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        );
+      }
+
       return Column(
         children: List.generate(
           schedulesSnapshot.data!.length,
@@ -73,7 +93,9 @@ class _TimelineSectionState extends State<TimelineSection> {
         ),
       );
     } else {
-      return const Text('No data');
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
   }
 }

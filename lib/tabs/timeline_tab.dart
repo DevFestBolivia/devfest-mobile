@@ -5,10 +5,9 @@ import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/widgets/list_sessions.dart';
 import 'package:flutter/material.dart';
 
-import 'package:devfestbolivia/style/spacing.dart';
-
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/models/schedule.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class TimelineTab extends StatefulWidget {
@@ -44,7 +43,7 @@ class _TimelineTabState extends State<TimelineTab>
       listen: false,
     ).schedules;
     _tabController = TabController(
-      length: loadedSchedules.length,
+      length: loadedSchedules!.length,
       vsync: this,
     );
     _tabController.addListener(() {
@@ -101,9 +100,9 @@ class _TimelineTabState extends State<TimelineTab>
                             color: DevFestColors.primaryLight,
                           ),
                     ),
-                    bottom: renderTabBar(loadedSchedules),
+                    bottom: renderTabBar(loadedSchedules!),
                   ),
-                  body: renderTabBarView(loadedSchedules),
+                  body: renderTabBarView(loadedSchedules!),
                 );
               }
 
@@ -125,10 +124,23 @@ class _TimelineTabState extends State<TimelineTab>
                     ),
               ),
             ),
-            body: Center(
-              child: Text(
-                schedulesProvider.errorMessage!,
-              ),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 160,
+                  child: LottieBuilder.asset('assets/lottie/no-data.json'),
+                ),
+                Text(
+                  TextStrings.problemLoadingSchedule,
+                  style: TextStyle(
+                    color: Colors.blue.shade900,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           );
         }

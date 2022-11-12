@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
 import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
 import 'package:devfestbolivia/models/profile.dart';
@@ -8,6 +9,7 @@ import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -25,81 +27,126 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      return Scaffold(
-        extendBodyBehindAppBar: false,
-        body: Consumer<ProfileProvider>(
-          builder: (context, profileProvider, child) {
-            if (profileProvider.state == ProfileState.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+      return FutureBuilder(
+          future: Connectivity().checkConnectivity(),
+          builder: (context, snapshot) {
+            bool hasInternet = false;
+
+            if (snapshot.hasData) {
+              hasInternet = snapshot.data! != ConnectivityResult.none;
             }
 
-            if (profileProvider.state == ProfileState.loaded) {
-              final profile = profileProvider.profile;
-
-              return NestedScrollView(
-                headerSliverBuilder: (context, isScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      floating: true,
-                      backgroundColor: DevFestColors.primary,
-                      elevation: _appBarElevation,
-                      centerTitle: true,
-                      title: Text(
-                        TextStrings.profile.toUpperCase(),
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: DevFestColors.primaryLight,
-                            ),
-                      ),
-                      actions: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.edit_outlined,
-                            color: DevFestColors.primaryLight,
-                          ),
-                        )
-                      ],
+            if (hasInternet == false) {
+              return Padding(
+                padding: const EdgeInsets.all(SpacingValues.xl),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 160,
+                      child:
+                          LottieBuilder.asset('assets/lottie/no-internet.json'),
                     ),
-                    SliverToBoxAdapter(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _Header(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingValues.m,
-                            ),
-                            child: _ProfileInfo(
-                              profile: profile,
-                            ),
-                          )
-                        ],
+                    Text(
+                      TextStrings.checkYourConnectivity,
+                      style: TextStyle(
+                        color: Colors.blue.shade900,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                  ];
-                },
-                body: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: SpacingValues.m),
-                  child: _Friends(
-                    friends: profile.friends,
-                  ),
+                      textAlign: TextAlign.center,
+                    ),
+                    VerticalSpacing.m,
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      child: const Text(TextStrings.retry),
+                    ),
+                  ],
                 ),
               );
             }
 
-            if (profileProvider.state == ProfileState.failure) {
-              return const Center(
-                child: Text(TextStrings.problemLoadingProfile),
-              );
-            }
+            return Scaffold(
+              extendBodyBehindAppBar: false,
+              body: Consumer<ProfileProvider>(
+                builder: (context, profileProvider, child) {
+                  if (profileProvider.state == ProfileState.loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
 
-            return Container();
-          },
-        ),
-      );
+                  if (profileProvider.state == ProfileState.loaded) {
+                    final profile = profileProvider.profile;
+
+                    return NestedScrollView(
+                      headerSliverBuilder: (context, isScrolled) {
+                        return <Widget>[
+                          SliverAppBar(
+                            floating: true,
+                            backgroundColor: DevFestColors.primary,
+                            elevation: _appBarElevation,
+                            centerTitle: true,
+                            title: Text(
+                              TextStrings.profile.toUpperCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    color: DevFestColors.primaryLight,
+                                  ),
+                            ),
+                            actions: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.edit_outlined,
+                                  color: DevFestColors.primaryLight,
+                                ),
+                              )
+                            ],
+                          ),
+                          SliverToBoxAdapter(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                _Header(),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: SpacingValues.m,
+                                  ),
+                                  child: _ProfileInfo(
+                                    profile: profile,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ];
+                      },
+                      body: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingValues.m),
+                        child: _Friends(
+                          friends: profile.friends,
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (profileProvider.state == ProfileState.failure) {
+                    return const Center(
+                      child: Text(TextStrings.problemLoadingProfile),
+                    );
+                  }
+
+                  return Container();
+                },
+              ),
+            );
+          });
     });
   }
 }
