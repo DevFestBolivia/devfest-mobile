@@ -55,4 +55,12 @@ class ProfileProvider extends ChangeNotifier {
     profile.score = profile.score + 10.0;
     await _profileRepository.updateProfileData(profile);
   }
+
+  Future<Profile> getProfileById(String id) async {
+    try {
+      return await _profileRepository.getProfileById(id);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -7,6 +7,9 @@ import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/utils/url_launcher_utils.dart';
+import 'package:devfestbolivia/widgets/dialogs/error_dialog.dart';
+import 'package:devfestbolivia/widgets/dialogs/friend_dialog.dart';
+import 'package:devfestbolivia/widgets/dialogs/loading_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
@@ -431,8 +434,33 @@ class _Friends extends StatelessWidget {
           separatorBuilder: (context, index) => VerticalSpacing.xs,
           itemBuilder: (context, index) {
             final friend = friends[index];
-            return _FriendCard(
-              friend: friend,
+            return GestureDetector(
+              onTap: () async {
+                try {
+                  Dialogs.showLoadingDialog(context);
+                  final profile =
+                      await Provider.of<ProfileProvider>(context, listen: false)
+                          .getProfileById('1936x2pmw4ZqWy2baFXQFm1fTZB3');
+                  // ignore: use_build_context_synchronously
+                  Dialogs.hideLoadingDialog(context);
+
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return FriendDialog(
+                        profile: profile,
+                      );
+                    },
+                  );
+                } catch (e) {
+                  Dialogs.hideLoadingDialog(context);
+                  ErrorDialog.showErrorDialog(context,
+                      'No se puede mostrar el perfil de ${friend.fullName} en este momento.');
+                }
+              },
+              child: _FriendCard(
+                friend: friend,
+              ),
             );
           },
         ),

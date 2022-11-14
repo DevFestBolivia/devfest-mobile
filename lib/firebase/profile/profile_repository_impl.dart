@@ -37,4 +37,19 @@ class ProfileRepositoryImpl implements ProfileRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<Profile> getProfileById(String id) async {
+    try {
+      final profile = await _profileFirestore.getProfileByUid(id);
+
+      if (profile != null) {
+        throw Exception('No profile');
+      }
+
+      return profile!;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
