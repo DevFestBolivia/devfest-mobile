@@ -1,4 +1,4 @@
-import 'package:devfestbolivia/firebase_options.dart';
+import 'package:devfestbolivia/firebase/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseMain {
