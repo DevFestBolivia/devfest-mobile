@@ -2,6 +2,7 @@ import 'package:devfestbolivia/firebase/cloud_firestore.dart';
 import 'package:devfestbolivia/firebase/collection_name.dart';
 import 'package:devfestbolivia/models/attendees.dart';
 import 'package:devfestbolivia/models/profile.dart';
+import 'package:devfestbolivia/models/social_user.dart';
 
 class ProfileFirestore extends CloudFireStore {
   Future<Profile?> getProfileByUid(String uid) async {
@@ -26,9 +27,17 @@ class ProfileFirestore extends CloudFireStore {
     }
   }
 
-  Future<void> createFromAttendee(Attendees attendee) async {
+  Future<void> createFromAttendee(
+    Attendees attendee,
+    SocialUser? socialUser,
+  ) async {
     try {
-      final newProfile = Profile.fromAttendee(attendee);
+      late Profile newProfile;
+      if (socialUser == null) {
+        newProfile = Profile.fromAttendee(attendee);
+      } else {
+        newProfile = Profile.fromAttendeeAndSocialUser(attendee, socialUser);
+      }
       await db.collection(CollectionName.PROFILES).add(newProfile.toJson());
       return;
     } catch (e) {

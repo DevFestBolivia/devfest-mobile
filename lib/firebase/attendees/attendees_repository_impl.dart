@@ -9,4 +9,9 @@ class AttendeesRepositoryImpl implements AttendeesRepository {
   Future<Attendees> getAttendeesById(String userId) {
     return _attendeesFirestore.getAttendeesById(userId);
   }
+
+  @override
+  Future<Attendees> getAttendeesByEmail(String email) async {
+    return await _attendeesFirestore.getAttendeeByEmail(email);
+  }
 }

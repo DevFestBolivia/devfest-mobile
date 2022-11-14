@@ -60,15 +60,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<SocialUser> loginWithGoogle() async {
-    try {
-      final socialUser = await _fbFunctionsRepository.loginWithGoogle();
-      return socialUser;
-    } catch (e) {
-      throw Exception(TextStrings.anErrorOccurredTryAgain);
-    }
-  }
-
   Future<Attendees> loginWithEmailAndPassword({
     required VoidCallback onUserNotFoundCallback,
     required VoidCallback onWrongPasswordCallback,
@@ -96,7 +87,31 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<LoginWithGoogleResponse> loginWithGoogle() async {
+    try {
+      SocialUser socialUser = await _socialAuthRepository.googleAuth();
+      final attendees =
+          await _attendeesRepository.getAttendeesByEmail(socialUser.email!);
+      return LoginWithGoogleResponse(
+        attendees: attendees,
+        socialUser: socialUser,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> forgotPassword(String email) async {
     _fbUserRepository.forgotPassword(email);
   }
+}
+
+class LoginWithGoogleResponse {
+  LoginWithGoogleResponse({
+    required this.attendees,
+    required this.socialUser,
+  });
+
+  final Attendees attendees;
+  final SocialUser socialUser;
 }

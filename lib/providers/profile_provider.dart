@@ -2,6 +2,7 @@ import 'package:devfestbolivia/firebase/profile/profile_repository.dart';
 import 'package:devfestbolivia/models/attendees.dart';
 import 'package:devfestbolivia/models/dynamic.dart';
 import 'package:devfestbolivia/models/profile.dart';
+import 'package:devfestbolivia/models/social_user.dart';
 import 'package:flutter/material.dart';
 
 enum ProfileState {
@@ -15,10 +16,12 @@ class ProfileProvider extends ChangeNotifier {
   ProfileProvider({
     required ProfileRepository profileRepository,
     required this.attendee,
+    required this.socialUser,
   }) : _profileRepository = profileRepository;
 
   final ProfileRepository _profileRepository;
   final Attendees attendee;
+  final SocialUser? socialUser;
 
   late Profile profile;
   ProfileState state = ProfileState.initial;
@@ -28,7 +31,10 @@ class ProfileProvider extends ChangeNotifier {
     try {
       state = ProfileState.loading;
       notifyListeners();
-      profile = await _profileRepository.getProfileByAttendee(attendee);
+      profile = await _profileRepository.getProfileByAttendee(
+        attendee,
+        socialUser,
+      );
       state = ProfileState.loaded;
       notifyListeners();
     } catch (e) {

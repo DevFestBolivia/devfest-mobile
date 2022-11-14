@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/models/social_user.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/utils/validator_util.dart';
@@ -21,7 +22,6 @@ import 'package:devfestbolivia/constants/assets_path.dart';
 import 'package:provider/provider.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -217,7 +217,9 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       Dialogs.showLoadingDialog(context);
-      await authProvider.loginWithGoogle();
+      final response = await authProvider.loginWithGoogle();
+      _setUser(response.attendees);
+      _setSocialUser(response.socialUser);
       // ignore: use_build_context_synchronously
       Dialogs.hideLoadingDialog(context);
     } catch (e) {
@@ -271,6 +273,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final attendeesProvider =
         Provider.of<AttendeesProvider>(context, listen: false);
     attendeesProvider.setCurrentUser(attendees);
+  }
+
+  void _setSocialUser(SocialUser socialUser) {
+    final attendeesProvider =
+        Provider.of<AttendeesProvider>(context, listen: false);
+    attendeesProvider.setSocialUser(socialUser);
   }
 
   void showUserNotFoundMessage() {

@@ -166,7 +166,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                _Header(),
+                                _Header(
+                                  profile: profile,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: SpacingValues.m,
@@ -208,9 +210,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 class _Header extends StatelessWidget {
-  const _Header();
+  const _Header({
+    required this.profile,
+  });
 
   final double _imageRadius = 60.0;
+  final Profile profile;
 
   @override
   Widget build(BuildContext context) {
@@ -233,8 +238,8 @@ class _Header extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: CircleAvatar(
               radius: _imageRadius,
-              backgroundImage: const NetworkImage(
-                'https://scontent.flpb3-1.fna.fbcdn.net/v/t1.6435-9/182753394_489192202130262_3036116466289640921_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9EjFNCCKSp8AX_N62GD&tn=jAzwOIEn4qSkZS3L&_nc_ht=scontent.flpb3-1.fna&oh=00_AfBuwpS-u5eNYkJ4ZJ0lmf_LsuNJKIhS8UfGHacHh9ZUGg&oe=63913F53',
+              backgroundImage: NetworkImage(
+                profile.imageUrl,
               ),
             ),
           ),

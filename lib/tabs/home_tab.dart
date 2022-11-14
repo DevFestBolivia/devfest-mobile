@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:devfestbolivia/text_strings.dart';
@@ -6,6 +7,7 @@ import 'package:devfestbolivia/widgets/svg_image.dart';
 import 'package:devfestbolivia/constants/assets_path.dart';
 import 'package:devfestbolivia/screens/home/knowing_section.dart';
 import 'package:devfestbolivia/screens/home/timeline_section.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -15,6 +17,11 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

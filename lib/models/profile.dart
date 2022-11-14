@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devfestbolivia/models/attendees.dart';
+import 'package:devfestbolivia/models/social_user.dart';
 
 class Profile {
   Profile({
@@ -71,6 +72,24 @@ class Profile {
     return Profile(
       uid: attendee.id!,
       imageUrl: '',
+      fullName: attendee.fullName!,
+      bio: '',
+      facebookUrl: '',
+      instagramUrl: '',
+      twitterUrl: '',
+      score: 0.0,
+      qrDynamicScans: [],
+      friends: [],
+    );
+  }
+
+  factory Profile.fromAttendeeAndSocialUser(
+    Attendees attendee,
+    SocialUser socialUser,
+  ) {
+    return Profile(
+      uid: attendee.id!,
+      imageUrl: socialUser.photoUrl!,
       fullName: attendee.fullName!,
       bio: '',
       facebookUrl: '',

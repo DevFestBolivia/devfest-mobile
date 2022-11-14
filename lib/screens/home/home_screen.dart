@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 profileFirestore: ProfileFirestore(),
               ),
               attendee: attendeesProvider.currentUser!,
+              socialUser: attendeesProvider.socialUser,
             )..initProfile(),
           )
         ],

@@ -2,6 +2,7 @@ import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
 import 'package:devfestbolivia/firebase/profile/profile_repository.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/models/attendees.dart';
+import 'package:devfestbolivia/models/social_user.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   ProfileRepositoryImpl({
@@ -11,17 +12,22 @@ class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileFirestore _profileFirestore;
 
   @override
-  Future<void> createNewFromAttendee(Attendees attendee) async {
-    await _profileFirestore.createFromAttendee(attendee);
+  Future<void> createNewFromAttendee(
+      Attendees attendee, SocialUser? socialUser) async {
+    await _profileFirestore.createFromAttendee(
+      attendee,
+      socialUser,
+    );
   }
 
   @override
-  Future<Profile> getProfileByAttendee(Attendees attendee) async {
+  Future<Profile> getProfileByAttendee(
+      Attendees attendee, SocialUser? socialUser) async {
     try {
       final profile = await _profileFirestore.getProfileByUid(attendee.id!);
       if (profile == null) {
-        await createNewFromAttendee(attendee);
-        return getProfileByAttendee(attendee);
+        await createNewFromAttendee(attendee, socialUser);
+        return getProfileByAttendee(attendee, socialUser);
       }
       return profile;
     } catch (e) {
