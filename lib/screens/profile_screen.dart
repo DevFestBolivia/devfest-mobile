@@ -4,9 +4,11 @@ import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';
+import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/utils/url_launcher_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
@@ -26,11 +28,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return FutureBuilder(
+    return Builder(
+      builder: (context) {
+        return FutureBuilder(
           future: Connectivity().checkConnectivity(),
           builder: (context, snapshot) {
-            bool hasInternet = false;
+            bool hasInternet = true;
 
             if (snapshot.hasData) {
               hasInternet = snapshot.data! != ConnectivityResult.none;
@@ -100,7 +103,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             actions: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    Routes.EDIT_PROFILE,
+                                    arguments: {
+                                      'profileProvider': profileProvider,
+                                      'onEditProfileDone':
+                                          profileProvider.initProfile,
+                                    },
+                                  );
+                                },
                                 icon: const Icon(
                                   Icons.edit_outlined,
                                   color: DevFestColors.primaryLight,
@@ -146,8 +159,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
               ),
             );
-          });
-    });
+          },
+        );
+      },
+    );
   }
 }
 
@@ -177,8 +192,9 @@ class _Header extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: CircleAvatar(
               radius: _imageRadius,
-              backgroundImage: NetworkImage(
-                  'https://scontent.flpb3-1.fna.fbcdn.net/v/t1.6435-9/182753394_489192202130262_3036116466289640921_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9EjFNCCKSp8AX_N62GD&tn=jAzwOIEn4qSkZS3L&_nc_ht=scontent.flpb3-1.fna&oh=00_AfBuwpS-u5eNYkJ4ZJ0lmf_LsuNJKIhS8UfGHacHh9ZUGg&oe=63913F53'),
+              backgroundImage: const NetworkImage(
+                'https://scontent.flpb3-1.fna.fbcdn.net/v/t1.6435-9/182753394_489192202130262_3036116466289640921_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9EjFNCCKSp8AX_N62GD&tn=jAzwOIEn4qSkZS3L&_nc_ht=scontent.flpb3-1.fna&oh=00_AfBuwpS-u5eNYkJ4ZJ0lmf_LsuNJKIhS8UfGHacHh9ZUGg&oe=63913F53',
+              ),
             ),
           ),
         )
@@ -267,15 +283,30 @@ class _ProfileInfo extends StatelessWidget {
         ),
         if (profile.facebookUrl.isNotEmpty) ...[
           HorizontalSpacing.xxl,
-          SvgPicture.asset('assets/svg/logo_facebook.svg'),
+          GestureDetector(
+            onTap: () {
+              UrlLauncherUtils.openUrl(profile.facebookUrl);
+            },
+            child: SvgPicture.asset('assets/svg/logo_facebook.svg'),
+          )
         ],
         if (profile.instagramUrl.isNotEmpty) ...[
           HorizontalSpacing.s,
-          SvgPicture.asset('assets/svg/logo_instagram.svg'),
+          GestureDetector(
+            onTap: () {
+              UrlLauncherUtils.openUrl(profile.instagramUrl);
+            },
+            child: SvgPicture.asset('assets/svg/logo_instagram.svg'),
+          )
         ],
         if (profile.twitterUrl.isNotEmpty) ...[
           HorizontalSpacing.s,
-          SvgPicture.asset('assets/svg/logo_twitter.svg'),
+          GestureDetector(
+            onTap: () {
+              UrlLauncherUtils.openUrl(profile.twitterUrl);
+            },
+            child: SvgPicture.asset('assets/svg/logo_twitter.svg'),
+          )
         ]
       ],
     );

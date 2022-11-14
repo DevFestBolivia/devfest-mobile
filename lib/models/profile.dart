@@ -16,13 +16,13 @@ class Profile {
     this.reference,
   });
 
-  final String uid;
-  final String imageUrl;
-  final String fullName;
-  final String bio;
-  final String facebookUrl;
-  final String instagramUrl;
-  final String twitterUrl;
+  String uid;
+  String imageUrl;
+  String fullName;
+  String bio;
+  String facebookUrl;
+  String instagramUrl;
+  String twitterUrl;
   double score;
   final List<QrDynamicScan> qrDynamicScans;
   final List<Friend> friends;
