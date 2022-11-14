@@ -21,11 +21,7 @@ import 'package:devfestbolivia/constants/assets_path.dart';
 import 'package:provider/provider.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:devfestbolivia/providers/attendees_provider.dart';
-import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
-import 'package:devfestbolivia/firebase/attendees/attendees_repository_impl.dart';
-import 'package:devfestbolivia/firebase/functions/functions_repository_impl.dart';
-import 'package:devfestbolivia/firebase/auth/emailAuth/email_auth_repository_impl.dart';
-import 'package:devfestbolivia/firebase/auth/socialAuth/social_auth_repository_impl.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
