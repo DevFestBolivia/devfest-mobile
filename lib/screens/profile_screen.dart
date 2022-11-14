@@ -1,8 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
-import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
+import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/models/profile.dart';
-import 'package:devfestbolivia/providers/attendees_provider.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/screens/routes.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
@@ -118,7 +116,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Icons.edit_outlined,
                                   color: DevFestColors.primaryLight,
                                 ),
-                              )
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: const Text(
+                                          TextStrings
+                                              .logoutConfirmationQuestion,
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child:
+                                                const Text(TextStrings.cancel),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              final fbUserRepository =
+                                                  FbUserRepositoryImpl();
+                                              fbUserRepository.logout();
+                                              Navigator.pushReplacementNamed(
+                                                context,
+                                                Routes.LOGIN,
+                                              );
+                                            },
+                                            child: const Text('Aceptar'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.logout,
+                                  color: DevFestColors.primaryLight,
+                                ),
+                              ),
                             ],
                           ),
                           SliverToBoxAdapter(
