@@ -49,7 +49,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     try {
       final profile = await _profileFirestore.getProfileByUid(id);
 
-      if (profile != null) {
+      if (profile == null) {
         throw Exception('No profile');
       }
 
