@@ -18,18 +18,18 @@ class FunctionsRepositoryImpl extends FunctionsRepository {
     print('serverAuthCode: ${result.serverAuthCode}');
     print('displayName: ${result.displayName}');
     print('photoUrl: ${result.photoUrl}');
-    if (result.success) {
-      HttpsCallableResult document = await fbFunctions.loginWithGoogle(
-        result.serverAuthCode!,
-        result.email!,
-        result.displayName!,
-        result.photoUrl!,
-      );
-      print('document: ${document.data}');
+    // if (result.success) {
+    //   HttpsCallableResult document = await fbFunctions.loginWithGoogle(
+    //     result.serverAuthCode!,
+    //     result.email!,
+    //     result.displayName!,
+    //     result.photoUrl!,
+    //   );
+    //   print('document: ${document.data}');
 
-      Attendees attendees = Attendees.fromJson(document.data);
-      print('attendees: ${attendees.fullName}');
-    }
+    //   Attendees attendees = Attendees.fromJson(document.data);
+    //   print('attendees: ${attendees.fullName}');
+    // }
     return result;
   }
 }

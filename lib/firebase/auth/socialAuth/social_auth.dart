@@ -6,28 +6,25 @@ class SocialAuth {
   Future<SocialUser> loginWithGoogle() async {
     SocialUser socialUser = SocialUser();
 
-    GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [
-        'email',
-        'https://www.googleapis.com/auth/classroom.profile.photos',
-      ],
-    );
+    GoogleSignIn googleSignIn = GoogleSignIn();
 
     GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication? googleAuth = await googleSignInAccount?.authentication;
+
+    if (googleSignInAccount != null) {
+
+    final GoogleSignInAuthentication googleAuth = await googleSignInAccount.authentication;
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
-    if (googleSignInAccount != null) {
-      socialUser.displayName = googleSignInAccount.displayName;
-      socialUser.email = googleSignInAccount.email;
-      socialUser.photoUrl = googleSignInAccount.photoUrl;
-      socialUser.serverAuthCode = googleSignInAccount.id;
+      socialUser.displayName = userCredential.user!.displayName;
+      socialUser.email = userCredential.user!.email;
+      socialUser.photoUrl = userCredential.user!.photoURL;
+      socialUser.serverAuthCode = userCredential.user!.uid;
       socialUser.success = true;
-      print('test');
+      // print('test');
     }
 
     return socialUser;

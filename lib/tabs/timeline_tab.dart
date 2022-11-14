@@ -102,7 +102,7 @@ class _TimelineTabState extends State<TimelineTab>
                     ),
                     bottom: renderTabBar(loadedSchedules!),
                   ),
-                  body: renderTabBarView(loadedSchedules!),
+                  body: renderTabBarView(loadedSchedules),
                 );
               }
 
