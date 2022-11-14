@@ -69,4 +69,5 @@ class TextStrings {
   static const String editProfile = 'Editar Profile';
   static const String logoutConfirmationQuestion =
       '¿Estás seguro de cerrar sesión?';
+  static const String withoutBio = 'Sin biografia';
 }
