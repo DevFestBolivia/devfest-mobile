@@ -66,4 +66,5 @@ class TextStrings {
   static const String checkYourConnectivity =
       'Es necesario que cuentes con conexión a internet para entrar a esta sección, revisa tu conexión y vuelve a intentarlo';
   static const String retry = 'Reintentar';
+  static const String editProfile = 'Editar Profile';
 }

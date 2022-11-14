@@ -11,4 +11,5 @@ class Routes {
   static const String PLACES = 'Places';
   static const String GDG = 'GDG';
   static const String SPONSORS = 'Sponsors';
+  static const String EDIT_PROFILE = 'EditProfile';
 }

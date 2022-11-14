@@ -1,5 +1,7 @@
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
+import 'package:devfestbolivia/providers/profile_provider.dart';
+import 'package:devfestbolivia/screens/edit_profile_screen.dart';
 import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
 import 'package:devfestbolivia/screens/profile_screen.dart';
@@ -139,7 +141,22 @@ class MyApp extends StatelessWidget {
         Routes.PROFILE: (BuildContext _) => const ProfileScreen(),
         Routes.PLACES: (BuildContext _) => const PlacesScreen(),
         Routes.GDG: (BuildContext _) => const GoogleDeveloperGroupsScreen(),
-        Routes.SPONSORS: (BuildContext _) => const SponsorsScreen()
+        Routes.SPONSORS: (BuildContext _) => const SponsorsScreen(),
+      },
+      //
+      //
+      //
+      onGenerateRoute: (settings) {
+        if (settings.name == Routes.EDIT_PROFILE) {
+          return MaterialPageRoute(
+            builder: (_) => EditProfileScreen(
+              profileProvider: (settings.arguments
+                  as Map<String, dynamic>)['profileProvider'],
+              onEditProfileDone: (settings.arguments
+                  as Map<String, dynamic>)['onEditProfileDone'],
+            ),
+          );
+        }
       },
     );
   }
