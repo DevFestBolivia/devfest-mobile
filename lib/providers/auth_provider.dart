@@ -5,7 +5,6 @@ import 'package:devfestbolivia/firebase/auth/user/fb_user_repository.dart';
 import 'package:devfestbolivia/firebase/functions/functions_repository.dart';
 import 'package:devfestbolivia/models/attendees.dart';
 import 'package:devfestbolivia/models/social_user.dart';
-import 'package:devfestbolivia/text_strings.dart';
 import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
