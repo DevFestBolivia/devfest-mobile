@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
+import 'package:devfestbolivia/models/avatar.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/screens/routes.dart';
@@ -27,7 +28,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final double _appBarElevation = 0.0;
+  // final double _appBarElevation = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -74,139 +75,157 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
             }
 
-            return Scaffold(
-              extendBodyBehindAppBar: false,
-              body: Consumer<ProfileProvider>(
-                builder: (context, profileProvider, child) {
-                  if (profileProvider.state == ProfileState.loading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+            return SafeArea(
+              child: Scaffold(
+                extendBodyBehindAppBar: false,
+                body: Consumer<ProfileProvider>(
+                  builder: (context, profileProvider, child) {
+                    if (profileProvider.state == ProfileState.loading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                  if (profileProvider.state == ProfileState.loaded) {
-                    final profile = profileProvider.profile;
+                    if (profileProvider.state == ProfileState.loaded) {
+                      final profile = profileProvider.profile;
 
-                    return NestedScrollView(
-                      headerSliverBuilder: (context, isScrolled) {
-                        return <Widget>[
-                          SliverAppBar(
-                            floating: true,
-                            backgroundColor: DevFestColors.primary,
-                            elevation: _appBarElevation,
-                            centerTitle: true,
-                            title: Text(
-                              TextStrings.profile.toUpperCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
-                                    color: DevFestColors.primaryLight,
-                                  ),
-                            ),
-                            actions: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    Routes.EDIT_PROFILE,
-                                    arguments: {
-                                      'profileProvider': profileProvider,
-                                      'onEditProfileDone':
-                                          profileProvider.initProfile,
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.edit_outlined,
-                                  color: DevFestColors.primaryLight,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        content: const Text(
-                                          TextStrings
-                                              .logoutConfirmationQuestion,
-                                        ),
-                                        actions: [
+                      return NestedScrollView(
+                        headerSliverBuilder: (context, isScrolled) {
+                          return <Widget>[
+                            SliverToBoxAdapter(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Stack(
+                                    alignment: const Alignment(0, -0.95),
+                                    children: [
+                                      _Header(
+                                        profile: profile,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
                                           TextButton(
+                                            style: TextButton.styleFrom(
+                                              padding: const EdgeInsets.all(10),
+                                              backgroundColor: Colors.grey.withOpacity(0.3),
+                                              shape: const CircleBorder(),
+                                            ),
                                             onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child:
-                                                const Text(TextStrings.cancel),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              final fbUserRepository =
-                                                  FbUserRepositoryImpl();
-                                              fbUserRepository.logout();
-                                              Navigator.pushReplacementNamed(
+                                              Navigator.pushNamed(
                                                 context,
-                                                Routes.LOGIN,
+                                                Routes.EDIT_PROFILE,
+                                                arguments: {
+                                                  'profileProvider':
+                                                      profileProvider,
+                                                  'onEditProfileDone':
+                                                      profileProvider
+                                                          .initProfile,
+                                                },
                                               );
                                             },
-                                            child: const Text('Aceptar'),
+                                            child: const Icon(
+                                              Icons.edit_outlined,
+                                              color: DevFestColors.primaryLight,
+                                              size: 32,
+                                            ),
+                                          ),
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              padding: const EdgeInsets.all(10),
+                                              backgroundColor: Colors.grey.withOpacity(0.3),
+                                              shape: const CircleBorder(),
+                                            ),
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return const _ModalConfirm();
+                                                },
+                                              );
+                                            },
+                                            child: const Icon(
+                                              Icons.logout,
+                                              color: DevFestColors.primaryLight,
+                                              size: 32,
+                                            ),
                                           ),
                                         ],
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.logout,
-                                  color: DevFestColors.primaryLight,
-                                ),
+                                      )
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: SpacingValues.m,
+                                    ),
+                                    child: _ProfileInfo(
+                                      profile: profile,
+                                    ),
+                                  )
+                                ],
                               ),
-                            ],
+                            )
+                          ];
+                        },
+                        body: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingValues.m),
+                          child: _Friends(
+                            friends: profile.friends,
                           ),
-                          SliverToBoxAdapter(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _Header(
-                                  profile: profile,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: SpacingValues.m,
-                                  ),
-                                  child: _ProfileInfo(
-                                    profile: profile,
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ];
-                      },
-                      body: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: SpacingValues.m),
-                        child: _Friends(
-                          friends: profile.friends,
                         ),
-                      ),
-                    );
-                  }
+                      );
+                    }
 
-                  if (profileProvider.state == ProfileState.failure) {
-                    return const Center(
-                      child: Text(TextStrings.problemLoadingProfile),
-                    );
-                  }
+                    if (profileProvider.state == ProfileState.failure) {
+                      return const Center(
+                        child: Text(TextStrings.problemLoadingProfile),
+                      );
+                    }
 
-                  return Container();
-                },
+                    return Container();
+                  },
+                ),
               ),
             );
           },
         );
       },
+    );
+  }
+}
+
+class _ModalConfirm extends StatelessWidget {
+  const _ModalConfirm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: const Text(
+        TextStrings.logoutConfirmationQuestion,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(TextStrings.cancel),
+        ),
+        TextButton(
+          onPressed: () {
+            final fbUserRepository = FbUserRepositoryImpl();
+            fbUserRepository.logout();
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.LOGIN,
+            );
+          },
+          child: const Text('Aceptar'),
+        ),
+      ],
     );
   }
 }
@@ -227,8 +246,12 @@ class _Header extends StatelessWidget {
           children: [
             Container(
               color: DevFestColors.primary,
-              height: _imageRadius * 1.5,
+              // height: _imageRadius * 1.5,
               width: double.infinity,
+              child: Image.asset(
+                Avatar.background,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(
               height: _imageRadius,
@@ -236,32 +259,40 @@ class _Header extends StatelessWidget {
           ],
         ),
         Positioned.fill(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: profile.imageUrl.isEmpty
-                ? CircleAvatar(
-                    radius: _imageRadius,
-                    backgroundColor: Colors.primaries[
-                        Random().nextInt(Colors.primaries.length - 1)],
-                    child: Center(
-                      child: Text(
-                        profile.fullName.characters.first,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: SpacingValues.xxl * 2,
+          child: (profile.avatar == 0)
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: profile.imageUrl.isEmpty
+                      ? CircleAvatar(
+                          radius: _imageRadius,
+                          backgroundColor: Colors.primaries[
+                              Random().nextInt(Colors.primaries.length - 1)],
+                          child: Center(
+                            child: Text(
+                              profile.fullName.characters.first,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: SpacingValues.xxl * 2,
+                              ),
+                            ),
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: _imageRadius,
+                          backgroundColor: Colors.grey,
+                          backgroundImage: NetworkImage(
+                            profile.imageUrl,
+                          ),
                         ),
-                      ),
-                    ),
-                  )
-                : CircleAvatar(
-                    radius: _imageRadius,
-                    backgroundColor: Colors.grey,
-                    backgroundImage: NetworkImage(
-                      profile.imageUrl,
-                    ),
+                )
+              : Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Image.asset(
+                    Avatar.getAvatart(profile.avatar).path,
+                    width: 120,
                   ),
-          ),
+                ),
         )
       ],
     );
@@ -500,8 +531,8 @@ class _FriendCard extends StatelessWidget {
 
   final Friend friend;
 
-  final double _elevation = 3.0;
-  final double _imageRadius = 20.0;
+  // final double _elevation = 3.0;
+  // final double _imageRadius = 20.0;
 
   @override
   Widget build(BuildContext context) {

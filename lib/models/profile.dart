@@ -7,6 +7,7 @@ class Profile {
     required this.uid,
     required this.imageUrl,
     required this.fullName,
+    this.avatar = 0,
     required this.bio,
     required this.facebookUrl,
     required this.instagramUrl,
@@ -21,6 +22,7 @@ class Profile {
   String imageUrl;
   String fullName;
   String bio;
+  int avatar;
   String facebookUrl;
   String instagramUrl;
   String twitterUrl;
@@ -36,6 +38,7 @@ class Profile {
       uid: json['uid'],
       imageUrl: json['imageUrl'],
       fullName: json['fullName'],
+      avatar: json['avatar'] ?? 0,
       bio: json['bio'],
       facebookUrl: json['facebookUrl'],
       instagramUrl: json['instagramUrl'],
@@ -55,6 +58,7 @@ class Profile {
       uid: json['uid'],
       imageUrl: json['imageUrl'],
       fullName: json['fullName'],
+      avatar: json['avatar'] ?? 0,
       bio: json['bio'],
       facebookUrl: json['facebookUrl'],
       instagramUrl: json['instagramUrl'],
@@ -73,6 +77,7 @@ class Profile {
       uid: attendee.id!,
       imageUrl: '',
       fullName: attendee.fullName!,
+      avatar: 0,
       bio: '',
       facebookUrl: '',
       instagramUrl: '',
@@ -91,6 +96,7 @@ class Profile {
       uid: attendee.id!,
       imageUrl: socialUser.photoUrl!,
       fullName: attendee.fullName!,
+      avatar: 0,
       bio: '',
       facebookUrl: '',
       instagramUrl: '',
@@ -106,6 +112,7 @@ class Profile {
       'uid': uid,
       'imageUrl': imageUrl,
       'fullName': fullName,
+      'avatar':avatar,
       'bio': bio,
       'facebookUrl': facebookUrl,
       'instagramUrl': instagramUrl,

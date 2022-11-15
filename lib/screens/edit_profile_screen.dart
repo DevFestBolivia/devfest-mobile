@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:devfestbolivia/firebase/profile/profile_firestore.dart';
 import 'package:devfestbolivia/firebase/profile/profile_repository_impl.dart';
+import 'package:devfestbolivia/models/avatar.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/providers/edit_profile_provider.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';
@@ -79,7 +82,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
   final TextEditingController _instagramController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
   final TextEditingController _twitterController = TextEditingController();
-
+  final double _imageRadius = 60.0;
   @override
   void initState() {
     super.initState();
@@ -106,6 +109,61 @@ class _EditProfileFormState extends State<_EditProfileForm> {
         return SingleChildScrollView(
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  if (editProfileProvider.profile.avatar == 0)
+                    Align(
+                      // alignment: Alignment.bottomCenter,
+                      child: editProfileProvider.profile.imageUrl.isEmpty
+                          ? CircleAvatar(
+                              radius: _imageRadius,
+                              backgroundColor: Colors.primaries[Random()
+                                  .nextInt(Colors.primaries.length - 1)],
+                              child: Center(
+                                child: Text(
+                                  editProfileProvider
+                                      .profile.fullName.characters.first,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: SpacingValues.xxl * 2,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: _imageRadius,
+                              backgroundColor: Colors.grey,
+                              backgroundImage: NetworkImage(
+                                editProfileProvider.profile.imageUrl,
+                              ),
+                            ),
+                    )
+                  else
+                    Image.asset(
+                      Avatar.getAvatart(editProfileProvider.profile.avatar)
+                          .path,
+                      width: 120,
+                    ),
+                  ElevatedButton.icon(
+                      onPressed: () async {
+                        var avatar = await showDialog<Avatar>(
+                            context: context,
+                            builder: (context) => _GridAvatars(
+                                  avatarId: editProfileProvider.profile.avatar,
+                                ));
+                        // print(avatar);
+                        if (avatar != null) {
+                          editProfileProvider.setAvatar(avatar.id);
+                          setState(() {});
+                        }
+                      },
+                      icon: const Icon(Icons.emoji_emotions),
+                      label: const Text("Cambiar avatar")),
+                ],
+              ),
+              const SizedBox(height: 20),
               TextField(
                 controller: _fullNameController,
                 decoration: const InputDecoration(
@@ -202,6 +260,93 @@ class _EditProfileFormState extends State<_EditProfileForm> {
           ),
         );
       }),
+    );
+  }
+}
+
+class _GridAvatars extends StatefulWidget {
+  final int avatarId;
+  const _GridAvatars({Key? key, required this.avatarId}) : super(key: key);
+
+  @override
+  State<_GridAvatars> createState() => __GridAvatarsState();
+}
+
+class __GridAvatarsState extends State<_GridAvatars> {
+  late Avatar avatar;
+  @override
+  void initState() {
+    avatar = Avatar.getAvatart(widget.avatarId);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      insetPadding: const EdgeInsets.all(15),
+      child: Column(
+        children: [
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
+              itemCount: Avatar.listAvatart.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ClipOval(
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        avatar = Avatar.listAvatart[index];
+                      });
+                    },
+                    child: Stack(
+                      alignment: const Alignment(0, 0),
+                      children: [
+                        Image.asset(
+                          Avatar.listAvatart[index].path,
+                          width: 120,
+                        ),
+                        if (Avatar.listAvatart[index].id == avatar.id)
+                          ClipOval(
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              color: Colors.blue.withOpacity(0.5),
+                              child: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 60,
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(avatar);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: SpacingValues.l,
+                ),
+                width: double.infinity,
+                child: const Center(
+                  child: Text(
+                    'GUARDAR',
+                    style: TextStyle(
+                      color: DevFestColors.primaryLight,
+                    ),
+                  ),
+                ),
+              )),
+        ],
+      ),
     );
   }
 }
