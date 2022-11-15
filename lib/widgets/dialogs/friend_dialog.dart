@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
 import 'package:devfestbolivia/text_strings.dart';
+import 'package:devfestbolivia/utils/url_launcher_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FriendDialog extends StatelessWidget {
   const FriendDialog({
@@ -40,12 +44,29 @@ class FriendDialog extends StatelessWidget {
                 ],
               ),
               Center(
-                child: CircleAvatar(
-                  radius: _imageRadius,
-                  backgroundImage: const NetworkImage(
-                    'https://scontent.flpb3-1.fna.fbcdn.net/v/t1.6435-9/182753394_489192202130262_3036116466289640921_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=9EjFNCCKSp8AX_N62GD&tn=jAzwOIEn4qSkZS3L&_nc_ht=scontent.flpb3-1.fna&oh=00_AfBuwpS-u5eNYkJ4ZJ0lmf_LsuNJKIhS8UfGHacHh9ZUGg&oe=63913F53',
-                  ),
-                ),
+                child: profile.imageUrl.isEmpty
+                    ? CircleAvatar(
+                        radius: _imageRadius,
+                        backgroundColor: Colors.primaries[
+                            Random().nextInt(Colors.primaries.length - 1)],
+                        child: Center(
+                          child: Text(
+                            profile.fullName.characters.first,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SpacingValues.xxl * 2,
+                            ),
+                          ),
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: _imageRadius,
+                        backgroundColor: Colors.grey,
+                        backgroundImage: NetworkImage(
+                          profile.imageUrl,
+                        ),
+                      ),
               ),
             ],
           ),
@@ -65,6 +86,40 @@ class FriendDialog extends StatelessWidget {
                   TextStrings.withoutBio,
                 )
               : Text(profile.bio),
+          VerticalSpacing.xxl,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (profile.facebookUrl.isNotEmpty) ...[
+                HorizontalSpacing.s,
+                GestureDetector(
+                  onTap: () {
+                    UrlLauncherUtils.openUrl(profile.facebookUrl);
+                  },
+                  child: SvgPicture.asset('assets/svg/logo_facebook.svg'),
+                )
+              ],
+              if (profile.instagramUrl.isNotEmpty) ...[
+                HorizontalSpacing.s,
+                GestureDetector(
+                  onTap: () {
+                    UrlLauncherUtils.openUrl(profile.instagramUrl);
+                  },
+                  child: SvgPicture.asset('assets/svg/logo_instagram.svg'),
+                )
+              ],
+              if (profile.twitterUrl.isNotEmpty) ...[
+                HorizontalSpacing.s,
+                GestureDetector(
+                  onTap: () {
+                    UrlLauncherUtils.openUrl(profile.twitterUrl);
+                  },
+                  child: SvgPicture.asset('assets/svg/logo_twitter.svg'),
+                )
+              ]
+            ],
+          ),
+          VerticalSpacing.xxl,
         ],
       ),
     );

@@ -69,4 +69,25 @@ class ProfileProvider extends ChangeNotifier {
       rethrow;
     }
   }
+
+  bool friendAlreadyExists(String id) {
+    try {
+      final existsFriend =
+          profile.friends.where((friend) => friend.uid == id).isNotEmpty;
+      return existsFriend;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  bool dynamicAlreadyExistsByValue(String value) {
+    try {
+      final existsDynamic = profile.qrDynamicScans
+          .where((scan) => scan.value == value)
+          .isNotEmpty;
+      return existsDynamic;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

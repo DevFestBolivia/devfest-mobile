@@ -45,13 +45,28 @@ class ScannerProvider extends ChangeNotifier {
       if (_scannedValue!.contains('{') || _scannedValue!.contains('}')) {
         final Map<String, dynamic> decodedValue = json.decode(_scannedValue!);
         if (decodedValue['type'] == 'dynamic') {
-          state = ScannerState.scannedDynamic;
           dynamicResult = DynamicQRResult.fromJson(decodedValue);
+
+          final existsDynamic = _profileProvider
+              .dynamicAlreadyExistsByValue(dynamicResult!.value);
+
+          if (existsDynamic) {
+            throw Exception('Already exists dynamic');
+          }
+
+          state = ScannerState.scannedDynamic;
           _profileProvider.addDynamic(dynamicResult!);
           notifyListeners();
           return;
         }
       } else {
+        final existsFriend =
+            _profileProvider.friendAlreadyExists(_scannedValue!);
+
+        if (existsFriend) {
+          throw Exception('Already exists friend');
+        }
+
         state = ScannerState.scannedFriend;
         final profile = await _profileProvider.getProfileById(_scannedValue!);
         final newFriend = Friend(
