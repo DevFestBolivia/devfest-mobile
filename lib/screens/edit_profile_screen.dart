@@ -109,8 +109,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Column(
                 children: [
                   if (editProfileProvider.profile.avatar == 0)
                     Align(
@@ -146,14 +145,15 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                           .path,
                       width: 120,
                     ),
+                  VerticalSpacing.l,
                   ElevatedButton.icon(
                       onPressed: () async {
                         var avatar = await showDialog<Avatar>(
-                            context: context,
-                            builder: (context) => _GridAvatars(
-                                  avatarId: editProfileProvider.profile.avatar,
-                                ));
-                        // print(avatar);
+                          context: context,
+                          builder: (context) => _GridAvatars(
+                            avatarId: editProfileProvider.profile.avatar,
+                          ),
+                        );
                         if (avatar != null) {
                           editProfileProvider.setAvatar(avatar.id);
                           setState(() {});
@@ -288,13 +288,17 @@ class __GridAvatarsState extends State<_GridAvatars> {
         children: [
           Expanded(
             child: GridView.builder(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(SpacingValues.xxl),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                crossAxisCount: 3,
+                crossAxisSpacing: SpacingValues.l,
+                mainAxisSpacing: 10,
+              ),
               itemCount: Avatar.listAvatart.length,
               itemBuilder: (BuildContext context, int index) {
                 return ClipOval(
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(SpacingValues.xxl * 4),
                     onTap: () {
                       setState(() {
                         avatar = Avatar.listAvatart[index];
@@ -307,8 +311,11 @@ class __GridAvatarsState extends State<_GridAvatars> {
                           Avatar.listAvatart[index].path,
                           width: 120,
                         ),
-                        if (Avatar.listAvatart[index].id == avatar.id)
-                          ClipOval(
+                        AnimatedOpacity(
+                          duration: const Duration(milliseconds: 750),
+                          opacity:
+                              Avatar.listAvatart[index].id == avatar.id ? 1 : 0,
+                          child: ClipOval(
                             child: Container(
                               height: 120,
                               width: 120,
@@ -319,7 +326,8 @@ class __GridAvatarsState extends State<_GridAvatars> {
                                 size: 60,
                               ),
                             ),
-                          )
+                          ),
+                        )
                       ],
                     ),
                   ),
