@@ -80,9 +80,20 @@ class __ScannerBodyState extends State<_ScannerBody> {
             child: Consumer<ScannerProvider>(
               builder: (context, scannerProvider, child) {
                 if (scannerProvider.state == ScannerState.scanResultInvalid) {
-                  return const Center(
-                    child: Text('QR Inválido'),
-                  );
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('QR Inválido'),
+                      VerticalSpacing.l,
+                      ElevatedButton(
+                        onPressed: () {
+                          _scan();
+                        },
+                        child: Text('Escanear'.toUpperCase()),
+                      ),
+                    ],
+                  ));
                 }
 
                 if (scannerProvider.state == ScannerState.scannedFriend) {
@@ -101,14 +112,16 @@ class __ScannerBodyState extends State<_ScannerBody> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         VerticalSpacing.xl,
-                        SizedBox(
-                          height: 160,
-                          width: 160,
-                          child: Image.network(
-                            friend.imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                        friend.imageUrl.isEmpty
+                            ? Container()
+                            : SizedBox(
+                                height: 160,
+                                width: 160,
+                                child: Image.network(
+                                  friend.imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                         VerticalSpacing.l,
                         Text(
                           friend.fullName,

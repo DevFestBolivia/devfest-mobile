@@ -38,7 +38,10 @@ class ProfileFirestore extends CloudFireStore {
       } else {
         newProfile = Profile.fromAttendeeAndSocialUser(attendee, socialUser);
       }
-      await db.collection(CollectionName.PROFILES).add(newProfile.toJson());
+      await db
+          .collection(CollectionName.PROFILES)
+          .doc(attendee.id)
+          .set(newProfile.toJson());
       return;
     } catch (e) {
       rethrow;

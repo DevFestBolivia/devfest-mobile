@@ -4,6 +4,10 @@ class UrlLauncherUtils {
   UrlLauncherUtils._();
 
   static Future<void> openUrl(String url) async {
+    if (!url.contains('https://')) {
+      url = 'https://$url';
+    }
+
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {

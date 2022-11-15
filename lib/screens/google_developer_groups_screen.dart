@@ -12,7 +12,6 @@ class GoogleDeveloperGroupsScreen extends StatelessWidget {
   static const _dummyGdgCities = [
     'Sucre',
     'Cochabamba',
-    'Tarija',
     'Santa Cruz',
     'La Paz'
   ];
