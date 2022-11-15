@@ -145,7 +145,6 @@ class MyApp extends StatelessWidget {
       },
       //
       //
-      //
       onGenerateRoute: (settings) {
         if (settings.name == Routes.EDIT_PROFILE) {
           return MaterialPageRoute(

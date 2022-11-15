@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:devfestbolivia/firebase/profile/profile_repository.dart';
 import 'package:devfestbolivia/models/dynamic.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';
@@ -40,26 +41,29 @@ class ScannerProvider extends ChangeNotifier {
       if (_scannedValue == null) {
         return;
       }
-      final Map<String, dynamic> decodedValue = json.decode(_scannedValue!);
 
-      if (decodedValue['type'] == 'friend') {
+      if (_scannedValue!.contains('{') || _scannedValue!.contains('}')) {
+        final Map<String, dynamic> decodedValue = json.decode(_scannedValue!);
+        if (decodedValue['type'] == 'dynamic') {
+          state = ScannerState.scannedDynamic;
+          dynamicResult = DynamicQRResult.fromJson(decodedValue);
+          _profileProvider.addDynamic(dynamicResult!);
+          notifyListeners();
+          return;
+        }
+      } else {
         state = ScannerState.scannedFriend;
-        friendResult = Friend.fromJson(decodedValue['value']);
-        _profileProvider.addFriend(friendResult!);
+        final profile = await _profileProvider.getProfileById(_scannedValue!);
+        final newFriend = Friend(
+          uid: profile.uid,
+          fullName: profile.fullName,
+          imageUrl: profile.imageUrl,
+        );
+        friendResult = newFriend;
+        _profileProvider.addFriend(newFriend);
         notifyListeners();
         return;
       }
-
-      if (decodedValue['type'] == 'dynamic') {
-        state = ScannerState.scannedDynamic;
-        dynamicResult = DynamicQRResult.fromJson(decodedValue);
-        _profileProvider.addDynamic(dynamicResult!);
-        notifyListeners();
-        return;
-      }
-
-      state = ScannerState.scanResultInvalid;
-      notifyListeners();
     } catch (e) {
       state = ScannerState.scanResultInvalid;
       notifyListeners();

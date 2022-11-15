@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/models/profile.dart';
@@ -236,12 +238,29 @@ class _Header extends StatelessWidget {
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: CircleAvatar(
-              radius: _imageRadius,
-              backgroundImage: NetworkImage(
-                profile.imageUrl,
-              ),
-            ),
+            child: profile.imageUrl.isEmpty
+                ? CircleAvatar(
+                    radius: _imageRadius,
+                    backgroundColor: Colors.primaries[
+                        Random().nextInt(Colors.primaries.length - 1)],
+                    child: Center(
+                      child: Text(
+                        profile.fullName.characters.first,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: SpacingValues.xxl * 2,
+                        ),
+                      ),
+                    ),
+                  )
+                : CircleAvatar(
+                    radius: _imageRadius,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: NetworkImage(
+                      profile.imageUrl,
+                    ),
+                  ),
           ),
         )
       ],
@@ -380,7 +399,7 @@ class _ProfileInfo extends StatelessWidget {
                 'Score: ',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: 24,
-                      color: Color(0xff80868B),
+                      color: const Color(0xff80868B),
                     ),
               ),
               TweenAnimationBuilder<int>(
@@ -496,12 +515,22 @@ class _FriendCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey,
-                backgroundImage: NetworkImage(
-                  friend.imageUrl,
-                ),
-              ),
+              friend.imageUrl.isEmpty
+                  ? CircleAvatar(
+                      backgroundColor: Colors.primaries[
+                          Random().nextInt(Colors.primaries.length - 1)],
+                      child: Center(
+                        child: Text(
+                          friend.fullName.characters.first,
+                        ),
+                      ),
+                    )
+                  : CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      backgroundImage: NetworkImage(
+                        friend.imageUrl,
+                      ),
+                    ),
               HorizontalSpacing.m,
               Text(
                 friend.fullName,
