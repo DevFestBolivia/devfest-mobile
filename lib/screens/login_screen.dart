@@ -1,7 +1,6 @@
 import 'package:devfestbolivia/models/social_user.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
 import 'package:devfestbolivia/style/spacing.dart';
-import 'package:devfestbolivia/utils/validator_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:devfestbolivia/widgets/text_link.dart';
@@ -164,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
         firstText: TextStrings.youForgot,
         linkText: '${TextStrings.passwordES}?',
         activateUnderline: true,
-        onPressed: _showforgotPasswordDialog,
+        onPressed: () => _showforgotPasswordDialog(context),
       ),
     );
   }
