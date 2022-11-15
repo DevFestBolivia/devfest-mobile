@@ -53,7 +53,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         throw Exception('No profile');
       }
 
-      return profile!;
+      return profile;
     } catch (e) {
       rethrow;
     }

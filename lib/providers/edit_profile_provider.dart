@@ -15,13 +15,19 @@ class EditProfileProvider extends ChangeNotifier {
   void initProfile() {
     setFullName(_profile.fullName);
     setAboutYou(_profile.bio);
+    setAvatar(_profile.avatar);
     setInstagram(_profile.instagramUrl);
     setFacebook(_profile.facebookUrl);
     setTwitter(_profile.twitterUrl);
   }
 
+  Profile get profile => _profile;
   void setFullName(String fullName) {
     _profile.fullName = fullName;
+  }
+
+  void setAvatar(int avatarId) {
+    _profile.avatar = avatarId;
   }
 
   void setAboutYou(String aboutYou) {
