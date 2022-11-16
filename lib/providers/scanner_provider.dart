@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:devfestbolivia/firebase/profile/profile_repository.dart';
 import 'package:devfestbolivia/models/dynamic.dart';
 import 'package:devfestbolivia/models/profile.dart';
 import 'package:devfestbolivia/providers/profile_provider.dart';

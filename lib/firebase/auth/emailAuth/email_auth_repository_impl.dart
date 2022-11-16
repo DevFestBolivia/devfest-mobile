@@ -1,3 +1,4 @@
+import 'package:devfestbolivia/utils/printUtil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:devfestbolivia/firebase/auth/emailAuth/email_auth.dart';
 import 'package:devfestbolivia/firebase/auth/emailAuth/email_auth_repository.dart';
@@ -22,7 +23,7 @@ class EmailAuthRepoitoryImpl extends EmailAuthRepository {
       String password, Function userNotFound, Function wrongPassword) async {
     UserCredential? userCredential = await emailAuth.loginWithEmailAndPassword(
         email, password, userNotFound, wrongPassword);
-    print('userCredential: $userCredential');
+    PrintUtil.debugPrint('userCredential: $userCredential');
     return userCredential;
   }
 

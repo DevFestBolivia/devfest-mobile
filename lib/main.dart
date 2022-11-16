@@ -1,6 +1,5 @@
 import 'package:devfestbolivia/firebase/auth/user/fb_user_repository_impl.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
-import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/screens/edit_profile_screen.dart';
 import 'package:devfestbolivia/screens/google_developer_groups_screen.dart';
 import 'package:devfestbolivia/screens/places_screen.dart';
@@ -156,6 +155,7 @@ class MyApp extends StatelessWidget {
             ),
           );
         }
+        return null;
       },
     );
   }

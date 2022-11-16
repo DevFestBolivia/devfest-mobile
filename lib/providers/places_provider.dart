@@ -1,6 +1,4 @@
-import 'package:devfestbolivia/firebase/schedule/schedule_repository.dart';
 import 'package:devfestbolivia/models/place.dart';
-import 'package:devfestbolivia/models/schedule.dart';
 import 'package:devfestbolivia/places/places_firestore.dart';
 import 'package:flutter/material.dart';
 

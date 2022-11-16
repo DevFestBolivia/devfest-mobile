@@ -1,6 +1,7 @@
 import 'package:devfestbolivia/models/social_user.dart';
 import 'package:devfestbolivia/providers/auth_provider.dart';
 import 'package:devfestbolivia/style/spacing.dart';
+import 'package:devfestbolivia/utils/printUtil.dart';
 import 'package:flutter/material.dart';
 
 import 'package:devfestbolivia/widgets/text_link.dart';
@@ -31,6 +32,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool loginInProgress = false;
+  bool _passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       VerticalSpacing.xxl,
                       TextField(
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          label: Text(
-                            'Password',
-                          ),
+                        obscureText: !_passwordVisible,
+                        decoration: InputDecoration(
+                          label: const Text('Password'),
+                          suffixIcon: renderIconButton(),
                         ),
                         onChanged: (password) =>
                             Provider.of<AuthProvider>(context, listen: false)
@@ -72,21 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                     ],
                   ),
-
-                  // InputEmail(
-                  //   leftMargin: 20,
-                  //   rightMargin: 20,
-                  //   topMargin: 20,
-                  //   onChanged: onChangeEmail,
-                  //   formKey: _formKey,
-                  // ),
-                  // InputPassword(
-                  //   leftMargin: 20,
-                  //   rightMargin: 20,
-                  //   topMargin: 40,
-                  //   onChanged: onChangePassword,
-                  //   formKey: _formPasswordKey,
-                  // ),
                   const SizedBox(height: 20),
                   renderForgotPassword(),
                   const SizedBox(
@@ -94,8 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   renderLoginButton(),
                   VerticalSpacing.m,
-                  renderGoogleButton(),
-                  // renderCreateAccountSection(),
+                  // renderGoogleButton(),
                 ],
               ),
             ),
@@ -103,6 +88,22 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       ),
     );
+  }
+
+  Widget renderIconButton() {
+    return IconButton(
+      onPressed: () => showPassword(),
+      icon: Icon(
+        _passwordVisible ? Icons.visibility : Icons.visibility_off,
+        color: DevFestColors.textInput,
+      ),
+    );
+  }
+
+  void showPassword() {
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
   }
 
   Widget renderCreateAccountSection() {
@@ -231,10 +232,6 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pushReplacementNamed(context, Routes.ONBOARDING);
   }
 
-  void _goToHome() {
-    Navigator.pushReplacementNamed(context, Routes.HOME);
-  }
-
   void _showforgotPasswordDialog(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     ForgotPasswordDialog.showForgotPasswordDialog(
@@ -244,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void createAccount() {
-    print('Create Account');
+    PrintUtil.debugPrint('Create Account');
   }
 
   void _login() async {

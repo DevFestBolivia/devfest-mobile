@@ -1,23 +1,24 @@
 import 'package:devfestbolivia/firebase/cloud_firestore.dart';
+import 'package:devfestbolivia/utils/printUtil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FbUser extends CloudFireStore {
   User? getCurrentUser() {
     final user = auth.currentUser;
     if (user != null) {
-      print('user is not null');
+      PrintUtil.debugPrint('user is not null');
     } else {
-      print('user is null');
+      PrintUtil.debugPrint('user is null');
     }
     return user;
   }
 
   void forgotPassword(String email) {
-    print('ForgotPassword:: $email');
+    PrintUtil.debugPrint('ForgotPassword:: $email');
     try {
       auth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      print(e);
+      PrintUtil.debugPrint(e.toString());
     }
   }
 
