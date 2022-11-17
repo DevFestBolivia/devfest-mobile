@@ -50,6 +50,7 @@ dependencies:
   provider: ^6.0.4
   qr_flutter: ^4.0.0
   qrscan: ^0.3.3
+  simple_barcode_scanner: ^0.0.5
   social_login_buttons: ^1.0.6+2
   sticky_headers: ^0.3.0+2
   url_launcher: ^6.1.6

@@ -28,7 +28,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // final double _appBarElevation = 0.0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,90 +92,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (profileProvider.state == ProfileState.loaded) {
                       final profile = profileProvider.profile;
 
-                      return NestedScrollView(
-                        headerSliverBuilder: (context, isScrolled) {
-                          return <Widget>[
-                            SliverToBoxAdapter(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Stack(
-                                    alignment: const Alignment(0, -0.95),
-                                    children: [
-                                      _Header(
+                      return RefreshIndicator(
+                        notificationPredicate: (notification) {
+                          return notification.depth == 0;
+                        },
+                        onRefresh: () async {
+                          await Future.delayed(const Duration(seconds: 5));
+                        },
+                        child: NestedScrollView(
+                          headerSliverBuilder: (context, isScrolled) {
+                            return <Widget>[
+                              SliverToBoxAdapter(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Stack(
+                                      alignment: const Alignment(0, -0.95),
+                                      children: [
+                                        _Header(
+                                          profile: profile,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                shape: const CircleBorder(),
+                                              ),
+                                              onPressed: () {
+                                                Provider.of<ProfileProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .initProfile();
+                                              },
+                                              child: const Icon(
+                                                Icons.refresh,
+                                                color:
+                                                    DevFestColors.primaryLight,
+                                                size: 32,
+                                              ),
+                                            ),
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                shape: const CircleBorder(),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  Routes.EDIT_PROFILE,
+                                                  arguments: {
+                                                    'profileProvider':
+                                                        profileProvider,
+                                                    'onEditProfileDone':
+                                                        profileProvider
+                                                            .initProfile,
+                                                  },
+                                                );
+                                              },
+                                              child: const Icon(
+                                                Icons.edit_outlined,
+                                                color:
+                                                    DevFestColors.primaryLight,
+                                                size: 32,
+                                              ),
+                                            ),
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                shape: const CircleBorder(),
+                                              ),
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const _ModalConfirm();
+                                                  },
+                                                );
+                                              },
+                                              child: const Icon(
+                                                Icons.logout,
+                                                color:
+                                                    DevFestColors.primaryLight,
+                                                size: 32,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: SpacingValues.m,
+                                      ),
+                                      child: _ProfileInfo(
                                         profile: profile,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.all(10),
-                                              backgroundColor: Colors.grey.withOpacity(0.3),
-                                              shape: const CircleBorder(),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                Routes.EDIT_PROFILE,
-                                                arguments: {
-                                                  'profileProvider':
-                                                      profileProvider,
-                                                  'onEditProfileDone':
-                                                      profileProvider
-                                                          .initProfile,
-                                                },
-                                              );
-                                            },
-                                            child: const Icon(
-                                              Icons.edit_outlined,
-                                              color: DevFestColors.primaryLight,
-                                              size: 32,
-                                            ),
-                                          ),
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.all(10),
-                                              backgroundColor: Colors.grey.withOpacity(0.3),
-                                              shape: const CircleBorder(),
-                                            ),
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return const _ModalConfirm();
-                                                },
-                                              );
-                                            },
-                                            child: const Icon(
-                                              Icons.logout,
-                                              color: DevFestColors.primaryLight,
-                                              size: 32,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: SpacingValues.m,
-                                    ),
-                                    child: _ProfileInfo(
-                                      profile: profile,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ];
-                        },
-                        body: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingValues.m),
-                          child: _Friends(
-                            friends: profile.friends,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ];
+                          },
+                          body: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingValues.m),
+                            child: _Friends(
+                              friends: profile.friends,
+                            ),
                           ),
                         ),
                       );
@@ -411,41 +449,50 @@ class _ProfileInfo extends StatelessWidget {
   Widget _score(BuildContext context) {
     const scoreElevation = 3.0;
 
-    return Card(
-      elevation: scoreElevation,
-      child: SizedBox(
-        width: 240,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            // horizontal: SpacingValues.m * 2,
-            vertical: SpacingValues.l,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset('assets/svg/trophy.svg'),
-              HorizontalSpacing.m,
-              Text(
-                'Score: ',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 24,
-                      color: const Color(0xff80868B),
-                    ),
-              ),
-              TweenAnimationBuilder<int>(
-                tween: IntTween(begin: 0, end: profile.score.toInt()),
-                duration: const Duration(seconds: 2),
-                builder: (context, value, child) {
-                  return Text(
-                    '$value',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 24,
-                        ),
-                  );
-                },
-              )
-            ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          Routes.TROPHIES,
+          arguments: profile,
+        );
+      },
+      child: Card(
+        elevation: scoreElevation,
+        child: SizedBox(
+          width: 240,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              // horizontal: SpacingValues.m * 2,
+              vertical: SpacingValues.l,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/svg/trophy.svg'),
+                HorizontalSpacing.m,
+                Text(
+                  'Score: ',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 24,
+                        color: const Color(0xff80868B),
+                      ),
+                ),
+                TweenAnimationBuilder<int>(
+                  tween: IntTween(begin: 0, end: profile.score.toInt()),
+                  duration: const Duration(seconds: 2),
+                  builder: (context, value, child) {
+                    return Text(
+                      '$value',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 24,
+                          ),
+                    );
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -474,7 +521,7 @@ class _Friends extends StatelessWidget {
           vertical: SpacingValues.xs,
         ),
         child: Text(
-          _friendsLabel,
+          '$_friendsLabel (${friends.length})',
           style: Theme.of(context).textTheme.titleSmall,
         ),
       ),

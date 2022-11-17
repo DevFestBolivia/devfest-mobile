@@ -2,6 +2,7 @@ import 'package:devfestbolivia/providers/profile_provider.dart';
 import 'package:devfestbolivia/providers/scanner_provider.dart';
 import 'package:devfestbolivia/style/devfest_colors.dart';
 import 'package:devfestbolivia/style/spacing.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -49,22 +50,26 @@ class __ScannerBodyState extends State<_ScannerBody> {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
         Provider.of<ScannerProvider>(context, listen: false).reset();
-        _scan();
+        _scan(context);
       },
     );
   }
 
-  void _scan() async {
-    var status = await Permission.camera.status;
-    bool granted = status.isGranted;
-    if (!granted) {
-      status = await Permission.camera.request();
-      granted = status.isGranted;
-    }
+  void _scan(BuildContext context) async {
+    if (kIsWeb == false) {
+      var status = await Permission.camera.status;
+      bool granted = status.isGranted;
+      if (!granted) {
+        status = await Permission.camera.request();
+        granted = status.isGranted;
+      }
 
-    if (granted) {
-      // ignore: use_build_context_synchronously
-      await Provider.of<ScannerProvider>(context, listen: false).scan();
+      if (granted) {
+        await Provider.of<ScannerProvider>(context, listen: false).scan();
+      }
+    } else {
+      await Provider.of<ScannerProvider>(context, listen: false)
+          .scanFromWeb(context);
     }
   }
 
@@ -88,7 +93,7 @@ class __ScannerBodyState extends State<_ScannerBody> {
                       VerticalSpacing.l,
                       ElevatedButton(
                         onPressed: () {
-                          _scan();
+                          _scan(context);
                         },
                         child: Text('Escanear'.toUpperCase()),
                       ),
@@ -217,7 +222,7 @@ class __ScannerBodyState extends State<_ScannerBody> {
                       VerticalSpacing.m,
                       ElevatedButton(
                         onPressed: () {
-                          _scan();
+                          _scan(context);
                         },
                         child: Text('Escanear'.toUpperCase()),
                       ),
