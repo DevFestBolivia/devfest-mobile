@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   renderLoginButton(),
                   VerticalSpacing.m,
-                  // renderGoogleButton(),
+                  renderGoogleButton(),
                 ],
               ),
             ),

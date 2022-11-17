@@ -13,9 +13,9 @@ class SocialAuth {
     GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
     if (googleSignInAccount != null) {
-      String googleEmail = googleSignInAccount.email;
-      PrintUtil.debugPrint('googleEmail: $googleEmail');
-      var result = await userExists(googleEmail);
+      // String googleEmail = googleSignInAccount.email;
+      // PrintUtil.debugPrint('googleEmail: $googleEmail');
+      // var result = await userExists(googleEmail);
 
       final GoogleSignInAuthentication googleAuth =
           await googleSignInAccount.authentication;
