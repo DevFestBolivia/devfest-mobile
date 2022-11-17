@@ -36,7 +36,8 @@ class ScannerProvider extends ChangeNotifier {
 
   Future<void> scan() async {
     try {
-      _scannedValue = await scanner.scan();
+      _scannedValue =
+          '{"value":"QR escondido presentación speaker X","score":30.0,"type":"dynamic"}';
       if (_scannedValue == null) {
         return;
       }

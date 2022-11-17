@@ -70,4 +70,5 @@ class TextStrings {
   static const String logoutConfirmationQuestion =
       '¿Estás seguro de cerrar sesión?';
   static const String withoutBio = 'Sin biografia';
+  static const String achievementsObtained = 'Logros Obtenidos';
 }
