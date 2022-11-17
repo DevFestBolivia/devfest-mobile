@@ -16,7 +16,7 @@ class TextStrings {
   static const String createAccount = 'Crear Cuenta';
   static const String message = 'Message';
   static const String anErrorOccurredTryAgain =
-      'An error occurred, please try again';
+      'Correo o contraseña incorrectos.';
   static const String enjoyThe = 'Disfruta del';
   static const String ok = 'OK';
   static const String devFest = 'DevFest 2022';

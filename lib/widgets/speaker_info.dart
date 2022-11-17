@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:devfestbolivia/models/social_link.dart';
@@ -80,7 +81,7 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
         renderTitleSpeaker(speaker),
         VerticalSpacing.xs,
         renderBio(speaker),
-        VerticalSpacing.xs,
+        VerticalSpacing.xl,
         renderSocialLinks(speaker),
       ],
     );
@@ -90,21 +91,26 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
     return Row(
       children: [
         renderAvatar(speaker!.photoUrl ?? ''),
-        HorizontalSpacing.xs,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MainText(
-              text: speaker.name ?? '',
-              fontSize: FontSizeValues.input,
-              colorText: DevFestColors.primary,
-            ),
-            MainText(
-              text: speaker.title ?? '',
-              fontSize: FontSizeValues.input,
-              colorText: DevFestColors.labelInput,
-            ),
-          ],
+        HorizontalSpacing.l,
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MainText(
+                text: speaker.name ?? '',
+                fontSize: FontSizeValues.input,
+                colorText: DevFestColors.primary,
+              ),
+              Text(
+                speaker.title ?? '',
+                style: TextStyle(
+                  fontSize: FontSizeValues.input,
+                  color: DevFestColors.labelInput,
+                ),
+              )
+            ],
+          ),
         ),
       ],
     );
@@ -118,6 +124,8 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
   }
 
   Widget renderAvatar(String photoUrl) {
+    if (photoUrl.isEmpty) return Container();
+
     return CircleAvatar(
       radius: 20.0,
       backgroundImage: NetworkImage(photoUrl),
@@ -140,32 +148,35 @@ class _SpeakerInfoState extends State<SpeakerInfo> {
     );
   }
 
-  Widget renderSocialLink(SocialLink socialLink) {
+  Widget renderSocialLink(
+    SocialLink socialLink,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 15,
       ),
       child: InkWell(
         onTap: () => _launchUrl(socialLink.link),
-        child: Icon(
-          getSocialIcon(socialLink),
-          size: 48,
+        child: SizedBox(
+          height: SpacingValues.xl * 2,
+          width: SpacingValues.xl * 2,
+          child: getSocialIcon(socialLink),
         ),
       ),
     );
   }
 
-  IconData getSocialIcon(SocialLink socialLink) {
+  Widget getSocialIcon(SocialLink socialLink) {
     if (socialLink.icon == 'facebook') {
-      return MdiIcons.facebook;
+      return SvgPicture.asset('assets/svg/logo_facebook.svg');
     }
     if (socialLink.icon == 'twitter') {
-      return MdiIcons.twitter;
+      return SvgPicture.asset('assets/svg/logo_twitter.svg');
     }
     if (socialLink.icon == 'instagram') {
-      return MdiIcons.instagram;
+      return SvgPicture.asset('assets/svg/logo_instagram.svg');
     }
-    return MdiIcons.instagram;
+    return Container();
   }
 
   Future<void> _launchUrl(String stringUrl) async {
