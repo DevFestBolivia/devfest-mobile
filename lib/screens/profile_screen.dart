@@ -28,7 +28,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // final double _appBarElevation = 0.0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,90 +92,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (profileProvider.state == ProfileState.loaded) {
                       final profile = profileProvider.profile;
 
-                      return NestedScrollView(
-                        headerSliverBuilder: (context, isScrolled) {
-                          return <Widget>[
-                            SliverToBoxAdapter(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Stack(
-                                    alignment: const Alignment(0, -0.95),
-                                    children: [
-                                      _Header(
+                      return RefreshIndicator(
+                        notificationPredicate: (notification) {
+                          return notification.depth == 0;
+                        },
+                        onRefresh: () async {
+                          await Future.delayed(const Duration(seconds: 5));
+                        },
+                        child: NestedScrollView(
+                          headerSliverBuilder: (context, isScrolled) {
+                            return <Widget>[
+                              SliverToBoxAdapter(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Stack(
+                                      alignment: const Alignment(0, -0.95),
+                                      children: [
+                                        _Header(
+                                          profile: profile,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                shape: const CircleBorder(),
+                                              ),
+                                              onPressed: () {
+                                                Provider.of<ProfileProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .initProfile();
+                                              },
+                                              child: const Icon(
+                                                Icons.refresh,
+                                                color:
+                                                    DevFestColors.primaryLight,
+                                                size: 32,
+                                              ),
+                                            ),
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                shape: const CircleBorder(),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  Routes.EDIT_PROFILE,
+                                                  arguments: {
+                                                    'profileProvider':
+                                                        profileProvider,
+                                                    'onEditProfileDone':
+                                                        profileProvider
+                                                            .initProfile,
+                                                  },
+                                                );
+                                              },
+                                              child: const Icon(
+                                                Icons.edit_outlined,
+                                                color:
+                                                    DevFestColors.primaryLight,
+                                                size: 32,
+                                              ),
+                                            ),
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                shape: const CircleBorder(),
+                                              ),
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const _ModalConfirm();
+                                                  },
+                                                );
+                                              },
+                                              child: const Icon(
+                                                Icons.logout,
+                                                color:
+                                                    DevFestColors.primaryLight,
+                                                size: 32,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: SpacingValues.m,
+                                      ),
+                                      child: _ProfileInfo(
                                         profile: profile,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.all(10),
-                                              backgroundColor: Colors.grey.withOpacity(0.3),
-                                              shape: const CircleBorder(),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                Routes.EDIT_PROFILE,
-                                                arguments: {
-                                                  'profileProvider':
-                                                      profileProvider,
-                                                  'onEditProfileDone':
-                                                      profileProvider
-                                                          .initProfile,
-                                                },
-                                              );
-                                            },
-                                            child: const Icon(
-                                              Icons.edit_outlined,
-                                              color: DevFestColors.primaryLight,
-                                              size: 32,
-                                            ),
-                                          ),
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.all(10),
-                                              backgroundColor: Colors.grey.withOpacity(0.3),
-                                              shape: const CircleBorder(),
-                                            ),
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return const _ModalConfirm();
-                                                },
-                                              );
-                                            },
-                                            child: const Icon(
-                                              Icons.logout,
-                                              color: DevFestColors.primaryLight,
-                                              size: 32,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: SpacingValues.m,
-                                    ),
-                                    child: _ProfileInfo(
-                                      profile: profile,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ];
-                        },
-                        body: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingValues.m),
-                          child: _Friends(
-                            friends: profile.friends,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ];
+                          },
+                          body: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingValues.m),
+                            child: _Friends(
+                              friends: profile.friends,
+                            ),
                           ),
                         ),
                       );
