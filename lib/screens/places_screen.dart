@@ -93,9 +93,18 @@ class _PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 3.0,
+      margin: const EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(
+            height: _imageCardHeight,
+            width: double.infinity,
+            child: Image.network(
+              place.imageUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: SpacingValues.l,
@@ -119,21 +128,14 @@ class _PlaceCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: _imageCardHeight,
-            width: double.infinity,
-            child: Image.network(
-              place.imageUrl,
-              fit: BoxFit.cover,
-            ),
-          ),
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () async {
-                  MapUtils.openMap(place.latitude, place.longitude);
+                  MapUtils.openMap(place.latitude, place.longitude,
+                      mapUrl: place.mapUrl);
                 },
                 child: Text(
                   TextStrings.showOnMap,
