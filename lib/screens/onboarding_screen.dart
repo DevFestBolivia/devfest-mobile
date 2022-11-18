@@ -268,8 +268,8 @@ class _DotsIndicator extends StatelessWidget {
         _animatedDot(0),
         HorizontalSpacing.m,
         _animatedDot(1),
-        HorizontalSpacing.m,
-        _animatedDot(2),
+        // HorizontalSpacing.m,
+        // _animatedDot(2),
       ],
     );
   }

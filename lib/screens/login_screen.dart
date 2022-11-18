@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   renderLoginButton(),
                   VerticalSpacing.m,
-                  // renderGoogleButton(),
+                  renderGoogleButton(),
                 ],
               ),
             ),
@@ -202,6 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
             await _loginWithGoogle(context);
             _goToOnboarding();
           } catch (e) {
+            print(e.toString());
             ErrorDialog.showErrorDialog(
               context,
               TextStrings.anErrorOccurredTryAgain,
