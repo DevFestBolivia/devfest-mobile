@@ -32,6 +32,20 @@ class SponsorsUtil {
             'Clicket es una solución integral para la gestión de eventos, donde tanto compradores como vendedores cumplen sus objetivos de una manera simple y confiable.',
         webUrl: 'https://clicket.bo',
       ),
+      Sponsor(
+        name: 'Jalasoft',
+        localImagePath: 'assets/images/jalasoft.png',
+        description:
+            'Jalasoft es una empresa dedicada a brindar servicios de capacitación y entrenamiento a través de cursos y programas de enseñanza en informática, sistemas informáticos, desarrollo y gestión de programas de software directos o representación de empresas nacionales o internacionales.',
+        webUrl: 'https://www.jalasoft.com',
+      ),
+      Sponsor(
+        name: 'Jala University',
+        localImagePath: 'assets/images/jalauniversity.png',
+        description:
+            'Jala University cuenta con carreras en Ingeniería de Software, con beca del 100% otorgadas por Fundación del Saber. Y se rige por el lema: "Desarrolla tu futuro, transforma el de todos".',
+        webUrl: 'https://jala.university',
+      )
     ];
   }
 }

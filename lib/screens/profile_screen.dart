@@ -217,8 +217,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
 
                     if (profileProvider.state == ProfileState.failure) {
-                      return const Center(
-                        child: Text(TextStrings.problemLoadingProfile),
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(TextStrings.problemLoadingProfile),
+                            VerticalSpacing.l,
+                            ElevatedButton(
+                              onPressed: () {
+                                Provider.of<ProfileProvider>(context,
+                                        listen: false)
+                                    .initProfile();
+                              },
+                              child: const Text('Reintentar'),
+                            )
+                          ],
+                        ),
                       );
                     }
 

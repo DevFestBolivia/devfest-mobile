@@ -49,12 +49,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         description:
             'Encuentra el código QR en tu perfil para que puedan agregarte como amigo en la aplicación.\n\nUsa el scanner QR para agregar a tus nuevos amigos.',
       ),
-      _OnboardingItem(
-        imagePath: 'assets/images/onboarding-step-3.png',
-        title: 'Descarga recursos',
-        description:
-            'Los speakers dejarán contenido adicional en la aplicación dentro del detalle de sus charlas.\n\nRevisa y descubre todos los recursos disponibles de cada charla.',
-      ),
+      // _OnboardingItem(
+      // imagePath: 'assets/images/onboarding-step-3.png',
+      // title: 'Descarga recursos',
+      // description:
+      // 'Los speakers dejarán contenido adicional en la aplicación dentro del detalle de sus charlas.\n\nRevisa y descubre todos los recursos disponibles de cada charla.',
+      // ),
     ];
 
     _pageController.addListener(_changePage);

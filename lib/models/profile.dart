@@ -112,7 +112,7 @@ class Profile {
       'uid': uid,
       'imageUrl': imageUrl,
       'fullName': fullName,
-      'avatar':avatar,
+      'avatar': avatar,
       'bio': bio,
       'facebookUrl': facebookUrl,
       'instagramUrl': instagramUrl,
@@ -138,7 +138,7 @@ class QrDynamicScan {
   factory QrDynamicScan.fromJson(Map<String, dynamic> json) {
     return QrDynamicScan(
       value: json['value'],
-      score: json['score'],
+      score: double.parse(json['score'].toString()),
     );
   }
 
